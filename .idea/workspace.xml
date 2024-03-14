@@ -4,19 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_mod/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/generate/MybatisPlusGenerate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/run/UserApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_mod/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_mod/src/test/java/org/example/UserApplicationTest.java" afterDir="false" />
+    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="第一次提交，项目初始化">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,11 +124,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1710420070501</updated>
-      <workItem from="1710420071568" duration="5600000" />
+      <workItem from="1710420071568" duration="6491000" />
     </task>
+    <task id="LOCAL-00001" summary="第一次提交，项目初始化">
+      <option name="closed" value="true" />
+      <created>1710425953067</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1710425953067</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="第一次提交，项目初始化" />
+    <option name="LAST_COMMIT_MESSAGE" value="第一次提交，项目初始化" />
   </component>
 </project>
