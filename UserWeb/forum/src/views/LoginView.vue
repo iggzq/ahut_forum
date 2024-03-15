@@ -49,7 +49,7 @@ export default defineComponent({
     const router = useRouter();
     const onSubmit = (values) => {
       console.log('submit', values)
-      axios.post('/login', {
+      axios.post('/user/login', {
         name: name.value,
         password: password.value
       }).then(res => {

@@ -1,10 +1,13 @@
 package com.forum.user.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.IdUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.forum.user.entity.User;
 import com.forum.user.mapper.UserMapper;
 import com.forum.user.service.UserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.forum.user.vo.LoginUserVo;
 import com.forum.user.vo.RegisterUserVo;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
@@ -14,7 +17,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author LiTuiZi
@@ -39,5 +42,17 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
         user.setStatus((byte) 0);
         user.setUpdateTime(now);
         userMapper.insert(user);
+    }
+
+    @Override
+    public Boolean login(LoginUserVo loginUserVo) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getName, loginUserVo.getName()).eq(User::getPassword, loginUserVo.getPassword());
+        if (userMapper.selectCount(queryWrapper) > 0) {
+            StpUtil.login(loginUserVo.getName());
+            return true;
+        } else {
+            return false;
+        }
     }
 }

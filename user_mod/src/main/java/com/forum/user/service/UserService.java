@@ -1,7 +1,8 @@
 package com.forum.user.service;
 
-import com.forum.user.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.forum.user.entity.User;
+import com.forum.user.vo.LoginUserVo;
 import com.forum.user.vo.RegisterUserVo;
 
 /**
@@ -15,4 +16,6 @@ import com.forum.user.vo.RegisterUserVo;
 public interface UserService extends IService<User> {
 
     public void registerSave(RegisterUserVo registerUserVo);
+
+    public Boolean login(LoginUserVo loginUserVo);
 }

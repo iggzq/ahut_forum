@@ -3,6 +3,7 @@
     <div class="inputForm">
       <van-form style="display: block" @submit="onSubmit">
         <van-cell-group class="infoInputForm">
+          <h2>注册</h2>
           <van-field
             v-model="name"
             :rules="[{ required: true, message: '请填写用户名' }]"
@@ -39,7 +40,7 @@
         </van-cell-group>
         <div style="margin: 16px 16px 0px">
           <van-button block native-type="submit" round type="primary">
-            登陆
+            注册
           </van-button>
         </div>
       </van-form>
@@ -52,6 +53,7 @@
 import { defineComponent, ref } from 'vue'
 import axios from 'axios'
 import { showFailToast, showSuccessToast } from 'vant'
+import router from '@/router'
 
 export default defineComponent({
   setup () {
@@ -76,6 +78,7 @@ export default defineComponent({
           question.value = ''
           answer.value = ''
           showSuccessToast('注册成功')
+          router.push('/login')
         } else {
           showFailToast('注册失败，请重试')
         }

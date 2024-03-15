@@ -1,23 +1,14 @@
 package com.forum.user.controller;
 
-import cn.dev33.satoken.secure.SaBase64Util;
-import cn.hutool.core.lang.generator.UUIDGenerator;
-import cn.hutool.core.util.IdUtil;
-import com.fasterxml.jackson.annotation.ObjectIdGenerator;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.forum.user.entity.User;
 import com.forum.user.service.UserService;
+import com.forum.user.vo.LoginUserVo;
 import com.forum.user.vo.RegisterUserVo;
 import jakarta.annotation.Resource;
 import org.ltz.result.CommonResult;
-import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * <p>
@@ -44,4 +35,11 @@ public class UserController {
         userService.registerSave(registerUserVo);
         return CommonResult.success("注册成功");
     }
+
+    @PostMapping("/login")
+    public CommonResult<String> login(@RequestBody LoginUserVo loginUserVo){
+        Boolean login = userService.login(loginUserVo);
+        return login ? CommonResult.success("登录成功") : CommonResult.failed("登录失败");
+    }
 }
+

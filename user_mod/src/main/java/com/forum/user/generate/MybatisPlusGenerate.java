@@ -3,10 +3,8 @@ package com.forum.user.generate;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.baomidou.mybatisplus.generator.fill.Column;
@@ -49,7 +47,6 @@ public class MybatisPlusGenerate {
                             .enableRestStyle()
                             .enableHyphenStyle();
                     builder.serviceBuilder()
-                            .enableFileOverride()
                             .formatServiceFileName("%sService")
                             .formatServiceImplFileName("%sServiceImp");
                     builder.mapperBuilder()

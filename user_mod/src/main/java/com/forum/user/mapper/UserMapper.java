@@ -1,7 +1,7 @@
 package com.forum.user.mapper;
 
-import com.forum.user.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.forum.user.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author LiTuiZi
- * @since 2024-03-15 09:10:51
+ * @since 2024-03-15 04:20:58
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
