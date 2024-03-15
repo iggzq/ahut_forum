@@ -41,18 +41,7 @@ public class UserController {
      */
     @PostMapping("/register")
     public CommonResult<String> register(@RequestBody RegisterUserVo registerUserVo) {
-        User user = new User();
-        //VO转实体
-        BeanUtils.copyProperties(registerUserVo, user);
-        //设置id和其他相关参数
-        long snowflakeNextId = IdUtil.getSnowflakeNextId();
-        LocalDateTime now = LocalDateTime.now();
-        user.setId(snowflakeNextId);
-        user.setCreateTime(now);
-        user.setStatus((byte) 0);
-        user.setUpdateTime(now);
-        userService.save(user);
-        //返回结果
+        userService.registerSave(registerUserVo);
         return CommonResult.success("注册成功");
     }
 }

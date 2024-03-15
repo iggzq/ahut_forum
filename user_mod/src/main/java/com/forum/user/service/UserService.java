@@ -2,6 +2,7 @@ package com.forum.user.service;
 
 import com.forum.user.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.forum.user.vo.RegisterUserVo;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UserService extends IService<User> {
 
+    public void registerSave(RegisterUserVo registerUserVo);
 }

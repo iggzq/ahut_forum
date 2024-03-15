@@ -1,10 +1,16 @@
 package com.forum.user.service.impl;
 
+import cn.hutool.core.util.IdUtil;
 import com.forum.user.entity.User;
 import com.forum.user.mapper.UserMapper;
 import com.forum.user.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.forum.user.vo.RegisterUserVo;
+import jakarta.annotation.Resource;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -17,4 +23,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImp extends ServiceImpl<UserMapper, User> implements UserService {
 
+    @Resource
+    private UserMapper userMapper;
+
+    @Override
+    public void registerSave(RegisterUserVo registerUserVo) {
+        User user = new User();
+        //VO转实体
+        BeanUtils.copyProperties(registerUserVo, user);
+        //设置id和其他相关参数
+        long snowflakeNextId = IdUtil.getSnowflakeNextId();
+        LocalDateTime now = LocalDateTime.now();
+        user.setId(snowflakeNextId);
+        user.setCreateTime(now);
+        user.setStatus((byte) 0);
+        user.setUpdateTime(now);
+        userMapper.insert(user);
+    }
 }
