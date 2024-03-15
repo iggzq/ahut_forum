@@ -46,7 +46,6 @@ public class MybatisPlusGenerate {
                                     new Column("modify_time", FieldFill.INSERT_UPDATE)
                             );   //添加表字段填充，"create_time"字段自动填充为插入时间，"modify_time"字段自动填充为插入修改时间
                     builder.controllerBuilder()
-                            .enableFileOverride()
                             .enableRestStyle()
                             .enableHyphenStyle();
                     builder.serviceBuilder()

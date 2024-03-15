@@ -18,7 +18,7 @@ import lombok.Setter;
  * </p>
  *
  * @author LiTuiZi
- * @since 2024-03-15 08:46:53
+ * @since 2024-03-15 09:10:51
  */
 @Getter
 @Setter
@@ -44,8 +44,8 @@ public class User implements Serializable {
     @TableField("question")
     private String question;
 
-    @TableField("anwer")
-    private String anwer;
+    @TableField("answer")
+    private String answer;
 
     @ApiModelProperty("创建用户时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)

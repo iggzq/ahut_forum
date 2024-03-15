@@ -1,5 +1,7 @@
 package com.forum.user.dto;
 
-public class UserDTO {
+import com.forum.user.entity.User;
+
+public class UserDTO extends User {
 
 }
