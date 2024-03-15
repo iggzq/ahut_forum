@@ -1,6 +1,5 @@
 <template>
-  <RegisterView>
-  </RegisterView>
+  <router-view></router-view>
 </template>
 
 <style>
@@ -32,5 +31,4 @@ nav a.router-link-exact-active {
 }
 </style>
 <script setup>
-import RegisterView from '@/views/RegisterView.vue'
 </script>

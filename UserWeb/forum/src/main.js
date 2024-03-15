@@ -2,10 +2,12 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import { Button, Field, Form } from 'vant'
+import { Button, Field, Form, Swipe, SwipeItem, Toast } from 'vant'
 import 'vant/lib/index.css'
 import axios from 'axios'
 
 const app = createApp(App)
-app.use(Form).use(Button).use(Field).use(store).use(router).mount('#app')
-axios.defaults.baseURL = 'http://localhost:8080/'
+app.use(Form).use(Button).use(Field).use(Toast).use(store).use(router)
+  .use(Swipe).use(SwipeItem)
+  .mount('#app')
+axios.defaults.baseURL = 'http://172.20.10.3:8080/'

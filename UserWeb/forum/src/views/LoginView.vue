@@ -3,6 +3,7 @@
     <div class="inputForm">
       <van-form style="display: block" @submit="onSubmit">
         <van-cell-group class="infoInputForm">
+          <h1>安工大校园论坛</h1>
           <van-field
             v-model="name"
             :rules="[{ required: true, message: '请填写用户名' }]"
@@ -20,26 +21,13 @@
             placeholder="密码"
             type="password"
           />
-          <van-field
-            v-model="question"
-            :rules="[{ required: true, message: '请填写自定义安全问题' }]"
-            class="inputField"
-            label="问题"
-            name="问题"
-            placeholder="自定义安全问题"
-          />
-          <van-field
-            v-model="answer"
-            :rules="[{ required: true, message: '请填写自定义安全问题答案' }]"
-            class="inputField"
-            label="答案"
-            name="答案"
-            placeholder="自定义安全问题答案"
-          />
         </van-cell-group>
-        <div style="margin: 16px 16px 0px">
-          <van-button block native-type="submit" round type="primary">
+        <div class="buttons" style="margin: 16px 16px 0px">
+          <van-button block native-type="submit" round style="margin-right: 3%" type="primary">
             登陆
+          </van-button>
+          <van-button block round style="margin-left: 3%" type="primary" @click="registerRequest">
+            去注册
           </van-button>
         </div>
       </van-form>
@@ -50,6 +38,7 @@
 </template>
 <script>
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import axios from 'axios'
 import { showFailToast, showSuccessToast } from 'vant'
 
@@ -57,36 +46,29 @@ export default defineComponent({
   setup () {
     const name = ref('')
     const password = ref('')
-    const question = ref('')
-    const answer = ref('')
+    const router = useRouter();
     const onSubmit = (values) => {
-      registerRequest()
       console.log('submit', values)
-    }
-    const registerRequest = () => {
-      axios.post('/user/register', {
+      axios.post('/login', {
         name: name.value,
-        password: password.value,
-        question: question.value,
-        answer: answer.value
+        password: password.value
       }).then(res => {
+        console.log(res.data)
         if (res.data.code === 200) {
-          name.value = ''
-          password.value = ''
-          question.value = ''
-          answer.value = ''
-          showSuccessToast('注册成功')
+          showSuccessToast('登陆成功')
         } else {
-          showFailToast('注册失败，请重试')
+          showFailToast('登陆失败，请重试')
         }
       })
+    }
+    const registerRequest = () => {
+      router.push('/register')
     }
     return {
       name,
       password,
-      question,
-      answer,
-      onSubmit
+      onSubmit,
+      registerRequest
     }
   }
 })
@@ -120,5 +102,9 @@ html, body {
 
 .inputField {
   margin: 10px;
+}
+.buttons{
+  display: flex;
+  justify-content: space-between;
 }
 </style>
