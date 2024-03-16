@@ -1,10 +1,17 @@
 package com.forum.article.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.forum.article.entity.Article;
 import com.forum.article.mapper.ArticleMapper;
 import com.forum.article.service.ArticleService;
+import com.forum.article.vo.SaveArticleVO;
+import jakarta.annotation.Resource;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -17,4 +24,28 @@ import org.springframework.stereotype.Service;
 @Service
 public class ArticleServiceImp extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
+    @Resource
+    private ArticleMapper articleMapper;
+    @Override
+    public Boolean saveArticle(SaveArticleVO saveArticleVO) {
+        Article article = new Article();
+        BeanUtils.copyProperties(saveArticleVO, article);
+        //获取数据
+        long articleId = IdUtil.getSnowflakeNextId();
+        LocalDateTime now = LocalDateTime.now();
+        long loginId = StpUtil.getLoginIdAsLong();
+        //补充数据
+        article.setId(articleId);
+        article.setCreateTime(now);
+        article.setUpdateTime(now);
+        article.setUserId(loginId);
+        //数据库保存
+        try {
+            articleMapper.insert(article);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+
+    }
 }

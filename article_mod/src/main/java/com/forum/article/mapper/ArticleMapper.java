@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author LiTuiZi
- * @since 2024-03-16 09:27:56
+ * @since 2024-03-16 09:50:58
  */
 @Mapper
 public interface ArticleMapper extends BaseMapper<Article> {

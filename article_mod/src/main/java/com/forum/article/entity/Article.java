@@ -1,8 +1,6 @@
 package com.forum.article.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -17,7 +15,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author LiTuiZi
- * @since 2024-03-16 09:27:56
+ * @since 2024-03-16 09:50:58
  */
 @Getter
 @Setter
@@ -28,7 +26,7 @@ public class Article implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("文章id")
-    @TableField("id")
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     @ApiModelProperty("发布人")

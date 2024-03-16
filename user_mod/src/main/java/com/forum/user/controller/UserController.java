@@ -5,10 +5,9 @@ import com.forum.user.service.UserService;
 import com.forum.user.vo.LoginUserVo;
 import com.forum.user.vo.RegisterUserVo;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -24,6 +23,13 @@ public class UserController {
 
     @Resource
     private UserService userService;
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+
+    @GetMapping("/1")
+    public CommonResult<String> test() {
+        return CommonResult.success("测试成功");
+    }
 
     /**
      * 注册
@@ -44,5 +50,6 @@ public class UserController {
         Boolean login = userService.login(loginUserVo);
         return login ? CommonResult.success("登录成功") : CommonResult.failed("登录失败");
     }
+
 }
 

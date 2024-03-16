@@ -11,6 +11,7 @@ import com.forum.user.vo.LoginUserVo;
 import com.forum.user.vo.RegisterUserVo;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,9 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
 
     @Resource
     private UserMapper userMapper;
+
+    @Resource
+    private RedisTemplate<String,Object> redisTemplate;
 
     @Override
     public void registerSave(RegisterUserVo registerUserVo) {
@@ -51,6 +55,11 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
         User user = userMapper.selectOne(queryWrapper);
         if (user != null) {
             StpUtil.login(user.getId());
+            String tokenValue = StpUtil.getTokenValue();
+            String tokenName = StpUtil.getTokenName();
+            System.out.println(tokenName);
+//            redisTemplate.opsForValue().set(tokenValue, user.getId().toString());
+//            redisTemplate.expire(user.getId().toString(), Duration.ofDays(30));
             return true;
         } else {
             return false;
