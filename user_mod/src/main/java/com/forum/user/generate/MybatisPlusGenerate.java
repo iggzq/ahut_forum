@@ -12,6 +12,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Collections;
 
+/**
+ * MybatisPlus代码生成
+ */
 public class MybatisPlusGenerate {
 
     final static String URL = "jdbc:mysql://localhost:3306/ahut_forum?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai";
@@ -24,16 +27,16 @@ public class MybatisPlusGenerate {
                 .globalConfig(builder -> {
                     builder.author("LiTuiZi")
                             .enableSwagger()
-                            .outputDir("/home/lituizi/IdeaProjects/ahut_forum/user_mod/src/main/java")
+                            .outputDir("/home/lituizi/IdeaProjects/ahut_forum/article_mod/src/main/java")
                             .commentDate("yyyy-MM-dd hh:mm:ss")   //注释日期
                             .dateType(DateType.TIME_PACK);
                 });
         fastAutoGenerator.packageConfig(builder -> {
                     //包配置
-                    builder.parent("com.forum.user")
-                            .pathInfo(Collections.singletonMap(OutputFile.xml, "/home/lituizi/IdeaProjects/ahut_forum/user_mod/src/main/resources/mapper"));
+                    builder.parent("com.forum.article")
+                            .pathInfo(Collections.singletonMap(OutputFile.xml, "/home/lituizi/IdeaProjects/ahut_forum/article_mod/src/main/resources/mapper"));
                 }).strategyConfig(builder -> {
-                    builder.addInclude("user").enableCapitalMode();
+                    builder.addInclude("article").enableCapitalMode();
                     builder.entityBuilder()
                             .enableLombok()
                             .enableFileOverride()

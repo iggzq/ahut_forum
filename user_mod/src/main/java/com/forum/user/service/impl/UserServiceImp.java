@@ -48,8 +48,9 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
     public Boolean login(LoginUserVo loginUserVo) {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getName, loginUserVo.getName()).eq(User::getPassword, loginUserVo.getPassword());
-        if (userMapper.selectCount(queryWrapper) > 0) {
-            StpUtil.login(loginUserVo.getName());
+        User user = userMapper.selectOne(queryWrapper);
+        if (user != null) {
+            StpUtil.login(user.getId());
             return true;
         } else {
             return false;

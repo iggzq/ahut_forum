@@ -1,10 +1,10 @@
 package com.forum.user.controller;
 
+import com.forum.article.result.CommonResult;
 import com.forum.user.service.UserService;
 import com.forum.user.vo.LoginUserVo;
 import com.forum.user.vo.RegisterUserVo;
 import jakarta.annotation.Resource;
-import org.ltz.result.CommonResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +27,6 @@ public class UserController {
 
     /**
      * 注册
-     * @param registerUserVo
      * @return 注册结果
      */
     @PostMapping("/register")
@@ -36,6 +35,10 @@ public class UserController {
         return CommonResult.success("注册成功");
     }
 
+    /**
+     * 登陆
+     * @return 登陆结果
+     */
     @PostMapping("/login")
     public CommonResult<String> login(@RequestBody LoginUserVo loginUserVo){
         Boolean login = userService.login(loginUserVo);

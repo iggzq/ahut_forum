@@ -1,4 +1,4 @@
-package org.ltz.result;
+package com.forum.article.result;
 
 import lombok.Data;
 

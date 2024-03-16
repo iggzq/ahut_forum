@@ -5,16 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="后端登陆功能">
-      <change afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/ArticleView.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/MenuView.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/MyProfileView.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/article_mod/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/article_mod/src/test/java/com/forum/article/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/29c3ca6a-76b5-4eca-abc1-461e041593bc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/29c3ca6a-76b5-4eca-abc1-461e041593bc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/components/HelloWorld.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/org/ltz/result/CommonResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/forum/article/result/CommonResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/generate/MybatisPlusGenerate.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/generate/MybatisPlusGenerate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/service/impl/UserServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/service/impl/UserServiceImp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +35,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -91,7 +95,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.serve">
+  <component name="RunManager" selected="应用程序.MybatisPlusGenerate">
     <configuration name="MybatisPlusGenerate" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.forum.user.generate.MybatisPlusGenerate" />
       <module name="user_mod" />
@@ -136,9 +140,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.MybatisPlusGenerate" />
         <item itemvalue="npm.serve" />
         <item itemvalue="Spring Boot.UserApplication" />
-        <item itemvalue="应用程序.MybatisPlusGenerate" />
         <item itemvalue="HTTP 请求.user | #2" />
         <item itemvalue="HTTP 请求.user | #1" />
       </list>
@@ -166,6 +170,7 @@
       <workItem from="1710475990011" duration="30000" />
       <workItem from="1710476032696" duration="3000" />
       <workItem from="1710486538938" duration="16339000" />
+      <workItem from="1710551245796" duration="1228000" />
     </task>
     <task id="LOCAL-00001" summary="第一次提交，项目初始化">
       <option name="closed" value="true" />
