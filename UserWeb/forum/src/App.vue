@@ -10,11 +10,11 @@
   text-align: center;
   color: #2c3e50;
   height: 100%;
+  background-color: #f4f6f9;
 }
 
 body,html{
   height: 100%;
-  overflow: hidden;
 }
 
 nav {

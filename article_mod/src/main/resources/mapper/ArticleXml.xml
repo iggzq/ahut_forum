@@ -18,5 +18,11 @@
     <sql id="Base_Column_List">
         id, user_id, content, like_count, comment_count, update_time, create_time, status
     </sql>
+    <select id="getArticleByPage" resultType="com.forum.article.entity.Article">
+        SELECT * FROM article
+        WHERE status = 0
+        ORDER BY update_time DESC
+        LIMIT #{page}, #{size}
+    </select>
 
 </mapper>

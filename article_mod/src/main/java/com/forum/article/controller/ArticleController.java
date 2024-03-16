@@ -1,13 +1,13 @@
 package com.forum.article.controller;
 
+import com.forum.article.entity.Article;
 import com.forum.article.result.CommonResult;
 import com.forum.article.service.ArticleService;
 import com.forum.article.vo.SaveArticleVO;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -33,5 +33,11 @@ public class ArticleController {
             return CommonResult.failed("保存失败,请重试");
         }
     }
+
+    @GetMapping("getArticles")
+    public CommonResult<List<Article>> getArticles(@RequestParam int page, @RequestParam int size) {
+        return CommonResult.success(articleService.getArticles(page, size));
+    }
+
 
 }

@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -22,10 +23,11 @@ import java.time.LocalDateTime;
  * @since 2024-03-16 09:27:56
  */
 @Service
-public class ArticleServiceImp extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
+public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
     @Resource
     private ArticleMapper articleMapper;
+
     @Override
     public Boolean saveArticle(SaveArticleVO saveArticleVO) {
         Article article = new Article();
@@ -43,9 +45,15 @@ public class ArticleServiceImp extends ServiceImpl<ArticleMapper, Article> imple
         try {
             articleMapper.insert(article);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
 
+    }
+
+    @Override
+    public List<Article> getArticles(int page, int size) {
+        page = page * size;
+        return articleMapper.getArticleByPage(page, size - 1);
     }
 }

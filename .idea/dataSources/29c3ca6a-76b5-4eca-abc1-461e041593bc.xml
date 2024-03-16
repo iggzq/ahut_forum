@@ -1023,7 +1023,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="280" parent="1" name="ahut_forum">
-      <LastIntrospectionLocalTimestamp>2024-03-16.08:52:31</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-03-16.14:00:38</LastIntrospectionLocalTimestamp>
       <CollationName>utf8_general_ci</CollationName>
     </schema>
     <user id="281" parent="1" name="root">
@@ -1103,6 +1103,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <column id="295" parent="286" name="status">
       <Comment>文章状态</Comment>
       <DasType>tinyint|0s</DasType>
+      <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
