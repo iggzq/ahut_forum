@@ -65,6 +65,7 @@
 <script>
 import { defineComponent, onMounted, ref } from 'vue'
 import axios from 'axios'
+import { showFailToast, showSuccessToast } from 'vant'
 
 export default defineComponent({
   name: 'ArticleView',
@@ -86,7 +87,15 @@ export default defineComponent({
         title: writeArticle.value.title,
         content: writeArticle.value.content
       }).then(res => {
-        console.log(res)
+        if (res.data.code === 200) {
+          writeArticle.value.title = ''
+          writeArticle.value.content = ''
+          showSuccessToast('发布成功');
+          bottom.value = false
+          getArticlesByPage()
+        } else {
+          showFailToast('发布失败，请重试');
+        }
       })
     }
     const styleVars = {

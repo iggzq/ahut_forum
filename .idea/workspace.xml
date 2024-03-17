@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="前端文章展示界面">
+    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="前端加入token请求头">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/LoginView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/LoginView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/service/impl/UserServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/service/impl/UserServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/ArticleView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/ArticleView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/config/SaTokenConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/config/SaTokenConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,8 +157,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.serve" />
         <item itemvalue="Spring Boot.UserApplication" />
+        <item itemvalue="npm.serve" />
         <item itemvalue="HTTP 请求.ArticleHttp | #1" />
         <item itemvalue="HTTP 请求.user | #1" />
         <item itemvalue="HTTP 请求.ArticleHttp | #2" />
@@ -199,7 +196,7 @@
       <workItem from="1710574471181" duration="13305000" />
       <workItem from="1710601768164" duration="2054000" />
       <workItem from="1710638940947" duration="6962000" />
-      <workItem from="1710645916443" duration="9094000" />
+      <workItem from="1710645916443" duration="11527000" />
     </task>
     <task id="LOCAL-00001" summary="第一次提交，项目初始化">
       <option name="closed" value="true" />
@@ -297,7 +294,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710664443542</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="前端加入token请求头">
+      <option name="closed" value="true" />
+      <created>1710665990388</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1710665990388</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -317,7 +322,8 @@
     <MESSAGE value="后端文章模块初始化" />
     <MESSAGE value="后端多模块登陆" />
     <MESSAGE value="前端文章展示界面" />
-    <option name="LAST_COMMIT_MESSAGE" value="前端文章展示界面" />
+    <MESSAGE value="前端加入token请求头" />
+    <option name="LAST_COMMIT_MESSAGE" value="前端加入token请求头" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
