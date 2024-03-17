@@ -1,5 +1,7 @@
 <template>
-  <div>个人信息</div>
+  <van-sticky :offset-top="0">
+    <van-nav-bar title="个人信息"/>
+  </van-sticky>
 </template>
 <script>
 export default {

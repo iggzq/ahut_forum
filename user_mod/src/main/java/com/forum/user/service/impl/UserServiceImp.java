@@ -1,5 +1,6 @@
 package com.forum.user.service.impl;
 
+import cn.dev33.satoken.stp.SaLoginConfig;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -31,7 +32,7 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
     private UserMapper userMapper;
 
     @Resource
-    private RedisTemplate<String,Object> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public void registerSave(RegisterUserVo registerUserVo) {
@@ -54,12 +55,13 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
         queryWrapper.eq(User::getName, loginUserVo.getName()).eq(User::getPassword, loginUserVo.getPassword());
         User user = userMapper.selectOne(queryWrapper);
         if (user != null) {
-            StpUtil.login(user.getId());
-            String tokenValue = StpUtil.getTokenValue();
+            StpUtil.login(user.getId(), SaLoginConfig
+                    .setExtra("name", user.getName())
+            );
+            String name = (String) StpUtil.getExtra("name");
+            System.out.println(name);
             String tokenName = StpUtil.getTokenName();
             System.out.println(tokenName);
-//            redisTemplate.opsForValue().set(tokenValue, user.getId().toString());
-//            redisTemplate.expire(user.getId().toString(), Duration.ofDays(30));
             return true;
         } else {
             return false;

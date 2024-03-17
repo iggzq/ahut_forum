@@ -56,6 +56,7 @@ export default defineComponent({
         console.log(res.data)
         if (res.data.code === 200) {
           showSuccessToast('登陆成功')
+          router.push('/article')
         } else {
           showFailToast('登陆失败，请重试')
         }

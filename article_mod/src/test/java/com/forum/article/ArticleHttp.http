@@ -2,7 +2,8 @@ POST http://localhost:8081/article/saveArticle
 Content-Type: application/json
 
 {
-  "content": "安徽工业大学",
+  "title": "NAT和DHCP 的区别是什么？",
+  "content": "NAT（网络地址转换）和DHCP（动态主机配置协议）是网络中的两种不同技术，它们都在管理IP地址方面发挥着重要作用，但是它们的目的和工作方式有所不同。DHCP是一种网络管理协议，用于在网络上自动分配IP地址给设备。当一个设备连接到网络时，它会向DHCP服务器发送一个请求，DHCP服务器则从一个预定义的IP地址池中分配一个IP地址给该设备，并且会传送其他网络配置参数，如子网掩码、默认网关和DNS服务器等。这样，设备就可以在网络上进行通信，而不需要手动配置IP地址。DHCP的主要目的是简化网络管理，自动为设备分配和管理IP地址。",
   "likeCount": 0,
   "commentCount": 0
 }

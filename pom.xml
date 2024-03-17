@@ -19,7 +19,6 @@
         <module>user_mod</module>
         <module>common</module>
         <module>article_mod</module>
-        <module>gateway_mod</module>
     </modules>
 
     <properties>

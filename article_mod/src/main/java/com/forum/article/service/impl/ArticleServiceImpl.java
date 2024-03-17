@@ -36,8 +36,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         long articleId = IdUtil.getSnowflakeNextId();
         LocalDateTime now = LocalDateTime.now();
         long loginId = StpUtil.getLoginIdAsLong();
+        String name = (String) StpUtil.getExtra("name");
         //补充数据
         article.setId(articleId);
+        article.setUserName(name);
         article.setCreateTime(now);
         article.setUpdateTime(now);
         article.setUserId(loginId);
@@ -46,6 +48,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             articleMapper.insert(article);
             return true;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return false;
         }
 
