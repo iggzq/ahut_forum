@@ -5,29 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="后端多模块登陆">
-      <change afterPath="$PROJECT_DIR$/article_mod/src/test/java/com/forum/article/ArticleHttp.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/29c3ca6a-76b5-4eca-abc1-461e041593bc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/29c3ca6a-76b5-4eca-abc1-461e041593bc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/ArticleView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/ArticleView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserWeb/forum/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/vue.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/ArticleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/mapper/ArticleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/mapper/ArticleMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/ArticleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/ArticleServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/ArticleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/resources/mapper/ArticleXml.xml" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/resources/mapper/ArticleXml.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway_mod/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway_mod/src/main/java/com/forum/GateWayApp.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway_mod/src/main/java/com/forum/config/LoginFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway_mod/src/main/java/com/forum/config/RedisConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway_mod/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway_mod/src/test/java/com/forum/AppTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway_mod/src/test/java/com/forum/RedisTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/config/SaTokenConfigure.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/config/SaTokenConfigure.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +113,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="npm.serve">
+  <component name="RunManager" selected="Spring Boot.ArticleApp">
     <configuration name="ArticleHttp | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/article_mod/src/test/java/com/forum/article/ArticleHttp.http" requestIdentifier="#1" runType="运行单个请求">
       <method v="2" />
     </configuration>
@@ -212,6 +193,7 @@
       <workItem from="1710574371632" duration="22000" />
       <workItem from="1710574471181" duration="13305000" />
       <workItem from="1710601768164" duration="2054000" />
+      <workItem from="1710638940947" duration="2031000" />
     </task>
     <task id="LOCAL-00001" summary="第一次提交，项目初始化">
       <option name="closed" value="true" />
