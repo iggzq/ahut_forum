@@ -50,7 +50,7 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
     }
 
     @Override
-    public Boolean login(LoginUserVo loginUserVo) {
+    public String login(LoginUserVo loginUserVo) {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getName, loginUserVo.getName()).eq(User::getPassword, loginUserVo.getPassword());
         User user = userMapper.selectOne(queryWrapper);
@@ -62,9 +62,9 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
             System.out.println(name);
             String tokenName = StpUtil.getTokenName();
             System.out.println(tokenName);
-            return true;
+            return StpUtil.getTokenValue();
         } else {
-            return false;
+            return null;
         }
     }
 }

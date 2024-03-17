@@ -47,8 +47,8 @@ public class UserController {
      */
     @PostMapping("/login")
     public CommonResult<String> login(@RequestBody LoginUserVo loginUserVo){
-        Boolean login = userService.login(loginUserVo);
-        return login ? CommonResult.success("登录成功") : CommonResult.failed("登录失败");
+        String token = userService.login(loginUserVo);
+        return token != null ? CommonResult.success(token) : CommonResult.failed("登录失败");
     }
 
 }

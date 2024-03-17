@@ -35,3 +35,8 @@ app.use(Form).use(Button).use(Field).use(Toast).use(store).use(router)
   .use(Icon)
   .mount('#app')
 axios.defaults.baseURL = 'http://172.20.10.3:8080/'
+
+axios.interceptors.request.use((config) => {
+  config.headers.satoken = localStorage.getItem('satoken')
+  return config
+})

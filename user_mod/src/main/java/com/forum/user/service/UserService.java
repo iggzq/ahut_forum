@@ -17,5 +17,5 @@ public interface UserService extends IService<User> {
 
     public void registerSave(RegisterUserVo registerUserVo);
 
-    public Boolean login(LoginUserVo loginUserVo);
+    public String login(LoginUserVo loginUserVo);
 }

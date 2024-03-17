@@ -5,30 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="前端文章展示界面">
-      <change afterPath="$PROJECT_DIR$/UserWeb/forum/src/assets/text/SmileySans-Oblique.otf.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserWeb/forum/src/assets/text/text.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/29c3ca6a-76b5-4eca-abc1-461e041593bc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/29c3ca6a-76b5-4eca-abc1-461e041593bc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/App.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/ArticleView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/ArticleView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/LoginView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/LoginView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/MenuView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/MenuView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/MyProfileView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/MyProfileView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/config/SaTokenConfigure.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/config/SaTokenConfigure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/entity/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/entity/Article.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/ArticleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/resources/mapper/ArticleXml.xml" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/resources/mapper/ArticleXml.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/test/java/com/forum/article/ArticleHttp.http" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/test/java/com/forum/article/ArticleHttp.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_mod/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user_mod/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/config/SaTokenConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/config/SaTokenConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/service/impl/UserServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/service/impl/UserServiceImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_mod/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/user_mod/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,8 +160,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.UserApplication" />
         <item itemvalue="npm.serve" />
+        <item itemvalue="Spring Boot.UserApplication" />
         <item itemvalue="HTTP 请求.ArticleHttp | #1" />
         <item itemvalue="HTTP 请求.user | #1" />
         <item itemvalue="HTTP 请求.ArticleHttp | #2" />
@@ -217,7 +199,7 @@
       <workItem from="1710574471181" duration="13305000" />
       <workItem from="1710601768164" duration="2054000" />
       <workItem from="1710638940947" duration="6962000" />
-      <workItem from="1710645916443" duration="7651000" />
+      <workItem from="1710645916443" duration="9094000" />
     </task>
     <task id="LOCAL-00001" summary="第一次提交，项目初始化">
       <option name="closed" value="true" />
@@ -307,7 +289,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710641086939</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="前端文章展示界面">
+      <option name="closed" value="true" />
+      <created>1710664443542</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1710664443542</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
