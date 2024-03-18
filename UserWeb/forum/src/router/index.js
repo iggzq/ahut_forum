@@ -30,6 +30,10 @@ const routes = [
     path: '/register',
     name: '注册',
     component: () => import('../views/RegisterView.vue')
+  }, {
+    path: '/articleDetail',
+    name: '文章详情',
+    component: () => import('../views/inside/ArticleDetailView.vue')
   }
 
 ]

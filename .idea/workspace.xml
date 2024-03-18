@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="前端加article页面增加下滑加载">
+    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="修复发表完成后，上拉加载失效问题">
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/inside/ArticleDetailView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/router/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/ArticleView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/ArticleView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/ArticleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserWeb/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserWeb/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +120,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ArticleApp">
+  <component name="RunManager" selected="npm.serve">
     <configuration name="ArticleHttp | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/article_mod/src/test/java/com/forum/article/ArticleHttp.http" requestIdentifier="#1" runType="运行单个请求">
       <method v="2" />
     </configuration>
@@ -198,7 +203,7 @@
       <workItem from="1710638940947" duration="6962000" />
       <workItem from="1710645916443" duration="11559000" />
       <workItem from="1710680643739" duration="4783000" />
-      <workItem from="1710726416304" duration="6513000" />
+      <workItem from="1710726416304" duration="11468000" />
     </task>
     <task id="LOCAL-00001" summary="第一次提交，项目初始化">
       <option name="closed" value="true" />
@@ -320,7 +325,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710729150530</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="修复发表完成后，上拉加载失效问题">
+      <option name="closed" value="true" />
+      <created>1710733076158</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1710733076158</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -342,7 +355,8 @@
     <MESSAGE value="前端文章展示界面" />
     <MESSAGE value="前端加入token请求头" />
     <MESSAGE value="前端加article页面增加下滑加载" />
-    <option name="LAST_COMMIT_MESSAGE" value="前端加article页面增加下滑加载" />
+    <MESSAGE value="修复发表完成后，上拉加载失效问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复发表完成后，上拉加载失效问题" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

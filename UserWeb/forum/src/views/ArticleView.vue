@@ -36,36 +36,39 @@
     <van-grid-item icon="photo-o" text="文字"/>
   </van-grid>
   <div class="articleContent">
-    <var-list
-      v-model:loading="loading"
-      :finished="finished"
-      class="itemList"
-      @load="load"
-    >
-      <div v-for="item in articles" :key="item.id" class="articleShow">
-        <var-card
-          :style-vars="styleVars"
-          ripple
-        >
-          <template #subtitle>
-            <p class="itemUserName">发帖人：{{ item.userName }}</p>
-          </template>
-          <template #title>
-            <h3 class="itemTitle">{{ item.title }}</h3>
-          </template>
-          <template #description>
-            <van-text-ellipsis
-              :content="item.content"
-              class="itemContent"
-              rows="3"
-            />
-          </template>
-          <template #extra>
-            <p class="itemPopular">{{ item.likeCount }} 点赞 {{ item.commentCount }} 评论数</p>
-          </template>
-        </var-card>
-      </div>
-    </var-list>
+    <var-pull-refresh v-model="refreshing" @refresh="refresh">
+      <var-list
+        v-model:loading="loading"
+        :finished="finished"
+        class="itemList"
+        @load="load"
+      >
+        <div v-for="item in articles" :key="item.id" class="articleShow">
+          <var-card
+            :style-vars="styleVars"
+            ripple
+            @click="goArticleDetail(item.id)"
+          >
+            <template #subtitle>
+              <p class="itemUserName">发帖人：{{ item.userName }}</p>
+            </template>
+            <template #title>
+              <h3 class="itemTitle">{{ item.title }}</h3>
+            </template>
+            <template #description>
+              <van-text-ellipsis
+                :content="item.content"
+                class="itemContent"
+                rows="3"
+              />
+            </template>
+            <template #extra>
+              <p class="itemPopular">{{ item.likeCount }} 点赞 {{ item.commentCount }} 评论数</p>
+            </template>
+          </var-card>
+        </div>
+      </var-list>
+    </var-pull-refresh>
   </div>
 
 </template>
@@ -73,6 +76,7 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import axios from 'axios'
 import { showFailToast, showSuccessToast } from 'vant'
+import router from '@/router'
 
 export default defineComponent({
   name: 'ArticleView',
@@ -84,6 +88,7 @@ export default defineComponent({
     })
     const loading = ref(true)
     const finished = ref(false)
+    const refreshing = ref(false)
     const page = ref(-1)
     const size = ref(5)
 
@@ -96,6 +101,20 @@ export default defineComponent({
       }
       loading.value = false
     }
+    async function refresh () {
+      console.log('refresh')
+      page.value = 0
+      finished.value = false
+      articles.value = []
+      loading.value = true
+      const result = await getArticlesByPage(0, 5)
+      if (!result) {
+        showFailToast('加载失败')
+      } else {
+        refreshing.value = false;
+        loading.value = false
+      }
+    }
 
     const getArticlesByPage = async (page, size) => {
       console.log('getArticlesByPage')
@@ -103,7 +122,7 @@ export default defineComponent({
       if (fetchedArticles.data.data.length === 5) {
         finished.value = false
         articles.value = [...articles.value, ...fetchedArticles.data.data]
-        return true;
+        return true
       } else if (fetchedArticles.data.code === 200 && fetchedArticles.data.data.length < 5 && fetchedArticles.data.data.length > 0) {
         articles.value = [...articles.value, ...fetchedArticles.data.data]
         finished.value = true
@@ -137,6 +156,13 @@ export default defineComponent({
       load()
     })
     const bottom = ref(false)
+    const goArticleDetail = (id) => {
+      console.log('goArticleDetail')
+      router.push({
+        path: '/articleDetail',
+        query: { id: id }
+      })
+    }
     return {
       articles,
       styleVars,
@@ -145,7 +171,10 @@ export default defineComponent({
       sendArticle,
       load,
       loading,
-      finished
+      finished,
+      goArticleDetail,
+      refresh,
+      refreshing
     }
   }
 })
