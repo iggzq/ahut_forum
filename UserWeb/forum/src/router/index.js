@@ -32,7 +32,7 @@ const routes = [
     component: () => import('../views/RegisterView.vue')
   }, {
     path: '/articleDetail',
-    name: '文章详情',
+    name: 'articleDetail',
     component: () => import('../views/inside/ArticleDetailView.vue')
   }
 

@@ -45,9 +45,8 @@
       >
         <div v-for="item in articles" :key="item.id" class="articleShow">
           <var-card
-            :style-vars="styleVars"
             ripple
-            @click="goArticleDetail(item.id)"
+            @click="goArticleDetail(item)"
           >
             <template #subtitle>
               <p class="itemUserName">发帖人：{{ item.userName }}</p>
@@ -76,7 +75,8 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import axios from 'axios'
 import { showFailToast, showSuccessToast } from 'vant'
-import router from '@/router'
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'ArticleView',
@@ -91,6 +91,8 @@ export default defineComponent({
     const refreshing = ref(false)
     const page = ref(-1)
     const size = ref(5)
+    const router = useRouter()
+    const store = useStore()
 
     async function load () {
       console.log('load')
@@ -101,6 +103,7 @@ export default defineComponent({
       }
       loading.value = false
     }
+
     async function refresh () {
       console.log('refresh')
       page.value = 0
@@ -111,14 +114,14 @@ export default defineComponent({
       if (!result) {
         showFailToast('加载失败')
       } else {
-        refreshing.value = false;
+        refreshing.value = false
         loading.value = false
       }
     }
 
     const getArticlesByPage = async (page, size) => {
       console.log('getArticlesByPage')
-      const fetchedArticles = await axios.get('http://172.20.10.3:8081/article/getArticles?page=' + page + '&size=' + size)
+      const fetchedArticles = await axios.get('http://localhost:8081/article/getArticles?page=' + page + '&size=' + size)
       if (fetchedArticles.data.data.length === 5) {
         finished.value = false
         articles.value = [...articles.value, ...fetchedArticles.data.data]
@@ -133,7 +136,7 @@ export default defineComponent({
       }
     }
     const sendArticle = async () => {
-      const res = await axios.post('http://172.20.10.3:8081/article/saveArticle', {
+      const res = await axios.post('http://localhost:8081/article/saveArticle', {
         title: writeArticle.value.title,
         content: writeArticle.value.content
       })
@@ -149,23 +152,18 @@ export default defineComponent({
         showFailToast('发布失败，请重试')
       }
     }
-    const styleVars = {
-      '--card-footer-padding': '0 5px'
-    }
     onMounted(() => {
       load()
     })
     const bottom = ref(false)
-    const goArticleDetail = (id) => {
-      console.log('goArticleDetail')
-      router.push({
-        path: '/articleDetail',
-        query: { id: id }
-      })
+    const goArticleDetail = (article) => {
+      // 提交 mutation 更新状态
+      store.commit('setArticleDetail', article)
+      // 路由跳转到 '/articleDetail'
+      router.push({ path: '/articleDetail' })
     }
     return {
       articles,
-      styleVars,
       bottom,
       writeArticle,
       sendArticle,

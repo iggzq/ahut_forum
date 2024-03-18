@@ -39,5 +39,10 @@ public class ArticleController {
         return CommonResult.success(articleService.getArticles(page, size));
     }
 
+    @PostMapping("likeArticle")
+    public CommonResult<String> likeArticle(){
+        return null;
+    }
+
 
 }

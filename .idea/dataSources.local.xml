@@ -20,9 +20,7 @@
       </schema-mapping>
     </data-source>
     <data-source name="校园论坛redis" uuid="74d68fbb-d2b8-488f-8193-b327d9ce4a90">
-      <database-info product="Redis Standalone" version="6.0.16" jdbc-version="4.2" driver-name="Redis JDBC Driver" driver-version="1.5" dbms="REDIS" exact-version="6.0.16" exact-driver-version="1.5">
-        <jdbc-catalog-is-schema>true</jdbc-catalog-is-schema>
-      </database-info>
+      <database-info product="Redis Standalone" version="6.0.16" jdbc-version="4.2" driver-name="Redis JDBC Driver" driver-version="1.5" dbms="REDIS" exact-version="6.0.16" exact-driver-version="1.5" />
       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
       <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>

@@ -33,10 +33,10 @@ public class MybatisPlusGenerate {
                 });
         fastAutoGenerator.packageConfig(builder -> {
                     //包配置
-                    builder.parent("com.forum.user")
-                            .pathInfo(Collections.singletonMap(OutputFile.xml, "/home/lituizi/IdeaProjects/ahut_forum/user_mod/src/main/resources/mapper"));
+                    builder.parent("com.forum.article")
+                            .pathInfo(Collections.singletonMap(OutputFile.xml, "/home/lituizi/IdeaProjects/ahut_forum/article_mod/src/main/resources/mapper"));
                 }).strategyConfig(builder -> {
-                    builder.addInclude("user").enableCapitalMode();
+                    builder.addInclude("like_article").enableCapitalMode();
                     builder.entityBuilder()
                             .enableLombok()
                             .enableFileOverride()
