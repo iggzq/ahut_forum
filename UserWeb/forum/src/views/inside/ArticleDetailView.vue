@@ -27,7 +27,7 @@
         />
       </template>
       <template #extra>
-        <van-button color="#1989fa" round type="success" @click="sendLikeArticle()">
+        <van-button :color="buttonColor" round type="success" @click="sendLikeArticle()">
           <van-icon name="good-job" />
           {{ articleDetail.likeCount }} 点赞 {{ articleDetail.commentCount }} 评论数
         </van-button>
@@ -37,7 +37,7 @@
 
 </template>
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import axios from 'axios'
 import { showSuccessToast } from 'vant'
@@ -48,7 +48,7 @@ export default defineComponent({
   setup () {
     const store = useStore()
     const articleDetail = store.state.articleDetail
-
+    const buttonColor = ref('#afb0b2')
     const goBack = () => {
       window.history.go(-1)
     }
@@ -59,6 +59,7 @@ export default defineComponent({
       }).then(res => {
         if (res.data.code === 200) {
           articleDetail.likeCount += 1
+          buttonColor.value = 'linear-gradient(to right, rgb(17, 153, 142), rgb(56, 239, 125))'
           showSuccessToast('点赞成功')
         }
       })
@@ -67,7 +68,8 @@ export default defineComponent({
     return {
       articleDetail,
       goBack,
-      sendLikeArticle
+      sendLikeArticle,
+      buttonColor
     }
   }
 })

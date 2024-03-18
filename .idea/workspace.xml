@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="后端实体类添加@JsonSerialize(using = ToStringSerializer.class)注解，解决前端long精度丢失问题">
-      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/utils/StringToLongDeserializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/29c3ca6a-76b5-4eca-abc1-461e041593bc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/29c3ca6a-76b5-4eca-abc1-461e041593bc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="前后端点赞逻辑的简单实现">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/inside/ArticleDetailView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/inside/ArticleDetailView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/entity/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/entity/Article.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/entity/LikeArticle.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/entity/LikeArticle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/mapper/ArticleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/mapper/ArticleMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/ArticleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/resources/mapper/ArticleXml.xml" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/resources/mapper/ArticleXml.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,7 +212,7 @@
       <workItem from="1710645916443" duration="11559000" />
       <workItem from="1710680643739" duration="4783000" />
       <workItem from="1710726416304" duration="15709000" />
-      <workItem from="1710764783625" duration="6235000" />
+      <workItem from="1710764783625" duration="6786000" />
     </task>
     <task id="LOCAL-00001" summary="第一次提交，项目初始化">
       <option name="closed" value="true" />
@@ -374,7 +366,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710767648567</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="前后端点赞逻辑的简单实现">
+      <option name="closed" value="true" />
+      <created>1710771091190</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1710771091190</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -400,7 +400,8 @@
     <MESSAGE value="前端上拉刷新功能" />
     <MESSAGE value="前端文章详情界面和后端喜欢文章代码自动生成" />
     <MESSAGE value="后端实体类添加@JsonSerialize(using = ToStringSerializer.class)注解，解决前端long精度丢失问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="后端实体类添加@JsonSerialize(using = ToStringSerializer.class)注解，解决前端long精度丢失问题" />
+    <MESSAGE value="前后端点赞逻辑的简单实现" />
+    <option name="LAST_COMMIT_MESSAGE" value="前后端点赞逻辑的简单实现" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
