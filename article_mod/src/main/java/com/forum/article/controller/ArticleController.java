@@ -3,6 +3,7 @@ package com.forum.article.controller;
 import com.forum.article.entity.Article;
 import com.forum.article.result.CommonResult;
 import com.forum.article.service.ArticleService;
+import com.forum.article.vo.LikeArticleVO;
 import com.forum.article.vo.SaveArticleVO;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
@@ -40,8 +41,13 @@ public class ArticleController {
     }
 
     @PostMapping("likeArticle")
-    public CommonResult<String> likeArticle(){
-        return null;
+    public CommonResult<String> likeArticle(@RequestBody LikeArticleVO likeArticleVO) {
+        Boolean b = articleService.likeArticle(likeArticleVO);
+        if (b) {
+            return CommonResult.success("点赞成功");
+        } else {
+            return CommonResult.failed("点赞失败,请重试");
+        }
     }
 
 

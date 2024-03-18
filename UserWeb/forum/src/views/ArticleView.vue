@@ -159,6 +159,7 @@ export default defineComponent({
     const goArticleDetail = (article) => {
       // 提交 mutation 更新状态
       store.commit('setArticleDetail', article)
+      console.log(article);
       // 路由跳转到 '/articleDetail'
       router.push({ path: '/articleDetail' })
     }

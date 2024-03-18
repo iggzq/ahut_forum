@@ -1,11 +1,14 @@
 package com.forum.article.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.lang.generator.SnowflakeGenerator;
 import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.forum.article.entity.Article;
 import com.forum.article.mapper.ArticleMapper;
+import com.forum.article.mapper.LikeArticleMapper;
 import com.forum.article.service.ArticleService;
+import com.forum.article.vo.LikeArticleVO;
 import com.forum.article.vo.SaveArticleVO;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
@@ -27,6 +30,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Resource
     private ArticleMapper articleMapper;
+
+    @Resource
+    private LikeArticleMapper likeArticleMapper;
 
     @Override
     public Boolean saveArticle(SaveArticleVO saveArticleVO) {
@@ -57,5 +63,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public List<Article> getArticles(int page, int size) {
         return articleMapper.getArticleByPage(page * size, size);
+    }
+
+    @Override
+    public Boolean likeArticle(LikeArticleVO likeArticleVO) {
+        SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
+        Long next = snowflakeGenerator.next();
+//        Long loginId = (Long) StpUtil.getLoginId();
+        likeArticleVO.setId(next);
+//        likeArticleVO.setLikeUserId(loginId);
+        likeArticleMapper.insert(likeArticleVO);
+        return true;
     }
 }

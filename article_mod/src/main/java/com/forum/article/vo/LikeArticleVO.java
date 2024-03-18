@@ -1,7 +1,6 @@
 package com.forum.article.vo;
 
-import lombok.Data;
+import com.forum.article.entity.LikeArticle;
 
-@Data
-public class LikeArticleVO {
+public class LikeArticleVO extends LikeArticle {
 }
