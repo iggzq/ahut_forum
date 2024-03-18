@@ -1,7 +1,9 @@
 package com.forum.article.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.NumberDeserializers;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -30,11 +32,13 @@ public class Article implements Serializable {
     @ApiModelProperty("文章id")
     @TableId(value = "id", type = IdType.AUTO)
     @JsonSerialize(using = ToStringSerializer.class)
+    @JsonDeserialize(using = NumberDeserializers.LongDeserializer.class)
     private Long id;
 
     @ApiModelProperty("发布人ID")
     @TableField("user_id")
     @JsonSerialize(using = ToStringSerializer.class)
+    @JsonDeserialize(using = NumberDeserializers.LongDeserializer.class)
     private Long userId;
 
     @ApiModelProperty("发布人姓名")

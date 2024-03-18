@@ -18,8 +18,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id
-        , user_id, title, content, like_count, comment_count, update_time, create_time, status
+        id, user_id, title, content, like_count, comment_count, update_time, create_time, status
     </sql>
     <select id="getArticleByPage" resultType="com.forum.article.entity.Article">
         SELECT *
@@ -28,5 +27,10 @@
         ORDER BY update_time DESC
             LIMIT #{page}, #{size}
     </select>
+    <update id="addLikeNumber">
+        UPDATE article
+        SET like_count = like_count + 1
+        WHERE id = #{id}
+    </update>
 
 </mapper>

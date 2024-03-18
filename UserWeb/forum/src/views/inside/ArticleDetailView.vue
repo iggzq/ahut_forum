@@ -27,7 +27,7 @@
         />
       </template>
       <template #extra>
-        <van-button round type="success">
+        <van-button color="#1989fa" round type="success" @click="sendLikeArticle()">
           <van-icon name="good-job" />
           {{ articleDetail.likeCount }} 点赞 {{ articleDetail.commentCount }} 评论数
         </van-button>
@@ -37,8 +37,10 @@
 
 </template>
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
+import axios from 'axios'
+import { showSuccessToast } from 'vant'
 
 export default defineComponent({
   name: 'ArticleDetailView',
@@ -46,22 +48,26 @@ export default defineComponent({
   setup () {
     const store = useStore()
     const articleDetail = store.state.articleDetail
-    const name = ref('information')
-
-    function toggle () {
-      name.value = name.value === 'information'
-        ? 'checkbox-marked-circle'
-        : 'information'
-    }
 
     const goBack = () => {
       window.history.go(-1)
+    }
+    const sendLikeArticle = () => {
+      axios.post('http://localhost:8081/article/likeArticle', {
+        userId: articleDetail.userId,
+        articleId: articleDetail.id
+      }).then(res => {
+        if (res.data.code === 200) {
+          articleDetail.likeCount += 1
+          showSuccessToast('点赞成功')
+        }
+      })
     }
     console.log(articleDetail)
     return {
       articleDetail,
       goBack,
-      toggle
+      sendLikeArticle
     }
   }
 })

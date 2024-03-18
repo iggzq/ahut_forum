@@ -1023,7 +1023,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="280" parent="1" name="ahut_forum">
-      <LastIntrospectionLocalTimestamp>2024-03-18.12:47:57</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-03-18.14:07:44</LastIntrospectionLocalTimestamp>
       <CollationName>utf8_general_ci</CollationName>
     </schema>
     <user id="281" parent="1" name="root">

@@ -4,23 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="前端文章详情界面和后端喜欢文章代码自动生成">
+    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="后端实体类添加@JsonSerialize(using = ToStringSerializer.class)注解，解决前端long精度丢失问题">
+      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/utils/StringToLongDeserializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/29c3ca6a-76b5-4eca-abc1-461e041593bc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/29c3ca6a-76b5-4eca-abc1-461e041593bc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/ArticleView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/ArticleView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/ArticleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/LikeArticleController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/inside/ArticleDetailView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/inside/ArticleDetailView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/entity/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/entity/Article.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/entity/LikeArticle.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/entity/LikeArticle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/ArticleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/LikeArticleService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/mapper/ArticleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/mapper/ArticleMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/ArticleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/LikeArticleServiceImp.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/vo/LikeArticleVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/vo/LikeArticleVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/resources/mapper/ArticleXml.xml" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/resources/mapper/ArticleXml.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -218,7 +220,7 @@
       <workItem from="1710645916443" duration="11559000" />
       <workItem from="1710680643739" duration="4783000" />
       <workItem from="1710726416304" duration="15709000" />
-      <workItem from="1710764783625" duration="2797000" />
+      <workItem from="1710764783625" duration="6235000" />
     </task>
     <task id="LOCAL-00001" summary="第一次提交，项目初始化">
       <option name="closed" value="true" />
@@ -364,7 +366,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710766384562</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="后端实体类添加@JsonSerialize(using = ToStringSerializer.class)注解，解决前端long精度丢失问题">
+      <option name="closed" value="true" />
+      <created>1710767648567</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1710767648567</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -389,8 +399,13 @@
     <MESSAGE value="修复发表完成后，上拉加载失效问题" />
     <MESSAGE value="前端上拉刷新功能" />
     <MESSAGE value="前端文章详情界面和后端喜欢文章代码自动生成" />
-    <option name="LAST_COMMIT_MESSAGE" value="前端文章详情界面和后端喜欢文章代码自动生成" />
+    <MESSAGE value="后端实体类添加@JsonSerialize(using = ToStringSerializer.class)注解，解决前端long精度丢失问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="后端实体类添加@JsonSerialize(using = ToStringSerializer.class)注解，解决前端long精度丢失问题" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

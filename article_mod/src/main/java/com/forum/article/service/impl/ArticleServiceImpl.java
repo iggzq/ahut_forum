@@ -65,14 +65,20 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return articleMapper.getArticleByPage(page * size, size);
     }
 
+    /**
+     * 点赞
+     * 还未做点赞重复校验
+     */
     @Override
     public Boolean likeArticle(LikeArticleVO likeArticleVO) {
         SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
         Long next = snowflakeGenerator.next();
-//        Long loginId = (Long) StpUtil.getLoginId();
+        System.out.println(Long.valueOf(StpUtil.getLoginId().toString()));
+        Long loginId = Long.valueOf(StpUtil.getLoginId().toString());
         likeArticleVO.setId(next);
-//        likeArticleVO.setLikeUserId(loginId);
+        likeArticleVO.setLikeUserId(loginId);
         likeArticleMapper.insert(likeArticleVO);
+        articleMapper.addLikeNumber(likeArticleVO.getArticleId());
         return true;
     }
 }

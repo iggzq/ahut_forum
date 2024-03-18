@@ -17,6 +17,9 @@ import java.util.List;
 @Mapper
 public interface ArticleMapper extends BaseMapper<Article> {
 
-    public List<Article> getArticleByPage(int page, int size);
+    List<Article> getArticleByPage(int page, int size);
+
+    void addLikeNumber(Long id);
+
 
 }
