@@ -36,29 +36,36 @@
     <van-grid-item icon="photo-o" text="文字"/>
   </van-grid>
   <div class="articleContent">
-    <div v-for="item in articles" :key="item.id" class="articleShow">
-      <var-card
-        :style-vars="styleVars"
-        ripple
-      >
-        <template #subtitle>
-          <p class="itemUserName">发帖人：{{ item.userName }}</p>
-        </template>
-        <template #title>
-          <h3 class="itemTitle">{{ item.title }}</h3>
-        </template>
-        <template #description>
-          <van-text-ellipsis
-            :content="item.content"
-            class="itemContent"
-            rows="3"
-          />
-        </template>
-        <template #extra>
-          <p class="itemPopular">{{ item.likeCount }} 点赞 {{ item.commentCount }} 评论数</p>
-        </template>
-      </var-card>
-    </div>
+    <var-list
+      v-model:loading="loading"
+      :finished="finished"
+      class="itemList"
+      @load="load"
+    >
+      <div v-for="item in articles" :key="item.id" class="articleShow">
+        <var-card
+          :style-vars="styleVars"
+          ripple
+        >
+          <template #subtitle>
+            <p class="itemUserName">发帖人：{{ item.userName }}</p>
+          </template>
+          <template #title>
+            <h3 class="itemTitle">{{ item.title }}</h3>
+          </template>
+          <template #description>
+            <van-text-ellipsis
+              :content="item.content"
+              class="itemContent"
+              rows="3"
+            />
+          </template>
+          <template #extra>
+            <p class="itemPopular">{{ item.likeCount }} 点赞 {{ item.commentCount }} 评论数</p>
+          </template>
+        </var-card>
+      </div>
+    </var-list>
   </div>
 
 </template>
@@ -70,39 +77,64 @@ import { showFailToast, showSuccessToast } from 'vant'
 export default defineComponent({
   name: 'ArticleView',
   setup () {
-    const articles = ref([{}])
+    const articles = ref([])
     const writeArticle = ref({
       title: '',
       content: ''
     })
-    const getArticlesByPage = () => {
-      console.log('getArticlesByPage')
-      axios.get('http://172.20.10.3:8081/article/getArticles?page=0&size=10').then(res => {
-        console.log(res)
-        articles.value = res.data.data
-      })
+    const loading = ref(true)
+    const finished = ref(false)
+    const page = ref(-1)
+    const size = ref(5)
+
+    async function load () {
+      console.log('load')
+      page.value++
+      const result = await getArticlesByPage(page.value, size.value)
+      if (!result) {
+        page.value--
+      }
+      loading.value = false
     }
-    const sendArticle = () => {
-      axios.post('http://172.20.10.3:8081/article/saveArticle', {
+
+    const getArticlesByPage = async (page, size) => {
+      console.log('getArticlesByPage')
+      const fetchedArticles = await axios.get('http://172.20.10.3:8081/article/getArticles?page=' + page + '&size=' + size)
+      if (fetchedArticles.data.data.length === 5) {
+        finished.value = false
+        articles.value = [...articles.value, ...fetchedArticles.data.data]
+        return true;
+      } else if (fetchedArticles.data.code === 200 && fetchedArticles.data.data.length < 5 && fetchedArticles.data.data.length > 0) {
+        articles.value = [...articles.value, ...fetchedArticles.data.data]
+        finished.value = true
+        return true
+      } else if (fetchedArticles.data.code === 200 && fetchedArticles.data.data.length === 0) {
+        finished.value = true
+        return false
+      }
+    }
+    const sendArticle = async () => {
+      const res = await axios.post('http://172.20.10.3:8081/article/saveArticle', {
         title: writeArticle.value.title,
         content: writeArticle.value.content
-      }).then(res => {
-        if (res.data.code === 200) {
-          writeArticle.value.title = ''
-          writeArticle.value.content = ''
-          showSuccessToast('发布成功');
-          bottom.value = false
-          getArticlesByPage()
-        } else {
-          showFailToast('发布失败，请重试');
-        }
       })
+      if (res.data.code === 200) {
+        writeArticle.value.title = ''
+        writeArticle.value.content = ''
+        page.value = 0
+        articles.value = []
+        showSuccessToast('发布成功')
+        bottom.value = false
+        await getArticlesByPage(0, 5)
+      } else {
+        showFailToast('发布失败，请重试')
+      }
     }
     const styleVars = {
       '--card-footer-padding': '0 5px'
     }
     onMounted(() => {
-      getArticlesByPage()
+      load()
     })
     const bottom = ref(false)
     return {
@@ -110,12 +142,21 @@ export default defineComponent({
       styleVars,
       bottom,
       writeArticle,
-      sendArticle
+      sendArticle,
+      load,
+      loading,
+      finished
     }
   }
 })
 </script>
 <style scoped>
+.itemList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
 .articleShow {
   width: 95%;
   margin-top: 5px;

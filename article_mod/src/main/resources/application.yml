@@ -29,3 +29,6 @@ sa-token:
 logging:
   level:
     sql: trace
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -56,7 +56,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public List<Article> getArticles(int page, int size) {
-        page = page * size;
-        return articleMapper.getArticleByPage(page, size - 1);
+        return articleMapper.getArticleByPage(page * size, size);
     }
 }
