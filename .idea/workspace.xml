@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="加入动画组件">
-      <change beforePath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/generate/MybatisPlusGenerate.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/generate/MybatisPlusGenerate.java" afterDir="false" />
+    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="后端文章评论功能代码自动生成">
+      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/vo/CommentArticleVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/29c3ca6a-76b5-4eca-abc1-461e041593bc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/29c3ca6a-76b5-4eca-abc1-461e041593bc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/ArticleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/ArticleServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,7 +215,7 @@
       <workItem from="1710726416304" duration="15709000" />
       <workItem from="1710764783625" duration="7960000" />
       <workItem from="1710812131797" duration="2439000" />
-      <workItem from="1710825726496" duration="1236000" />
+      <workItem from="1710825726496" duration="1965000" />
     </task>
     <task id="LOCAL-00001" summary="第一次提交，项目初始化">
       <option name="closed" value="true" />
@@ -396,7 +401,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710826186178</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="后端文章评论功能代码自动生成">
+      <option name="closed" value="true" />
+      <created>1710827075242</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1710827075242</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -425,7 +438,8 @@
     <MESSAGE value="前后端点赞逻辑的简单实现" />
     <MESSAGE value="前端点赞优化" />
     <MESSAGE value="加入动画组件" />
-    <option name="LAST_COMMIT_MESSAGE" value="加入动画组件" />
+    <MESSAGE value="后端文章评论功能代码自动生成" />
+    <option name="LAST_COMMIT_MESSAGE" value="后端文章评论功能代码自动生成" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

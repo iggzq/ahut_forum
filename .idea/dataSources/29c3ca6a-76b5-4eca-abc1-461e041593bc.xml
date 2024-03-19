@@ -1023,7 +1023,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="280" parent="1" name="ahut_forum">
-      <LastIntrospectionLocalTimestamp>2024-03-19.05:41:36</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-03-19.05:51:00</LastIntrospectionLocalTimestamp>
       <CollationName>utf8_general_ci</CollationName>
     </schema>
     <user id="281" parent="1" name="root">
@@ -1192,11 +1192,14 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <column id="311" parent="287" name="update_time">
       <Comment>修改时间</Comment>
       <DasType>datetime|0s</DasType>
+      <NotNull>1</NotNull>
       <Position>10</Position>
     </column>
     <column id="312" parent="287" name="status">
       <Comment>文章状态</Comment>
       <DasType>tinyint|0s</DasType>
+      <DefaultExpression>0</DefaultExpression>
+      <NotNull>1</NotNull>
       <Position>11</Position>
     </column>
     <index id="313" parent="287" name="PRIMARY">
@@ -1296,6 +1299,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <column id="330" parent="289" name="status">
       <Comment>用户账户状态</Comment>
       <DasType>tinyint|0s</DasType>
+      <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>

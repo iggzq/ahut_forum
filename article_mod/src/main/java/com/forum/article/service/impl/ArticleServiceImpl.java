@@ -6,8 +6,10 @@ import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.forum.article.entity.Article;
 import com.forum.article.mapper.ArticleMapper;
+import com.forum.article.mapper.CommentArticleMapper;
 import com.forum.article.mapper.LikeArticleMapper;
 import com.forum.article.service.ArticleService;
+import com.forum.article.vo.CommentArticleVO;
 import com.forum.article.vo.LikeArticleVO;
 import com.forum.article.vo.SaveArticleVO;
 import jakarta.annotation.Resource;
@@ -33,6 +35,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Resource
     private LikeArticleMapper likeArticleMapper;
+
+    @Resource
+    private CommentArticleMapper commentArticleMapper;
 
     @Override
     public Boolean saveArticle(SaveArticleVO saveArticleVO) {
@@ -67,7 +72,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     /**
      * 点赞
-     * 还未做点赞重复校验
+     * 还未做点赞重复校验和异常处理
      */
     @Override
     public Boolean likeArticle(LikeArticleVO likeArticleVO) {
@@ -79,6 +84,26 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         likeArticleVO.setLikeUserId(loginId);
         likeArticleMapper.insert(likeArticleVO);
         articleMapper.addLikeNumber(likeArticleVO.getArticleId());
+        return true;
+    }
+
+    /**
+     * 发布评论
+     * 还未做异常处理
+     */
+    @Override
+    public Boolean commentArticle(CommentArticleVO commentArticleVO) {
+        SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
+        Long id = snowflakeGenerator.next();
+        LocalDateTime createUpdateTime = LocalDateTime.now();
+        Long userId = Long.valueOf(StpUtil.getLoginId().toString());
+        String userName = StpUtil.getExtra("name").toString();
+        commentArticleVO.setId(id);
+        commentArticleVO.setUserId(userId);
+        commentArticleVO.setUserName(userName);
+        commentArticleVO.setCreateTime(createUpdateTime);
+        commentArticleVO.setUpdateTime(createUpdateTime);
+        commentArticleMapper.insert(commentArticleVO);
         return true;
     }
 }

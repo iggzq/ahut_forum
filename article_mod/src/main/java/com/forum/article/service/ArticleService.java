@@ -2,6 +2,7 @@ package com.forum.article.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.forum.article.entity.Article;
+import com.forum.article.vo.CommentArticleVO;
 import com.forum.article.vo.LikeArticleVO;
 import com.forum.article.vo.SaveArticleVO;
 
@@ -22,4 +23,6 @@ public interface ArticleService extends IService<Article> {
     List<Article> getArticles(int page, int size);
 
     Boolean likeArticle(LikeArticleVO likeArticleVO);
+
+    Boolean commentArticle(CommentArticleVO commentArticleVO);
 }
