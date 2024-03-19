@@ -27,6 +27,7 @@ import Varlet from '@varlet/ui'
 import '@varlet/ui/es/style'
 import axios from 'axios'
 import '@/assets/text/text.css'
+import 'animate.css'
 import 'animate.css/animate.min.css'
 
 const app = createApp(App)

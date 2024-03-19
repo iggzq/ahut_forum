@@ -1,73 +1,75 @@
 <template>
-  <van-sticky :offset-top="0">
-    <van-nav-bar title="新鲜事">
-      <template #right>
-        <van-icon name="edit" size="25" @click="bottom = true"/>
-      </template>
-    </van-nav-bar>
-  </van-sticky>
-  <var-popup v-model:show="bottom" :default-style="true" position="bottom">
-    <van-nav-bar title="新鲜事">
-      <template #left>
-        <van-icon name="cross" size="25" @click="bottom = false"/>
-      </template>
-      <template #right>
-        <van-button style="height: 30px" type="primary" @click="sendArticle">发布</van-button>
-      </template>
-    </van-nav-bar>
-    <van-cell-group inset>
-      <van-field v-model="writeArticle.title" placeholder="请输入帖子标题"/>
-      <van-field
-        v-model="writeArticle.content"
-        autosize
-        class="writeArticleContent"
-        maxlength="50"
-        placeholder="请输入帖子正文"
-        rows="2"
-        show-word-limit
-        type="textarea"
-      />
-    </van-cell-group>
-  </var-popup>
-  <van-grid>
-    <van-grid-item icon="photo-o" text="文字"/>
-    <van-grid-item icon="photo-o" text="文字"/>
-    <van-grid-item icon="photo-o" text="文字"/>
-    <van-grid-item icon="photo-o" text="文字"/>
-  </van-grid>
-  <div class="articleContent">
-    <var-pull-refresh v-model="refreshing" @refresh="refresh">
-      <var-list
-        v-model:loading="loading"
-        :finished="finished"
-        class="itemList"
-        @load="load"
-      >
-        <div v-for="item in articles" :key="item.id" class="articleShow">
-          <var-card
-            ripple
-            @click="goArticleDetail(item)"
-          >
-            <template #subtitle>
-              <p class="itemUserName">发帖人：{{ item.userName }}</p>
-            </template>
-            <template #title>
-              <h3 class="itemTitle">{{ item.title }}</h3>
-            </template>
-            <template #description>
-              <van-text-ellipsis
-                :content="item.content"
-                class="itemContent"
-                rows="3"
-              />
-            </template>
-            <template #extra>
-              <p class="itemPopular">{{ item.likeCount }} 点赞 {{ item.commentCount }} 评论数</p>
-            </template>
-          </var-card>
-        </div>
-      </var-list>
-    </var-pull-refresh>
+  <div :class="totalShow">
+    <van-sticky :offset-top="0">
+      <van-nav-bar title="新鲜事">
+        <template #right>
+          <van-icon name="edit" size="25" @click="bottom = true"/>
+        </template>
+      </van-nav-bar>
+    </van-sticky>
+    <var-popup v-model:show="bottom" :default-style="true" position="bottom">
+      <van-nav-bar title="新鲜事">
+        <template #left>
+          <van-icon name="cross" size="25" @click="bottom = false"/>
+        </template>
+        <template #right>
+          <van-button style="height: 30px" type="primary" @click="sendArticle">发布</van-button>
+        </template>
+      </van-nav-bar>
+      <van-cell-group inset>
+        <van-field v-model="writeArticle.title" placeholder="请输入帖子标题"/>
+        <van-field
+          v-model="writeArticle.content"
+          autosize
+          class="writeArticleContent"
+          maxlength="50"
+          placeholder="请输入帖子正文"
+          rows="2"
+          show-word-limit
+          type="textarea"
+        />
+      </van-cell-group>
+    </var-popup>
+    <van-grid>
+      <van-grid-item icon="photo-o" text="文字"/>
+      <van-grid-item icon="photo-o" text="文字"/>
+      <van-grid-item icon="photo-o" text="文字"/>
+      <van-grid-item icon="photo-o" text="文字"/>
+    </van-grid>
+    <div class="articleContent">
+      <var-pull-refresh v-model="refreshing" @refresh="refresh">
+        <var-list
+          v-model:loading="loading"
+          :finished="finished"
+          class="itemList"
+          @load="load"
+        >
+          <div v-for="item in articles" :key="item.id" class="articleShow">
+            <var-card
+              ripple
+              @click="goArticleDetail(item)"
+            >
+              <template #subtitle>
+                <p class="itemUserName">发帖人：{{ item.userName }}</p>
+              </template>
+              <template #title>
+                <h3 class="itemTitle">{{ item.title }}</h3>
+              </template>
+              <template #description>
+                <van-text-ellipsis
+                  :content="item.content"
+                  class="itemContent"
+                  rows="3"
+                />
+              </template>
+              <template #extra>
+                <p class="itemPopular">{{ item.likeCount }} 点赞 {{ item.commentCount }} 评论数</p>
+              </template>
+            </var-card>
+          </div>
+        </var-list>
+      </var-pull-refresh>
+    </div>
   </div>
 
 </template>
@@ -81,6 +83,7 @@ import { useStore } from 'vuex'
 export default defineComponent({
   name: 'ArticleView',
   setup () {
+    const totalShow = ref('');
     const articles = ref([])
     const writeArticle = ref({
       title: '',
@@ -121,7 +124,7 @@ export default defineComponent({
 
     const getArticlesByPage = async (page, size) => {
       console.log('getArticlesByPage')
-      const fetchedArticles = await axios.get('http://localhost:8081/article/getArticles?page=' + page + '&size=' + size)
+      const fetchedArticles = await axios.get('http://172.20.10.3:8081/article/getArticles?page=' + page + '&size=' + size)
       if (fetchedArticles.data.data.length === 5) {
         finished.value = false
         articles.value = [...articles.value, ...fetchedArticles.data.data]
@@ -136,7 +139,7 @@ export default defineComponent({
       }
     }
     const sendArticle = async () => {
-      const res = await axios.post('http://localhost:8081/article/saveArticle', {
+      const res = await axios.post('http://172.20.10.3:8081/article/saveArticle', {
         title: writeArticle.value.title,
         content: writeArticle.value.content
       })
@@ -173,7 +176,8 @@ export default defineComponent({
       finished,
       goArticleDetail,
       refresh,
-      refreshing
+      refreshing,
+      totalShow
     }
   }
 })

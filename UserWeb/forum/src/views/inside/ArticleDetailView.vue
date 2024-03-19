@@ -1,40 +1,41 @@
 <template>
-  <van-sticky>
-    <van-nav-bar left-arrow title="标题">
-      <template #left>
-        <van-icon name="arrow-left" @click="goBack"/>
-      </template>
-      <template #right>
-        <van-icon name="search" size="18"/>
-      </template>
-    </van-nav-bar>
-  </van-sticky>
-  <div class="articleShow">
-    <var-card
-      class="articleDetailShow"
-    >
-      <template #subtitle>
-        <p class="itemUserName">发帖人：{{ articleDetail.userName }}</p>
-      </template>
-      <template #title>
-        <h3 class="itemTitle">{{ articleDetail.title }}</h3>
-      </template>
-      <template #description>
-        <van-text-ellipsis
-          :content="articleDetail.content"
-          class="itemContent"
-          rows="3"
-        />
-      </template>
-      <template #extra>
-        <van-button :color="buttonColor" round type="success" @click="sendLikeArticle()">
-          <van-icon name="good-job" />
-          {{ articleDetail.likeCount }} 点赞 {{ articleDetail.commentCount }} 评论数
-        </van-button>
-      </template>
-    </var-card>
-  </div>
+  <div class="animate__animated animate__fadeInRight">
+    <van-sticky>
+      <van-nav-bar left-arrow title="文章详情">
+        <template #left>
+          <van-icon name="arrow-left" @click="goBack"/>
+        </template>
+      </van-nav-bar>
+    </van-sticky>
+    <div class="animate__animated  articleShow">
+      <var-card
+        class="articleDetailShow"
+      >
+        <template #subtitle>
+          <p class="itemUserName">发帖人：{{ articleDetail.userName }}</p>
+        </template>
+        <template #title>
+          <h3 class="itemTitle">{{ articleDetail.title }}</h3>
+        </template>
+        <template #description>
+          <van-text-ellipsis
+            :content="articleDetail.content"
+            class="itemContent"
+            collapse-text="收起"
+            expand-text="展开"
+            rows="4"
+          />
+        </template>
+        <template #extra>
+          <van-button :color="buttonColor" round type="success" @click="sendLikeArticle()">
+            <van-icon :class="likeAnimate" name="good-job"/>
+            {{ articleDetail.likeCount }} 点赞 {{ articleDetail.commentCount }} 评论数
+          </van-button>
+        </template>
+      </var-card>
 
+    </div>
+  </div>
 </template>
 <script>
 import { defineComponent, ref } from 'vue'
@@ -49,17 +50,19 @@ export default defineComponent({
     const store = useStore()
     const articleDetail = store.state.articleDetail
     const buttonColor = ref('#afb0b2')
+    const likeAnimate = ref('')
     const goBack = () => {
       window.history.go(-1)
     }
     const sendLikeArticle = () => {
-      axios.post('http://localhost:8081/article/likeArticle', {
+      axios.post('http://172.20.10.3:8081/article/likeArticle', {
         userId: articleDetail.userId,
         articleId: articleDetail.id
       }).then(res => {
         if (res.data.code === 200) {
           articleDetail.likeCount += 1
           buttonColor.value = 'linear-gradient(to right, rgb(17, 153, 142), rgb(56, 239, 125))'
+          likeAnimate.value = 'animate__animated animate__wobble'
           showSuccessToast('点赞成功')
         }
       })
@@ -69,7 +72,8 @@ export default defineComponent({
       articleDetail,
       goBack,
       sendLikeArticle,
-      buttonColor
+      buttonColor,
+      likeAnimate
     }
   }
 })
