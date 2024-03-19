@@ -36,7 +36,7 @@ public class MybatisPlusGenerate {
                     builder.parent("com.forum.article")
                             .pathInfo(Collections.singletonMap(OutputFile.xml, "/home/lituizi/IdeaProjects/ahut_forum/article_mod/src/main/resources/mapper"));
                 }).strategyConfig(builder -> {
-                    builder.addInclude("like_article").enableCapitalMode();
+                    builder.addInclude("comment_article").enableCapitalMode();
                     builder.entityBuilder()
                             .enableLombok()
                             .enableFileOverride()
@@ -44,7 +44,7 @@ public class MybatisPlusGenerate {
                             .enableTableFieldAnnotation()
                             .addTableFills(
                                     new Column("create_time", FieldFill.INSERT),
-                                    new Column("modify_time", FieldFill.INSERT_UPDATE)
+                                    new Column("update_time", FieldFill.INSERT_UPDATE)
                             );   //添加表字段填充，"create_time"字段自动填充为插入时间，"modify_time"字段自动填充为插入修改时间
                     builder.controllerBuilder()
                             .enableRestStyle()
