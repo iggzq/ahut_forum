@@ -4,6 +4,7 @@ const AutoImport = require('unplugin-auto-import/webpack')
 const { VarletImportResolver } = require('@varlet/import-resolver')
 const { resolve } = require('path')
 module.exports = defineConfig({
+  publicPath: './',
   devServer: {
     port: 8000,
   },

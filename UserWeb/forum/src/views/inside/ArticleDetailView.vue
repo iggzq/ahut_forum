@@ -6,7 +6,7 @@
       </template>
     </van-nav-bar>
   </van-sticky>
-  <div class="animate__animated animate__fadeInRight">
+  <div class="animate__animated animate__fadeInRight articleDetail">
     <div class="animate__animated  articleShow">
       <var-card
         class="articleDetailShow"
@@ -174,6 +174,11 @@ export default defineComponent({
   display: flex;
   justify-content: space-around;
 }
+.articleDetail{
+  position: fixed;
+  top: 40px;
+  margin-top: 6px;
+}
 
 .articleDetailShow {
   margin-top: 5px;
@@ -233,7 +238,7 @@ export default defineComponent({
 
 .bottomArea {
   position: fixed;
-  bottom: 0px;
+  bottom: 0;
   width: 100%;
   height: 50px;
   background-color: white;
@@ -256,7 +261,7 @@ export default defineComponent({
   justify-content: space-around;
 }
 
-.writeCommentContent{
+.writeCommentContent {
   height: 50vh;
 }
 </style>

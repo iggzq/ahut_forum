@@ -6,10 +6,15 @@
   </van-tabbar>
 </template>
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   setup () {
+    const router = useRouter()
+    onMounted(() => {
+      router.push('/article')
+    })
     return {
       active: 0
     }

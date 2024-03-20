@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="后端文章评论发送功能">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="前端评论发送界面">
+      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/CommentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/CommentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/CommentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/MenuView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/MenuView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/inside/ArticleDetailView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/inside/ArticleDetailView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserWeb/forum/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/vue.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,6 +88,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.build.executor&quot;: &quot;Run&quot;,
     &quot;npm.serve.executor&quot;: &quot;Run&quot;,
     &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
@@ -110,6 +115,9 @@
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.forum.article.service" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -169,8 +177,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.serve" />
-        <item itemvalue="应用程序.MybatisPlusGenerate" />
         <item itemvalue="npm.build" />
+        <item itemvalue="应用程序.MybatisPlusGenerate" />
         <item itemvalue="HTTP 请求.generated-requests | #14" />
         <item itemvalue="HTTP 请求.ArticleHttp | #1" />
       </list>
@@ -213,7 +221,8 @@
       <workItem from="1710764783625" duration="7960000" />
       <workItem from="1710812131797" duration="2439000" />
       <workItem from="1710825726496" duration="9036000" />
-      <workItem from="1710920216737" duration="4740000" />
+      <workItem from="1710920216737" duration="6153000" />
+      <workItem from="1710927571908" duration="2061000" />
     </task>
     <task id="LOCAL-00001" summary="第一次提交，项目初始化">
       <option name="closed" value="true" />
@@ -415,7 +424,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710827818550</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="前端评论发送界面">
+      <option name="closed" value="true" />
+      <created>1710925273544</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1710925273544</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -446,7 +463,8 @@
     <MESSAGE value="加入动画组件" />
     <MESSAGE value="后端文章评论功能代码自动生成" />
     <MESSAGE value="后端文章评论发送功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="后端文章评论发送功能" />
+    <MESSAGE value="前端评论发送界面" />
+    <option name="LAST_COMMIT_MESSAGE" value="前端评论发送界面" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
