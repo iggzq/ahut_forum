@@ -20,7 +20,6 @@ public class CommonResult<T> {
         this.data = data;
     }
 
-
     public static <T> CommonResult<T> success(T data) {
         return new CommonResult<T>(200, "success", data);
     }

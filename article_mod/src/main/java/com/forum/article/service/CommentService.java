@@ -3,6 +3,8 @@ package com.forum.article.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.forum.article.entity.CommentArticle;
 
+import java.util.List;
+
 /**
  * <p>
  * 存储文章数据 服务类
@@ -12,5 +14,7 @@ import com.forum.article.entity.CommentArticle;
  * @since 2024-03-16 09:27:56
  */
 public interface CommentService extends IService<CommentArticle> {
+
+    List<CommentArticle> getCommentsById(String id);
 
 }

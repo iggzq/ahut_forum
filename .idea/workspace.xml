@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="前端评论发送界面">
-      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/CommentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/CommentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/CommentServiceImpl.java" afterDir="false" />
+    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="前端ArticleDetailView.vue中限定绑定动画组件的位置，避免造成页面组件混乱。MenuView.vue自动跳转到Article后端搭建Comment框架。">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/MenuView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/MenuView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/inside/ArticleDetailView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/inside/ArticleDetailView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/vue.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/entity/LikeArticle.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/entity/LikeArticle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/CommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/CommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/CommentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/utils/StringToLongDeserializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/forum/article/result/CommonResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/forum/article/result/CommonResult.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +127,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="npm.serve">
+  <component name="RunManager" selected="Spring Boot.ArticleApp">
     <configuration name="MybatisPlusGenerate" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.forum.user.generate.MybatisPlusGenerate" />
       <module name="user_mod" />
@@ -141,10 +141,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ArticleHttp | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/article_mod/src/test/java/com/forum/article/ArticleHttp.http" requestIdentifier="#1" runType="运行单个请求">
+    <configuration name="generated-requests | #15" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="15" requestIdentifier="#15" runType="运行单个请求">
       <method v="2" />
     </configuration>
-    <configuration name="generated-requests | #14" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="14" requestIdentifier="#14" runType="运行单个请求">
+    <configuration name="generated-requests | #16" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="16" requestIdentifier="#16" runType="运行单个请求">
       <method v="2" />
     </configuration>
     <configuration name="ArticleApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
@@ -176,11 +176,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP 请求.generated-requests | #15" />
+        <item itemvalue="HTTP 请求.generated-requests | #16" />
         <item itemvalue="npm.serve" />
         <item itemvalue="npm.build" />
         <item itemvalue="应用程序.MybatisPlusGenerate" />
-        <item itemvalue="HTTP 请求.generated-requests | #14" />
-        <item itemvalue="HTTP 请求.ArticleHttp | #1" />
       </list>
     </recent_temporary>
   </component>
@@ -222,7 +222,11 @@
       <workItem from="1710812131797" duration="2439000" />
       <workItem from="1710825726496" duration="9036000" />
       <workItem from="1710920216737" duration="6153000" />
-      <workItem from="1710927571908" duration="2061000" />
+      <workItem from="1710927571908" duration="2358000" />
+      <workItem from="1710941070568" duration="1562000" />
+      <workItem from="1711009652780" duration="48000" />
+      <workItem from="1711009714523" duration="22000" />
+      <workItem from="1711009762131" duration="1037000" />
     </task>
     <task id="LOCAL-00001" summary="第一次提交，项目初始化">
       <option name="closed" value="true" />
@@ -432,7 +436,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710925273544</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="前端ArticleDetailView.vue中限定绑定动画组件的位置，避免造成页面组件混乱。MenuView.vue自动跳转到Article后端搭建Comment框架。">
+      <option name="closed" value="true" />
+      <created>1710929915672</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1710929915672</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -464,7 +476,8 @@
     <MESSAGE value="后端文章评论功能代码自动生成" />
     <MESSAGE value="后端文章评论发送功能" />
     <MESSAGE value="前端评论发送界面" />
-    <option name="LAST_COMMIT_MESSAGE" value="前端评论发送界面" />
+    <MESSAGE value="前端ArticleDetailView.vue中限定绑定动画组件的位置，避免造成页面组件混乱。MenuView.vue自动跳转到Article后端搭建Comment框架。" />
+    <option name="LAST_COMMIT_MESSAGE" value="前端ArticleDetailView.vue中限定绑定动画组件的位置，避免造成页面组件混乱。MenuView.vue自动跳转到Article后端搭建Comment框架。" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
