@@ -6,8 +6,8 @@
       </template>
     </van-nav-bar>
   </van-sticky>
-  <div class="animate__animated animate__fadeInRight articleDetail">
-    <div class="animate__animated  articleShow">
+  <div class="articleDetail">
+    <div class="articleShow">
       <var-card
         class="articleDetailShow"
       >
@@ -34,10 +34,20 @@
         </template>
       </var-card>
     </div>
-    <div class="commentShow">
-      <var-card class="commentDetailShow">
+    <div v-if="skeletonShow" class="skeletonShow">
+      <var-card class="skeletonShowCard">
         <template #description>
           <van-skeleton :row="3" class="commentSkeleton" title/>
+        </template>
+      </var-card>
+    </div>
+    <div v-for="(comment, index) in comments" :key="index" class="commentShow">
+      <var-card v-if="comments.length > 0" class="commentCard" ripple>
+        <template #title>
+          <p class="commentUserName">{{ comment.userName }}说：</p>
+        </template>
+        <template #description>
+          <p class="commentContent">{{ comment.comment }}</p>
         </template>
       </var-card>
     </div>
@@ -56,8 +66,8 @@
         @click="showWriteComment"
       />
       <div class="bottomCommentIcon">
-        <van-button round type="success">
-          <van-icon name="guide-o" size="24px" @click="sendComment"/>
+        <van-button round style="width: 50px;height: 39px" type="success">
+          <van-icon name="guide-o" size="20px" @click="sendComment"/>
         </van-button>
       </div>
     </div>
@@ -88,7 +98,7 @@
 </template>
 <script>
 
-import { defineComponent, nextTick, ref, watch } from 'vue'
+import { defineComponent, nextTick, onMounted, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import axios from 'axios'
 import { showSuccessToast } from 'vant'
@@ -106,6 +116,8 @@ export default defineComponent({
     const writeComment = ref({
       comment: ''
     })
+    const comments = ref([])
+    const skeletonShow = ref(true)
     const goBack = () => {
       window.history.go(-1)
     }
@@ -152,7 +164,15 @@ export default defineComponent({
       },
       { immediate: true }
     )
-    console.log(articleDetail)
+    onMounted(() => {
+      axios.get('http://172.20.10.3:8081/comment/getCommentById?id=' + articleDetail.id).then(res => {
+        if (res.data.code === 200) {
+          comments.value = res.data.data
+          console.log(comments.value)
+          skeletonShow.value = false
+        }
+      })
+    })
     return {
       articleDetail,
       goBack,
@@ -163,7 +183,9 @@ export default defineComponent({
       sendComment,
       showWriteComment,
       bottom,
-      writeComment
+      writeComment,
+      skeletonShow,
+      comments
     }
   }
 })
@@ -174,10 +196,12 @@ export default defineComponent({
   display: flex;
   justify-content: space-around;
 }
-.articleDetail{
-  position: fixed;
+
+.articleDetail {
   top: 40px;
   margin-top: 6px;
+  height: 88vh;
+  overflow-y: auto;
 }
 
 .articleDetailShow {
@@ -213,14 +237,14 @@ export default defineComponent({
   color: darkgrey;
 }
 
-.commentShow {
+.skeletonShow {
   width: 100%;
   display: flex;
   margin-top: 10px;
   justify-content: space-around;
 }
 
-.commentDetailShow {
+.skeletonShowCard {
   margin-top: 5px;
   width: 95%;
 }
@@ -240,8 +264,9 @@ export default defineComponent({
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 50px;
+  height: 6vh;
   background-color: white;
+  overflow: hidden;
 }
 
 .bottomContent {
@@ -263,5 +288,29 @@ export default defineComponent({
 
 .writeCommentContent {
   height: 50vh;
+}
+
+.commentShow {
+  width: 100%;
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-around;
+}
+
+.commentCard {
+  margin-top: 5px;
+  width: 95%;
+}
+
+.commentUserName {
+  padding-left: 5px;
+  font-family: 'DYH';
+  text-align: left;
+  margin-bottom: 7px;
+}
+
+.commentContent {
+  text-align: left;
+  padding-left: 5px;
 }
 </style>

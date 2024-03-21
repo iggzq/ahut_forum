@@ -18,7 +18,8 @@ public class CommentController {
     private CommentService commentService;
 
     @GetMapping("getCommentById")
-    public CommonResult<List<CommentArticle>> getCommentById(@RequestParam String id) {
+    public CommonResult<List<CommentArticle>> getCommentById(@RequestParam String id) throws InterruptedException {
+        Thread.sleep(3000);
         List<CommentArticle> commentsById = commentService.getCommentsById(id);
         return CommonResult.success(commentsById);
     }

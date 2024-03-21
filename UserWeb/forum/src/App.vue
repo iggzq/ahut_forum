@@ -10,6 +10,7 @@
   text-align: center;
   color: #2c3e50;
   height: 100%;
+  overflow: hidden;
   background-color: #f4f6f9;
 }
 

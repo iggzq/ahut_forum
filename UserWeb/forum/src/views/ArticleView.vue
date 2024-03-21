@@ -30,45 +30,47 @@
         />
       </van-cell-group>
     </var-popup>
-    <van-grid>
-      <van-grid-item icon="photo-o" text="文字"/>
-      <van-grid-item icon="photo-o" text="文字"/>
-      <van-grid-item icon="photo-o" text="文字"/>
-      <van-grid-item icon="photo-o" text="文字"/>
-    </van-grid>
-    <div class="articleContent">
-      <var-pull-refresh v-model="refreshing" @refresh="refresh">
-        <var-list
-          v-model:loading="loading"
-          :finished="finished"
-          class="itemList"
-          @load="load"
-        >
-          <div v-for="item in articles" :key="item.id" class="articleShow">
-            <var-card
-              ripple
-              @click="goArticleDetail(item)"
-            >
-              <template #subtitle>
-                <p class="itemUserName">发帖人：{{ item.userName }}</p>
-              </template>
-              <template #title>
-                <h3 class="itemTitle">{{ item.title }}</h3>
-              </template>
-              <template #description>
-                <van-text-ellipsis
-                  :content="item.content"
-                  class="itemContent"
-                  rows="3"
-                />
-              </template>
-              <template #extra>
-                <p class="itemPopular">{{ item.likeCount }} 点赞 {{ item.commentCount }} 评论数</p>
-              </template>
-            </var-card>
-          </div>
-        </var-list>
-      </var-pull-refresh>
+    <div class="mainContent">
+      <van-grid>
+        <van-grid-item icon="photo-o" text="文字"/>
+        <van-grid-item icon="photo-o" text="文字"/>
+        <van-grid-item icon="photo-o" text="文字"/>
+        <van-grid-item icon="photo-o" text="文字"/>
+      </van-grid>
+      <div class="articleContent">
+        <var-pull-refresh v-model="refreshing" @refresh="refresh">
+          <var-list
+            v-model:loading="loading"
+            :finished="finished"
+            class="itemList"
+            @load="load"
+          >
+            <div v-for="item in articles" :key="item.id" class="articleShow">
+              <var-card
+                ripple
+                @click="goArticleDetail(item)"
+              >
+                <template #subtitle>
+                  <p class="itemUserName">发帖人：{{ item.userName }}</p>
+                </template>
+                <template #title>
+                  <h3 class="itemTitle">{{ item.title }}</h3>
+                </template>
+                <template #description>
+                  <van-text-ellipsis
+                    :content="item.content"
+                    class="itemContent"
+                    rows="3"
+                  />
+                </template>
+                <template #extra>
+                  <p class="itemPopular">{{ item.likeCount }} 点赞 {{ item.commentCount }} 评论数</p>
+                </template>
+              </var-card>
+            </div>
+          </var-list>
+        </var-pull-refresh>
+      </div>
     </div>
   </div>
 
@@ -83,7 +85,7 @@ import { useStore } from 'vuex'
 export default defineComponent({
   name: 'ArticleView',
   setup () {
-    const totalShow = ref('');
+    const totalShow = ref('')
     const articles = ref([])
     const writeArticle = ref({
       title: '',
@@ -162,7 +164,7 @@ export default defineComponent({
     const goArticleDetail = (article) => {
       // 提交 mutation 更新状态
       store.commit('setArticleDetail', article)
-      console.log(article);
+      console.log(article)
       // 路由跳转到 '/articleDetail'
       router.push({ path: '/articleDetail' })
     }
@@ -187,6 +189,10 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+.mainContent{
+  height: calc(100vh - 96px);
+  overflow-y: auto;
 }
 
 .articleShow {
