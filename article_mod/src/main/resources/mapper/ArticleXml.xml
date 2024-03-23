@@ -32,5 +32,10 @@
         SET like_count = like_count + 1
         WHERE id = #{id}
     </update>
+    <update id="addCommentNumber">
+        UPDATE article
+        SET comment_count = comment_count + 1
+        WHERE id = #{id}
+    </update>
 
 </mapper>

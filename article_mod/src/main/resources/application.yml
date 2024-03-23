@@ -1,16 +1,19 @@
 server:
   port: 8081
   tomcat:
-    accept-count: 400
+    accept-count: 10000
     threads:
-      max: 400
-      min-spare: 100
+      max: 500
+      min-spare: 50
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ahut_forum?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai
     username: root
     password: root
+    hikari:
+      maximum-pool-size: 1000
+      minimum-idle: 100
   data:
     redis:
       database: 1

@@ -21,5 +21,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
 
     void addLikeNumber(Long id);
 
+    void addCommentNumber(Long id);
+
 
 }

@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="GROUP_BY_SEVERITY" value="true" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="前端评论页面，后端增加redis缓存">
+    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="前端优化评论界面">
+      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/constants/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/ArticleView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/ArticleView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/inside/ArticleDetailView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/inside/ArticleDetailView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/mapper/ArticleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/mapper/ArticleMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/ArticleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/CommentArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/CommentArticleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/user/controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/user/entity/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/user/mapper/UserMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/user/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/user/service/impl/UserServiceImp.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/article_mod/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/resources/mapper/ArticleXml.xml" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/resources/mapper/ArticleXml.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +154,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="npm.serve">
+  <component name="RunManager" selected="Spring Boot.ArticleApp">
     <configuration name="generated-requests | #19" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="19" requestIdentifier="#19" runType="运行单个请求">
       <method v="2" />
     </configuration>
@@ -238,7 +252,10 @@
       <workItem from="1711071805609" duration="16951000" />
       <workItem from="1711105371861" duration="5725000" />
       <workItem from="1711179389536" duration="913000" />
-      <workItem from="1711180317626" duration="7014000" />
+      <workItem from="1711180317626" duration="8508000" />
+      <workItem from="1711194337260" duration="69000" />
+      <workItem from="1711194413523" duration="151000" />
+      <workItem from="1711194572504" duration="6844000" />
     </task>
     <task id="LOCAL-00001" summary="第一次提交，项目初始化">
       <option name="closed" value="true" />
@@ -480,16 +497,34 @@
       <option name="project" value="LOCAL" />
       <updated>1711179458661</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="前端优化评论界面">
+      <option name="closed" value="true" />
+      <created>1711192829823</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1711192829823</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="User增加字段自定义安全问题和答案" />
     <MESSAGE value="初步完成注册功能" />
     <MESSAGE value="前端创建项目" />
     <MESSAGE value="前端注册功能" />
@@ -514,20 +549,10 @@
     <MESSAGE value="后端获取评论接口" />
     <MESSAGE value="前端滚动栏优化，文章评论的基本显示" />
     <MESSAGE value="前端评论页面，后端增加redis缓存" />
-    <option name="LAST_COMMIT_MESSAGE" value="前端评论页面，后端增加redis缓存" />
+    <MESSAGE value="前端优化评论界面" />
+    <option name="LAST_COMMIT_MESSAGE" value="前端优化评论界面" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/CommentArticleServiceImpl.java</url>
-          <line>48</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

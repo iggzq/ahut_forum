@@ -61,25 +61,25 @@
       </u-comment>
     </div>
   </div>
-<!--  <div class="bottomArea">-->
-<!--    <div class="bottomContent">-->
-<!--      <van-field-->
-<!--        v-model="writeComment.comment"-->
-<!--        autosize-->
-<!--        placeholder="请输入留言"-->
-<!--        readonly-->
-<!--        rows="2"-->
-<!--        show-word-limit-->
-<!--        type="textarea"-->
-<!--        @click="showWriteComment"-->
-<!--      />-->
-<!--      <div class="bottomCommentIcon">-->
-<!--        <van-button round style="width: 50px;height: 39px" type="success">-->
-<!--          <van-icon name="guide-o" size="20px" @click="sendComment"/>-->
-<!--        </van-button>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
+  <!--  <div class="bottomArea">-->
+  <!--    <div class="bottomContent">-->
+  <!--      <van-field-->
+  <!--        v-model="writeComment.comment"-->
+  <!--        autosize-->
+  <!--        placeholder="请输入留言"-->
+  <!--        readonly-->
+  <!--        rows="2"-->
+  <!--        show-word-limit-->
+  <!--        type="textarea"-->
+  <!--        @click="showWriteComment"-->
+  <!--      />-->
+  <!--      <div class="bottomCommentIcon">-->
+  <!--        <van-button round style="width: 50px;height: 39px" type="success">-->
+  <!--          <van-icon name="guide-o" size="20px" @click="sendComment"/>-->
+  <!--        </van-button>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
   <var-popup v-model:show="bottom" :default-style="true" position="bottom">
     <van-nav-bar title="留言">
       <template #left>
@@ -149,9 +149,10 @@ export default defineComponent({
         comment: writeComment.value.comment
       }).then(res => {
         if (res.data.code === 200) {
+          console.log(321)
+          articleDetail.commentCount += 1
           bottom.value = false
           writeComment.value.comment = ''
-          articleDetail.commentCount += 1
           showSuccessToast('评论成功')
         }
       })
@@ -225,8 +226,9 @@ export default defineComponent({
         articleId: comment.articleId
       }).then(res => {
         if (res.data.code === 200) {
-          getComments();
+          getComments()
           finish(comment)
+          articleDetail.commentCount += 1
           showSuccessToast('评论成功')
         }
       })

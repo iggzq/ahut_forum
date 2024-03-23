@@ -15,11 +15,15 @@ import com.forum.article.vo.LikeArticleVO;
 import com.forum.article.vo.SaveArticleVO;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+
+import static com.forum.article.constants.Constants.ARTICLE_COMMENTS_REDIS_PRE_KEY;
+import static com.forum.article.constants.Constants.LOGIN_USERNAME;
 
 /**
  * <p>
@@ -41,6 +45,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Resource
     private CommentArticleMapper commentArticleMapper;
 
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
+
     @Override
     public Boolean saveArticle(SaveArticleVO saveArticleVO) {
         Article article = new Article();
@@ -49,7 +56,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         long articleId = IdUtil.getSnowflakeNextId();
         LocalDateTime now = LocalDateTime.now();
         long loginId = StpUtil.getLoginIdAsLong();
-        String name = (String) StpUtil.getExtra("name");
+        String name = (String) StpUtil.getExtra(LOGIN_USERNAME);
         //补充数据
         article.setId(articleId);
         article.setUserName(name);
@@ -99,13 +106,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         Long id = snowflakeGenerator.next();
         Date createUpdateTime = DateTime.now();
         Long userId = Long.valueOf(StpUtil.getLoginId().toString());
-        String userName = StpUtil.getExtra("name").toString();
+        String userName = StpUtil.getExtra(LOGIN_USERNAME).toString();
         commentArticle.setId(id);
         commentArticle.setUid(userId);
         commentArticle.setUsername(userName);
         commentArticle.setCreateTime(createUpdateTime);
         commentArticle.setUpdateTime(createUpdateTime);
         commentArticleMapper.insert(commentArticle);
+        articleMapper.addCommentNumber(commentArticle.getArticleId());
+        redisTemplate.delete(ARTICLE_COMMENTS_REDIS_PRE_KEY + commentArticle.getArticleId());
         return true;
     }
 }

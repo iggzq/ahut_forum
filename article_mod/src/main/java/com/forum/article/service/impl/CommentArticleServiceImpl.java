@@ -18,6 +18,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.forum.article.constants.Constants.ARTICLE_COMMENTS_REDIS_PRE_KEY;
+
 /**
  * <p>
  * 文章评论 服务实现类
@@ -39,11 +41,11 @@ public class CommentArticleServiceImpl extends ServiceImpl<CommentArticleMapper,
     public List<CommentArticleVO> getCommentsById(String id) {
         List<CommentArticleVO> commentArticleVOS = new ArrayList<>();
         List<CommentArticle> commentArticles = new ArrayList<>();
-        if (Objects.isNull(redisTemplate.opsForValue().get("comment:articleId:" + id))) {
+        if (Objects.isNull(redisTemplate.opsForValue().get(ARTICLE_COMMENTS_REDIS_PRE_KEY + id))) {
             LambdaQueryWrapper<CommentArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper.eq(CommentArticle::getArticleId, id);
             commentArticles = commentArticleMapper.selectList(lambdaQueryWrapper);
-            redisTemplate.opsForValue().set("comment:articleId:" + id, commentArticles);
+            redisTemplate.opsForValue().set(ARTICLE_COMMENTS_REDIS_PRE_KEY + id, commentArticles);
         } else {
             List<LinkedHashMap<String, String>> linkedHashMaps = (List<LinkedHashMap<String, String>>) redisTemplate.opsForValue().get("comment:articleId:" + id);
             commentArticles = linkedHashMaps.stream().map(linkedHashMap -> {
