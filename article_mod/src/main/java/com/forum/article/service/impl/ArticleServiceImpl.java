@@ -1,15 +1,16 @@
 package com.forum.article.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.date.DateTime;
 import cn.hutool.core.lang.generator.SnowflakeGenerator;
 import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.forum.article.entity.Article;
+import com.forum.article.entity.CommentArticle;
 import com.forum.article.mapper.ArticleMapper;
 import com.forum.article.mapper.CommentArticleMapper;
 import com.forum.article.mapper.LikeArticleMapper;
 import com.forum.article.service.ArticleService;
-import com.forum.article.vo.CommentArticleVO;
 import com.forum.article.vo.LikeArticleVO;
 import com.forum.article.vo.SaveArticleVO;
 import jakarta.annotation.Resource;
@@ -17,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -92,18 +94,18 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * 还未做异常处理
      */
     @Override
-    public Boolean commentArticle(CommentArticleVO commentArticleVO) {
+    public Boolean commentArticle(CommentArticle commentArticle) {
         SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
         Long id = snowflakeGenerator.next();
-        LocalDateTime createUpdateTime = LocalDateTime.now();
+        Date createUpdateTime = DateTime.now();
         Long userId = Long.valueOf(StpUtil.getLoginId().toString());
         String userName = StpUtil.getExtra("name").toString();
-        commentArticleVO.setId(id);
-        commentArticleVO.setUserId(userId);
-        commentArticleVO.setUserName(userName);
-        commentArticleVO.setCreateTime(createUpdateTime);
-        commentArticleVO.setUpdateTime(createUpdateTime);
-        commentArticleMapper.insert(commentArticleVO);
+        commentArticle.setId(id);
+        commentArticle.setUid(userId);
+        commentArticle.setUsername(userName);
+        commentArticle.setCreateTime(createUpdateTime);
+        commentArticle.setUpdateTime(createUpdateTime);
+        commentArticleMapper.insert(commentArticle);
         return true;
     }
 }

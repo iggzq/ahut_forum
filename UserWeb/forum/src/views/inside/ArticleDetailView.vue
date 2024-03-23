@@ -41,23 +41,28 @@
         </template>
       </var-card>
     </div>
-    <div v-for="(comment, index) in comments" :key="index" class="commentShow">
-      <var-card v-if="comments.length > 0" class="commentCard" ripple>
-        <template #title>
-          <p class="commentUserName">{{ comment.userName }}说：</p>
-        </template>
-        <template #description>
-          <p class="commentContent">{{ comment.comment }}</p>
-        </template>
-      </var-card>
-    </div>
+    <!--    <div v-for="(comment, index) in comments" :key="index" class="commentShow">-->
+    <!--      <var-card v-if="comments.length > 0" class="commentCard" ripple>-->
+    <!--        <template #title>-->
+    <!--          <p class="commentUserName">{{ comment.userName }}说：</p>-->
+    <!--        </template>-->
+    <!--        <template #description>-->
+    <!--          <p class="commentContent">{{ comment.comment }}</p>-->
+    <!--        </template>-->
+    <!--      </var-card>-->
+    <!--    </div>-->
+    <u-comment :config="config" @like="like" @submit="submit">
+      <!-- <template>导航栏卡槽</template> -->
+      <!-- <template #info>用户信息卡槽</template> -->
+      <!-- <template #card>用户信息卡片卡槽</template> -->
+      <!-- <template #opearte>操作栏卡槽</template> -->
+    </u-comment>
   </div>
   <div class="bottomArea">
     <div class="bottomContent">
       <van-field
         v-model="writeComment.comment"
         autosize
-        maxlength="50"
         placeholder="请输入留言"
         readonly
         rows="2"
@@ -98,10 +103,11 @@
 </template>
 <script>
 
-import { defineComponent, nextTick, onMounted, ref, watch } from 'vue'
+import { defineComponent, nextTick, onMounted, reactive, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import axios from 'axios'
 import { showSuccessToast } from 'vant'
+import emoji from '@/assets/emoji'
 
 export default defineComponent({
   name: 'ArticleDetailView',
@@ -164,15 +170,75 @@ export default defineComponent({
       },
       { immediate: true }
     )
-    onMounted(() => {
-      axios.get('http://172.20.10.3:8081/comment/getCommentById?id=' + articleDetail.id).then(res => {
+    const getComments = async () => {
+      await axios.get('http://172.20.10.3:8081/comment/getCommentById?id=' + articleDetail.id).then(res => {
         if (res.data.code === 200) {
+          console.log(res.data.data)
           comments.value = res.data.data
+          config.comments = comments.value
           console.log(comments.value)
           skeletonShow.value = false
         }
       })
+    }
+    onMounted(() => {
+      getComments()
     })
+
+    const config = reactive({
+      user: {
+        id: 1,
+        username: 'jack',
+        avatar: '',
+        // 评论id数组 建议:存储方式用户uid和评论id组成关系,根据用户uid来获取对应点赞评论id,然后加入到数组中返回
+        likeIds: [1, 2, 3]
+      },
+      emoji: emoji,
+      comments: [],
+      total: 100,
+      showLevel: false,
+      showAddress: false,
+      placeholder: '欢迎评论',
+      showHomeLink: false
+    })
+
+    // 提交评论事件
+    const submit = async ({
+      content,
+      parentId,
+      finish
+    }) => {
+      const comment = {
+        parentId: parentId,
+        likes: 0,
+        content: content,
+        articleId: articleDetail.id,
+        user: {
+          username: ''
+        }
+      }
+      await axios.post('http://172.20.10.3:8081/article/commentArticle', {
+        parentId: comment.parentId,
+        content: comment.content,
+        articleId: comment.articleId
+      }).then(res => {
+        if (res.data.code === 200) {
+          getComments();
+          finish(comment)
+          showSuccessToast('评论成功')
+        }
+      })
+    }
+    // 点赞按钮事件 将评论id返回后端判断是否点赞，然后在处理点赞状态
+    const like = (id, finish) => {
+      console.log('点赞: ' + id)
+      setTimeout(() => {
+        finish()
+      }, 200)
+    }
+
+    console
+      .log(config.comments)
     return {
       articleDetail,
       goBack,
@@ -185,7 +251,10 @@ export default defineComponent({
       bottom,
       writeComment,
       skeletonShow,
-      comments
+      comments,
+      like,
+      submit,
+      config
     }
   }
 })
@@ -312,5 +381,9 @@ export default defineComponent({
 .commentContent {
   text-align: left;
   padding-left: 5px;
+}
+
+#app {
+  text-align: left;
 }
 </style>

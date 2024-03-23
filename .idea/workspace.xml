@@ -4,12 +4,159 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="后端获取评论接口">
+    <list default="true" id="2d3898a1-d4c0-4e64-8ad4-63207d96b8c1" name="更改" comment="前端滚动栏优化，文章评论的基本显示">
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/aixin.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/aojiao.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/baoquan.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/baoyou.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/chaokaixin.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/chaozan.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/chigua.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/cold.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/dacall.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/daku.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/daxiao.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/daxiao2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/doge.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/dq.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/dx.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/eyes.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/fanbaiyan.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/fengdou.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/ganga.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/goutou.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/guai.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/guzhang.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/han.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/haqian.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/heart.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/hejiu.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/huaji.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/hx.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/jianxiao.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/jingxi.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/jingya.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/kouzhao.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/kungou.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/layanjing.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/lianhong.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/like.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/linghunchuqiao.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/miaoa.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/mojing.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/nanguo.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/oh.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/ok.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/piezui.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/shengbing.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/shengli.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/shengqi.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/sikao.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/sl.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/smile.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/star.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/teeth.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/teng.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tiaopi.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/touxiao.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tu.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tushe.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/bishi.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/bizui.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/chan.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/dai.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/daku.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/dalao.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/dalian.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/dianzan.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/doge.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/facai.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/fanu.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/ganga.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/guilian.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/guzhang.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/haixiu.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/huaixiao.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/jingxia.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/keai.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/koubi.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/kun.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/lenmo.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/liubixue.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/liuhan.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/liulei.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/miantian.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/mudengkoudai.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/nanguo.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/outu.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/qinqin.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/se.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/shengbing.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/shengqi.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/shuizhe.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/sikao.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/tiaokan.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/tiaopi.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/touxiao.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/tuxue.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/tv.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/weiqu.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/weixiao.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/wenhao.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/wunai.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/xiaoku.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/xieyanxiao.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/yiwen.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/yun.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/zaijian.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/zhoumei.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/tv/zhuakuang.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/weiqu.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/wulian.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/wulianku.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/wuyan.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/wy.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/xia.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/xiaoku.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/xq.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/xusheng.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/yh.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/yinxian.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/zaijian.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/zanghu.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/zhichi.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/public/static/emoji/zhuakuang.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/src/assets/emoji.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/TestView.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/config/CustomDateSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/config/RedisConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/CommentArticleController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/CommentArticleService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/CommentArticleServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/vo/ReplyListVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/vo/ReplyVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/vo/UserVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/29c3ca6a-76b5-4eca-abc1-461e041593bc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/29c3ca6a-76b5-4eca-abc1-461e041593bc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/ArticleView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/ArticleView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/router/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserWeb/forum/src/views/inside/ArticleDetailView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/forum/src/views/inside/ArticleDetailView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserWeb/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserWeb/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/UserWeb/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/controller/CommentController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/entity/CommentArticle.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/entity/CommentArticle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/mapper/CommentArticleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/mapper/CommentArticleMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/ArticleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/CommentService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/ArticleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/CommentServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/vo/CommentArticleVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/vo/CommentArticleVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article_mod/src/main/resources/mapper/CommentArticleXml.xml" beforeDir="false" afterPath="$PROJECT_DIR$/article_mod/src/main/resources/mapper/CommentArticleXml.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/generate/MybatisPlusGenerate.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_mod/src/main/java/com/forum/user/generate/MybatisPlusGenerate.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +170,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTTP Request" />
+        <option value="Vue Composition API Component" />
         <option value="Class" />
       </list>
     </option>
@@ -47,69 +195,80 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "HTTP 请求.ArticleHttp | #1.executor": "Run",
-    "HTTP 请求.ArticleHttp | #2.executor": "Run",
-    "HTTP 请求.generated-requests | #10.executor": "Run",
-    "HTTP 请求.generated-requests | #11.executor": "Run",
-    "HTTP 请求.generated-requests | #14.executor": "Run",
-    "HTTP 请求.generated-requests | #15.executor": "Run",
-    "HTTP 请求.generated-requests | #16.executor": "Run",
-    "HTTP 请求.generated-requests | #3.executor": "Run",
-    "HTTP 请求.generated-requests | #4.executor": "Run",
-    "HTTP 请求.generated-requests | #5.executor": "Run",
-    "HTTP 请求.generated-requests | #6.executor": "Run",
-    "HTTP 请求.generated-requests | #7.executor": "Run",
-    "HTTP 请求.generated-requests | #8.executor": "Run",
-    "HTTP 请求.user | #1.executor": "Run",
-    "HTTP 请求.user | #2.executor": "Run",
-    "JUnit.RedisTest.test.executor": "Run",
-    "JUnit.RedisTest.testRedisSave.executor": "Run",
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.App.executor": "Run",
-    "Spring Boot.ArticleApp.executor": "Run",
-    "Spring Boot.UserApplication (1).executor": "Run",
-    "Spring Boot.UserApplication.executor": "Run",
-    "git-widget-placeholder": "main",
-    "jdk.selected.JAVA_MODULE": "corretto-17",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/lituizi/下载/sa-token-master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.build.executor": "Run",
-    "npm.serve.executor": "Run",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/snap/intellij-idea-ultimate/486/plugins/javascript-impl/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true",
-    "应用程序.App.executor": "Run",
-    "应用程序.MybatisPlusGenerate.executor": "Run"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;HTTP 请求.ArticleHttp | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.ArticleHttp | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #10.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #11.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #14.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #15.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #16.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #17.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #19.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #21.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #22.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #3.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #4.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #5.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #6.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #7.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #8.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.user | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.user | #2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RedisTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RedisTest.testRedisSave.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.App.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ArticleApp.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-17&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/lituizi/下载/undraw-ui-master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.build.executor&quot;: &quot;Run&quot;,
+    &quot;npm.serve.executor&quot;: &quot;Run&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/snap/intellij-idea-ultimate/488/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
+    &quot;应用程序.App.executor&quot;: &quot;Run&quot;,
+    &quot;应用程序.MybatisPlusGenerate.executor&quot;: &quot;Run&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql_aurora_aws",
-      "redis"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql_aurora_aws&quot;,
+      &quot;redis&quot;
+    ],
+    &quot;vue.recent.templates&quot;: [
+      &quot;Vue Composition API Component&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/UserWeb/forum/src/assets" />
+      <recent name="$PROJECT_DIR$/UserWeb/forum/public" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/UserWeb/forum/src/assets/text" />
     </key>
@@ -117,6 +276,7 @@
       <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.forum.article.config" />
       <recent name="com.forum.article.service" />
     </key>
   </component>
@@ -128,23 +288,13 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.ArticleApp">
-    <configuration name="MybatisPlusGenerate" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.forum.user.generate.MybatisPlusGenerate" />
-      <module name="user_mod" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.forum.user.generate.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="generated-requests | #15" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="15" requestIdentifier="#15" runType="运行单个请求">
+    <configuration name="generated-requests | #19" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="19" requestIdentifier="#19" runType="运行单个请求">
       <method v="2" />
     </configuration>
-    <configuration name="generated-requests | #16" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="16" requestIdentifier="#16" runType="运行单个请求">
+    <configuration name="generated-requests | #21" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="21" requestIdentifier="#21" runType="运行单个请求">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #22" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="22" requestIdentifier="#22" runType="运行单个请求">
       <method v="2" />
     </configuration>
     <configuration name="ArticleApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
@@ -154,15 +304,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/UserWeb/forum/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="build" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
+    <configuration name="UserApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="user_mod" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.forum.user.run.UserApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.forum.user.run.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="serve" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/UserWeb/forum/package.json" />
@@ -176,11 +329,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="HTTP 请求.generated-requests | #15" />
-        <item itemvalue="HTTP 请求.generated-requests | #16" />
+        <item itemvalue="HTTP 请求.generated-requests | #21" />
         <item itemvalue="npm.serve" />
-        <item itemvalue="npm.build" />
-        <item itemvalue="应用程序.MybatisPlusGenerate" />
+        <item itemvalue="HTTP 请求.generated-requests | #22" />
+        <item itemvalue="HTTP 请求.generated-requests | #19" />
+        <item itemvalue="Spring Boot.UserApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -226,7 +379,11 @@
       <workItem from="1710941070568" duration="1562000" />
       <workItem from="1711009652780" duration="48000" />
       <workItem from="1711009714523" duration="22000" />
-      <workItem from="1711009762131" duration="6829000" />
+      <workItem from="1711009762131" duration="6965000" />
+      <workItem from="1711019964561" duration="13997000" />
+      <workItem from="1711071690098" duration="107000" />
+      <workItem from="1711071805609" duration="16951000" />
+      <workItem from="1711105371861" duration="5725000" />
     </task>
     <task id="LOCAL-00001" summary="第一次提交，项目初始化">
       <option name="closed" value="true" />
@@ -452,7 +609,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711010987946</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="前端滚动栏优化，文章评论的基本显示">
+      <option name="closed" value="true" />
+      <created>1711016693837</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1711016693837</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -461,7 +626,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="第一次提交，项目初始化" />
     <MESSAGE value="项目初始化,搭建架构" />
     <MESSAGE value="User增加字段自定义安全问题和答案" />
     <MESSAGE value="初步完成注册功能" />
@@ -486,9 +650,21 @@
     <MESSAGE value="前端评论发送界面" />
     <MESSAGE value="前端ArticleDetailView.vue中限定绑定动画组件的位置，避免造成页面组件混乱。MenuView.vue自动跳转到Article后端搭建Comment框架。" />
     <MESSAGE value="后端获取评论接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="后端获取评论接口" />
+    <MESSAGE value="前端滚动栏优化，文章评论的基本显示" />
+    <option name="LAST_COMMIT_MESSAGE" value="前端滚动栏优化，文章评论的基本显示" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/article_mod/src/main/java/com/forum/article/service/impl/CommentArticleServiceImpl.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

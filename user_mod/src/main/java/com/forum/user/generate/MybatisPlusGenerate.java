@@ -48,9 +48,11 @@ public class MybatisPlusGenerate {
                             );   //添加表字段填充，"create_time"字段自动填充为插入时间，"modify_time"字段自动填充为插入修改时间
                     builder.controllerBuilder()
                             .enableRestStyle()
+                            .enableFileOverride()
                             .enableHyphenStyle();
                     builder.serviceBuilder()
                             .formatServiceFileName("%sService")
+                            .enableFileOverride()
                             .formatServiceImplFileName("%sServiceImp");
                     builder.mapperBuilder()
                             .enableFileOverride()

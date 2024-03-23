@@ -1023,7 +1023,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="280" parent="1" name="ahut_forum">
-      <LastIntrospectionLocalTimestamp>2024-03-19.05:51:00</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-03-22.10:08:06</LastIntrospectionLocalTimestamp>
       <CollationName>utf8_general_ci</CollationName>
     </schema>
     <user id="281" parent="1" name="root">
@@ -1144,7 +1144,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="303" parent="287" name="user_id">
+    <column id="303" parent="287" name="u_id">
       <Comment>评论人id</Comment>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
@@ -1156,7 +1156,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="305" parent="287" name="to_user_comment_id">
+    <column id="305" parent="287" name="parentId">
       <Comment>被评论人评论id</Comment>
       <DasType>bigint|0s</DasType>
       <Position>4</Position>
@@ -1166,32 +1166,33 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DasType>bigint|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="307" parent="287" name="to_user_name">
-      <Comment>被评论人姓名</Comment>
-      <DasType>varchar(40)|0s</DasType>
-      <Position>6</Position>
-    </column>
-    <column id="308" parent="287" name="article_id">
+    <column id="307" parent="287" name="article_id">
       <Comment>文章id</Comment>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
-      <Position>7</Position>
+      <Position>6</Position>
     </column>
-    <column id="309" parent="287" name="comment">
+    <column id="308" parent="287" name="content">
       <Comment>文章评论内容</Comment>
       <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
+      <Position>7</Position>
+    </column>
+    <column id="309" parent="287" name="likes">
+      <Comment>赞数</Comment>
+      <DasType>int|0s</DasType>
+      <DefaultExpression>0</DefaultExpression>
       <Position>8</Position>
     </column>
     <column id="310" parent="287" name="create_time">
       <Comment>评论创建时间</Comment>
-      <DasType>datetime|0s</DasType>
+      <DasType>date|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
     <column id="311" parent="287" name="update_time">
       <Comment>修改时间</Comment>
-      <DasType>datetime|0s</DasType>
+      <DasType>date|0s</DasType>
       <NotNull>1</NotNull>
       <Position>10</Position>
     </column>

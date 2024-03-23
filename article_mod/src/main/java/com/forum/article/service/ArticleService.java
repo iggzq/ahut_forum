@@ -2,7 +2,7 @@ package com.forum.article.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.forum.article.entity.Article;
-import com.forum.article.vo.CommentArticleVO;
+import com.forum.article.entity.CommentArticle;
 import com.forum.article.vo.LikeArticleVO;
 import com.forum.article.vo.SaveArticleVO;
 
@@ -24,5 +24,5 @@ public interface ArticleService extends IService<Article> {
 
     Boolean likeArticle(LikeArticleVO likeArticleVO);
 
-    Boolean commentArticle(CommentArticleVO commentArticleVO);
+    Boolean commentArticle(CommentArticle commentArticle);
 }

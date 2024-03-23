@@ -1,9 +1,9 @@
 package com.forum.article.controller;
 
 import com.forum.article.entity.Article;
+import com.forum.article.entity.CommentArticle;
 import com.forum.article.result.CommonResult;
 import com.forum.article.service.ArticleService;
-import com.forum.article.vo.CommentArticleVO;
 import com.forum.article.vo.LikeArticleVO;
 import com.forum.article.vo.SaveArticleVO;
 import jakarta.annotation.Resource;
@@ -52,8 +52,8 @@ public class ArticleController {
     }
 
     @PostMapping("commentArticle")
-    public CommonResult<String> commentArticle(@RequestBody CommentArticleVO commentArticleVO) {
-        Boolean b = articleService.commentArticle(commentArticleVO);
+    public CommonResult<String> commentArticle(@RequestBody CommentArticle commentArticle) {
+        Boolean b = articleService.commentArticle(commentArticle);
         if (b) {
             return CommonResult.success("评论成功");
         } else {

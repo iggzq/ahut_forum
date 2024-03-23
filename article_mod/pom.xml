@@ -66,7 +66,6 @@
             <artifactId>sa-token-jwt</artifactId>
             <version>1.37.0</version>
         </dependency>
-
     </dependencies>
 
     <build>

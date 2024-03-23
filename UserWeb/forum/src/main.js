@@ -29,12 +29,14 @@ import axios from 'axios'
 import '@/assets/text/text.css'
 import 'animate.css'
 import 'animate.css/animate.min.css'
+import UComment from 'undraw-ui'
+import 'undraw-ui/dist/style.css'
 
 const app = createApp(App)
 app.use(Form).use(Button).use(Field).use(Toast).use(store).use(router)
   .use(Swipe).use(SwipeItem).use(Tabbar).use(TabbarItem).use(Tab).use(Tabs).use(NavBar)
   .use(Grid).use(GridItem).use(Skeleton).use(Varlet).use(Tag).use(Sticky).use(TextEllipsis)
-  .use(Icon)
+  .use(Icon).use(UComment)
   .mount('#app')
 axios.defaults.baseURL = 'http://172.20.10.3:8080/'
 
