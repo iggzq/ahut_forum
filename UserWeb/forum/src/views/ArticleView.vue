@@ -114,13 +114,13 @@ export default defineComponent({
       page.value = 0
       finished.value = false
       articles.value = []
-      loading.value = true
+      loading.value = false
+      refreshing.value = true
       const result = await getArticlesByPage(0, 5)
       if (!result) {
         showFailToast('加载失败')
       } else {
         refreshing.value = false
-        loading.value = false
       }
     }
 
@@ -203,6 +203,7 @@ export default defineComponent({
 
 .articleContent {
   width: 100vw;
+  height: calc(100vh - 182px);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;

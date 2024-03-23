@@ -34,13 +34,7 @@
         </template>
       </var-card>
     </div>
-    <div v-if="skeletonShow" class="skeletonShow">
-      <var-card class="skeletonShowCard">
-        <template #description>
-          <van-skeleton :row="3" class="commentSkeleton" title/>
-        </template>
-      </var-card>
-    </div>
+
     <!--    <div v-for="(comment, index) in comments" :key="index" class="commentShow">-->
     <!--      <var-card v-if="comments.length > 0" class="commentCard" ripple>-->
     <!--        <template #title>-->
@@ -51,32 +45,41 @@
     <!--        </template>-->
     <!--      </var-card>-->
     <!--    </div>-->
-    <u-comment :config="config" @like="like" @submit="submit">
-      <!-- <template>导航栏卡槽</template> -->
-      <!-- <template #info>用户信息卡槽</template> -->
-      <!-- <template #card>用户信息卡片卡槽</template> -->
-      <!-- <template #opearte>操作栏卡槽</template> -->
-    </u-comment>
-  </div>
-  <div class="bottomArea">
-    <div class="bottomContent">
-      <van-field
-        v-model="writeComment.comment"
-        autosize
-        placeholder="请输入留言"
-        readonly
-        rows="2"
-        show-word-limit
-        type="textarea"
-        @click="showWriteComment"
-      />
-      <div class="bottomCommentIcon">
-        <van-button round style="width: 50px;height: 39px" type="success">
-          <van-icon name="guide-o" size="20px" @click="sendComment"/>
-        </van-button>
-      </div>
+    <div>
+      <u-comment :config="config" @like="like" @submit="submit">
+        <!-- <template>导航栏卡槽</template> -->
+        <!-- <template #info>用户信息卡槽</template> -->
+        <!-- <template #card>用户信息卡片卡槽</template> -->
+        <!-- <template #opearte>操作栏卡槽</template> -->
+        <div v-if="skeletonShow" class="skeletonShow">
+          <var-card class="skeletonShowCard">
+            <template #description>
+              <van-skeleton :row="3" class="commentSkeleton" title/>
+            </template>
+          </var-card>
+        </div>
+      </u-comment>
     </div>
   </div>
+<!--  <div class="bottomArea">-->
+<!--    <div class="bottomContent">-->
+<!--      <van-field-->
+<!--        v-model="writeComment.comment"-->
+<!--        autosize-->
+<!--        placeholder="请输入留言"-->
+<!--        readonly-->
+<!--        rows="2"-->
+<!--        show-word-limit-->
+<!--        type="textarea"-->
+<!--        @click="showWriteComment"-->
+<!--      />-->
+<!--      <div class="bottomCommentIcon">-->
+<!--        <van-button round style="width: 50px;height: 39px" type="success">-->
+<!--          <van-icon name="guide-o" size="20px" @click="sendComment"/>-->
+<!--        </van-button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
   <var-popup v-model:show="bottom" :default-style="true" position="bottom">
     <van-nav-bar title="留言">
       <template #left>
@@ -154,7 +157,6 @@ export default defineComponent({
       })
     }
     const showWriteComment = () => {
-      console.log(123)
       bottom.value = true
     }
     watch(() => bottom.value,
@@ -237,8 +239,7 @@ export default defineComponent({
       }, 200)
     }
 
-    console
-      .log(config.comments)
+    console.log(config.comments)
     return {
       articleDetail,
       goBack,
@@ -267,8 +268,6 @@ export default defineComponent({
 }
 
 .articleDetail {
-  top: 40px;
-  margin-top: 6px;
   height: 88vh;
   overflow-y: auto;
 }
@@ -307,9 +306,7 @@ export default defineComponent({
 }
 
 .skeletonShow {
-  width: 100%;
-  display: flex;
-  margin-top: 10px;
+  width: 93vw;
   justify-content: space-around;
 }
 
