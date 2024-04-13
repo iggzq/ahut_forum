@@ -118,7 +118,11 @@ public class CommentArticleServiceImpl extends ServiceImpl<CommentArticleMapper,
         lambdaQueryWrapper.eq(CommentArticle::getStatus, UNREAD);
         List<CommentArticle> commentArticles = commentArticleMapper.selectList(lambdaQueryWrapper);
         List<CommentUserVO> commentUserVos = new ArrayList<>();
-        BeanUtils.copyProperties(commentArticles, commentUserVos);
+        commentArticles.forEach(commentArticle -> {
+            CommentUserVO commentUserVO = new CommentUserVO();
+            BeanUtils.copyProperties(commentArticle, commentUserVO);
+            commentUserVos.add(commentUserVO);
+    });
         return commentUserVos;
     }
 }

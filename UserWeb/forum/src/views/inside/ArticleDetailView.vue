@@ -61,48 +61,6 @@
       </u-comment>
     </div>
   </div>
-  <!--  <div class="bottomArea">-->
-  <!--    <div class="bottomContent">-->
-  <!--      <van-field-->
-  <!--        v-model="writeComment.comment"-->
-  <!--        autosize-->
-  <!--        placeholder="请输入留言"-->
-  <!--        readonly-->
-  <!--        rows="2"-->
-  <!--        show-word-limit-->
-  <!--        type="textarea"-->
-  <!--        @click="showWriteComment"-->
-  <!--      />-->
-  <!--      <div class="bottomCommentIcon">-->
-  <!--        <van-button round style="width: 50px;height: 39px" type="success">-->
-  <!--          <van-icon name="guide-o" size="20px" @click="sendComment"/>-->
-  <!--        </van-button>-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </div>-->
-  <var-popup v-model:show="bottom" :default-style="true" position="bottom">
-    <van-nav-bar title="留言">
-      <template #left>
-        <van-icon name="cross" size="25" @click="bottom = false"/>
-      </template>
-      <template #right>
-        <van-button style="height: 30px" type="primary" @click="sendComment">发布</van-button>
-      </template>
-    </van-nav-bar>
-    <van-cell-group inset>
-      <van-field
-        v-model="writeComment.comment"
-        :autofocus="true"
-        autosize
-        class="writeCommentContent"
-        maxlength="100"
-        placeholder="请输入留言"
-        rows="2"
-        show-word-limit
-        type="textarea"
-      />
-    </van-cell-group>
-  </var-popup>
 </template>
 <script>
 
@@ -140,21 +98,6 @@ export default defineComponent({
           buttonColor.value = 'linear-gradient(to right, rgb(17, 153, 142), rgb(56, 239, 125))'
           likeAnimate.value = 'animate__animated animate__wobble'
           showSuccessToast('点赞成功')
-        }
-      })
-    }
-    const sendComment = () => {
-      axios.post('http://172.20.10.3:8081/article/commentArticle', {
-        articleId: articleDetail.id,
-        comment: writeComment.value.comment
-      }).then(res => {
-        console.log(1)
-        console.log(writeComment.value.comment)
-        if (res.data.code === 200) {
-          articleDetail.commentCount += 1
-          bottom.value = false
-          writeComment.value.comment = ''
-          showSuccessToast('评论成功')
         }
       })
     }
@@ -208,13 +151,17 @@ export default defineComponent({
     const submit = async ({
       content,
       parentId,
+      reply,
       finish
     }) => {
+      console.log(1)
+      console.log(reply.id)
       const comment = {
         parentId: parentId,
         likes: 0,
         content: content,
         articleId: articleDetail.id,
+        toUserId: reply.uid,
         user: {
           username: ''
         }
@@ -222,7 +169,8 @@ export default defineComponent({
       await axios.post('http://172.20.10.3:8081/article/commentArticle', {
         parentId: comment.parentId,
         content: comment.content,
-        articleId: comment.articleId
+        articleId: comment.articleId,
+        toUserId: comment.toUserId
       }).then(res => {
         if (res.data.code === 200) {
           getComments()
@@ -248,7 +196,6 @@ export default defineComponent({
       buttonColor,
       likeAnimate,
       comment,
-      sendComment,
       showWriteComment,
       bottom,
       writeComment,
