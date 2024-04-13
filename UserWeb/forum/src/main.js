@@ -3,7 +3,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import {
+  Badge,
   Button,
+  Cell,
+  CellGroup,
   Field,
   Form,
   Grid,
@@ -36,9 +39,9 @@ const app = createApp(App)
 app.use(Form).use(Button).use(Field).use(Toast).use(store).use(router)
   .use(Swipe).use(SwipeItem).use(Tabbar).use(TabbarItem).use(Tab).use(Tabs).use(NavBar)
   .use(Grid).use(GridItem).use(Skeleton).use(Varlet).use(Tag).use(Sticky).use(TextEllipsis)
-  .use(Icon).use(UComment)
+  .use(Icon).use(UComment).use(Cell).use(CellGroup).use(Badge)
   .mount('#app')
-axios.defaults.baseURL = 'http://172.20.10.3:8080/'
+axios.defaults.baseURL = 'http://172.20.10.3:8081/'
 
 axios.interceptors.request.use((config) => {
   config.headers.satoken = localStorage.getItem('satoken')

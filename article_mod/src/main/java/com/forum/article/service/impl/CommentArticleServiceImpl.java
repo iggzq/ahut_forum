@@ -1,14 +1,12 @@
 package com.forum.article.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.forum.article.entity.CommentArticle;
 import com.forum.article.mapper.CommentArticleMapper;
 import com.forum.article.service.CommentArticleService;
-import com.forum.article.vo.CommentArticleVO;
-import com.forum.article.vo.ReplyListVO;
-import com.forum.article.vo.ReplyVO;
-import com.forum.article.vo.UserVO;
+import com.forum.article.vo.*;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.forum.article.constants.CommentArticleStatusConstants.UNREAD;
 import static com.forum.article.constants.Constants.ARTICLE_COMMENTS_REDIS_PRE_KEY;
 
 /**
@@ -44,6 +43,7 @@ public class CommentArticleServiceImpl extends ServiceImpl<CommentArticleMapper,
         if (Objects.isNull(redisTemplate.opsForValue().get(ARTICLE_COMMENTS_REDIS_PRE_KEY + id))) {
             LambdaQueryWrapper<CommentArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper.eq(CommentArticle::getArticleId, id);
+            lambdaQueryWrapper.orderBy(true, false, CommentArticle::getCreateTime);
             commentArticles = commentArticleMapper.selectList(lambdaQueryWrapper);
             redisTemplate.opsForValue().set(ARTICLE_COMMENTS_REDIS_PRE_KEY + id, commentArticles);
         } else {
@@ -108,5 +108,17 @@ public class CommentArticleServiceImpl extends ServiceImpl<CommentArticleMapper,
             commentArticleVOS.add(commentArticleVO);
         }
         return commentArticleVOS;
+    }
+
+    @Override
+    public List<CommentUserVO> getCommentsByUserId() {
+        Long loginId = Long.valueOf((String) StpUtil.getLoginId());
+        LambdaQueryWrapper<CommentArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(CommentArticle::getToUserId, loginId);
+        lambdaQueryWrapper.eq(CommentArticle::getStatus, UNREAD);
+        List<CommentArticle> commentArticles = commentArticleMapper.selectList(lambdaQueryWrapper);
+        List<CommentUserVO> commentUserVos = new ArrayList<>();
+        BeanUtils.copyProperties(commentArticles, commentUserVos);
+        return commentUserVos;
     }
 }

@@ -148,8 +148,9 @@ export default defineComponent({
         articleId: articleDetail.id,
         comment: writeComment.value.comment
       }).then(res => {
+        console.log(1)
+        console.log(writeComment.value.comment)
         if (res.data.code === 200) {
-          console.log(321)
           articleDetail.commentCount += 1
           bottom.value = false
           writeComment.value.comment = ''
@@ -174,12 +175,10 @@ export default defineComponent({
       { immediate: true }
     )
     const getComments = async () => {
-      await axios.get('http://172.20.10.3:8081/comment/getCommentById?id=' + articleDetail.id).then(res => {
+      await axios.get('http://172.20.10.3:8081/comment/getCommentByArticleId?id=' + articleDetail.id).then(res => {
         if (res.data.code === 200) {
-          console.log(res.data.data)
           comments.value = res.data.data
           config.comments = comments.value
-          console.log(comments.value)
           skeletonShow.value = false
         }
       })

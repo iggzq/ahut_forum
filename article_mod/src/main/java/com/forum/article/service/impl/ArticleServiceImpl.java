@@ -112,6 +112,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         commentArticle.setUsername(userName);
         commentArticle.setCreateTime(createUpdateTime);
         commentArticle.setUpdateTime(createUpdateTime);
+//        commentArticle.setToUserId(commentArticle);
         commentArticleMapper.insert(commentArticle);
         articleMapper.addCommentNumber(commentArticle.getArticleId());
         redisTemplate.delete(ARTICLE_COMMENTS_REDIS_PRE_KEY + commentArticle.getArticleId());

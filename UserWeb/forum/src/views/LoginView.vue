@@ -1,9 +1,9 @@
 <template>
   <div class="entireBody">
     <div class="inputForm">
-      <van-form style="display: block" @submit="onSubmit">
+      <van-form style="display: block; width: 100%" @submit="onSubmit">
         <van-cell-group class="infoInputForm">
-          <h1>安工大校园论坛</h1>
+          <h2 style="width: 100%; text-align: center;">安工大校园论坛</h2>
           <van-field
             v-model="name"
             :rules="[{ required: true, message: '请填写用户名' }]"
@@ -49,11 +49,10 @@ export default defineComponent({
     const router = useRouter();
     const onSubmit = (values) => {
       console.log('submit', values)
-      axios.post('/user/login', {
+      axios.post('http://172.20.10.3:8080/user/login', {
         name: name.value,
         password: password.value
       }).then(res => {
-        console.log(res.data)
         if (res.data.code === 200) {
           showSuccessToast('登陆成功')
           localStorage.setItem('satoken', res.data.data)
@@ -100,13 +99,18 @@ html, body {
 .infoInputForm {
   border-radius: 10px;
   border: 1px #42b983;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 85vw;
 }
 
-.inputField {
-  margin: 10px;
-}
 .buttons{
   display: flex;
   justify-content: space-between;
+}
+.inputField{
+  margin-top: 3px;
+  margin-bottom: 4px;
 }
 </style>

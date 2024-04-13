@@ -3,6 +3,7 @@ package com.forum.article.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.forum.article.entity.CommentArticle;
 import com.forum.article.vo.CommentArticleVO;
+import com.forum.article.vo.CommentUserVO;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ import java.util.List;
  */
 public interface CommentArticleService extends IService<CommentArticle> {
     List<CommentArticleVO> getCommentsById(String id);
+
+    List<CommentUserVO> getCommentsByUserId();
 }

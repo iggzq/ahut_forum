@@ -19,6 +19,11 @@ const routes = [
         path: '/myProfile',
         name: 'myProfile',
         component: () => import('../views/MyProfileView.vue')
+      },
+      {
+        path: '/myComments',
+        name: 'myComments',
+        component: () => import('../views/inside/MyComments.vue')
       }
     ]
   },

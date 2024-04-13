@@ -3,7 +3,7 @@
     <div class="inputForm">
       <van-form style="display: block" @submit="onSubmit">
         <van-cell-group class="infoInputForm">
-          <h2>注册</h2>
+          <h2 style="text-align: center">注册</h2>
           <van-field
             v-model="name"
             :rules="[{ required: true, message: '请填写用户名' }]"
@@ -119,9 +119,14 @@ html, body {
 .infoInputForm {
   border-radius: 10px;
   border: 1px #42b983;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 85vw;
+}
+.inputField{
+  margin-top: 3px;
+  margin-bottom: 4px;
 }
 
-.inputField {
-  margin: 10px;
-}
 </style>

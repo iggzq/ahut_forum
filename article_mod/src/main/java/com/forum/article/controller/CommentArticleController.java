@@ -3,6 +3,7 @@ package com.forum.article.controller;
 import com.forum.article.result.CommonResult;
 import com.forum.article.service.CommentArticleService;
 import com.forum.article.vo.CommentArticleVO;
+import com.forum.article.vo.CommentUserVO;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +27,16 @@ public class CommentArticleController {
     @Resource
     private CommentArticleService commentArticleService;
 
-    @GetMapping("getCommentById")
+    @GetMapping("getCommentByArticleId")
     public CommonResult<List<CommentArticleVO>> getCommentsById(@RequestParam String id) {
         List<CommentArticleVO> commentsById = commentArticleService.getCommentsById(id);
         return CommonResult.success(commentsById);
     }
+
+    @GetMapping("getCommentsByUserId")
+    public CommonResult<List<CommentUserVO>> getCommentsByUserId(){
+        return CommonResult.success(commentArticleService.getCommentsByUserId());
+    }
+
+
 }
