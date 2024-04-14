@@ -10,12 +10,14 @@ import com.forum.user.mapper.UserMapper;
 import com.forum.user.service.UserService;
 import com.forum.user.vo.LoginUserVo;
 import com.forum.user.vo.RegisterUserVo;
+import com.forum.user.vo.UserNameVo;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -66,5 +68,19 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
         } else {
             return null;
         }
+    }
+
+    @Override
+    public List<UserNameVo> getUserNames(List<Long> uids) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.select(User::getId, User::getName);
+        queryWrapper.in(User::getId, uids);
+        List<User> users = userMapper.selectList(queryWrapper);
+        return users.stream().map(user -> {
+            UserNameVo userNameVo = new UserNameVo();
+            userNameVo.setUid(user.getId());
+            userNameVo.setUsername(user.getName());
+            return userNameVo;
+        }).toList();
     }
 }

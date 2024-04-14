@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.forum.user.entity.User;
 import com.forum.user.vo.LoginUserVo;
 import com.forum.user.vo.RegisterUserVo;
+import com.forum.user.vo.UserNameVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -18,4 +21,6 @@ public interface UserService extends IService<User> {
     public void registerSave(RegisterUserVo registerUserVo);
 
     public String login(LoginUserVo loginUserVo);
+
+    List<UserNameVo> getUserNames(List<Long> uids);
 }

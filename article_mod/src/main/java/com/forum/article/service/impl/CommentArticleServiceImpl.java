@@ -3,7 +3,10 @@ package com.forum.article.service.impl;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.forum.article.entity.Article;
 import com.forum.article.entity.CommentArticle;
+import com.forum.article.feign.UserInfoFeign;
+import com.forum.article.mapper.ArticleMapper;
 import com.forum.article.mapper.CommentArticleMapper;
 import com.forum.article.service.CommentArticleService;
 import com.forum.article.vo.*;
@@ -35,6 +38,13 @@ public class CommentArticleServiceImpl extends ServiceImpl<CommentArticleMapper,
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
+
+    @Resource
+    private UserInfoFeign userInfoFeign;
+
+    @Resource
+    private ArticleMapper articleMapper;
+
 
     @Override
     public List<CommentArticleVO> getCommentsById(String id) {
@@ -113,16 +123,29 @@ public class CommentArticleServiceImpl extends ServiceImpl<CommentArticleMapper,
     @Override
     public List<CommentUserVO> getCommentsByUserId() {
         Long loginId = Long.valueOf((String) StpUtil.getLoginId());
+        //查询评论(id, articleId, uid, username, content, updateTime)
         LambdaQueryWrapper<CommentArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(CommentArticle::getToUserId, loginId);
         lambdaQueryWrapper.eq(CommentArticle::getStatus, UNREAD);
+        lambdaQueryWrapper.select(CommentArticle::getId, CommentArticle::getArticleId, CommentArticle::getUid, CommentArticle::getUsername, CommentArticle::getContent, CommentArticle::getUpdateTime);
         List<CommentArticle> commentArticles = commentArticleMapper.selectList(lambdaQueryWrapper);
+        //根据articleId查询文章(id, title)
+        List<Long> artcileIds = commentArticles.stream().map(CommentArticle::getArticleId).toList();
+        LambdaQueryWrapper<Article> articleLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        articleLambdaQueryWrapper.select(Article::getId, Article::getTitle);
+        articleLambdaQueryWrapper.in(Article::getId, artcileIds);
+        HashMap<Long,String> articleMap = new HashMap<>();
+        articleMapper.selectList(articleLambdaQueryWrapper).forEach(article -> {
+            articleMap.put(article.getId(),article.getTitle());
+        });
+        //构造返回值
         List<CommentUserVO> commentUserVos = new ArrayList<>();
         commentArticles.forEach(commentArticle -> {
             CommentUserVO commentUserVO = new CommentUserVO();
             BeanUtils.copyProperties(commentArticle, commentUserVO);
+            commentUserVO.setArticleTitle(articleMap.get(commentArticle.getArticleId()));
             commentUserVos.add(commentUserVO);
-    });
+        });
         return commentUserVos;
     }
 }

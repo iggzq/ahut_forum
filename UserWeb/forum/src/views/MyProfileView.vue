@@ -2,9 +2,9 @@
   <van-sticky :offset-top="0">
     <van-nav-bar title="个人信息"/>
   </van-sticky>
-  <van-cell is-link to="myComments">
+  <van-cell class="myComments" @click="goMyComments">
     <template #title>
-      <van-badge dot>
+      <van-badge dot is-link>
         我的消息
       </van-badge>
     </template>
@@ -13,11 +13,25 @@
   </van-cell>
 </template>
 <script>
-export default {
-  name: 'myProfile',
-  data () {
-    return {}
-  },
-  methods: {}
-}
+import router from '@/router'
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'MyProfileView',
+  setup () {
+    const goMyComments = () => {
+      router.push('/myComments')
+    }
+    return {
+      goMyComments
+    }
+  }
+})
 </script>
+<style scoped>
+.myComments{
+  height: 6vh;
+  font-size: medium;
+  line-height: 100%;
+}
+</style>

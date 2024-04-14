@@ -1,22 +1,27 @@
 <script>
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import axios from 'axios'
+import router from '@/router'
+import CommentCard from '@/components/commentCard.vue'
 
 export default defineComponent({
   name: 'myComments',
+  components: { CommentCard },
   setup () {
+    const myComments = ref([])
     const goBack = () => {
-      window.history.back()
+      router.back()
     }
     const getMyComments = () => {
       axios.get('comment/getCommentsByUserId').then(res => {
-        console.log(res)
+        myComments.value = res.data.data
       })
     }
     onMounted(() => { getMyComments() }
     )
     return {
-      goBack
+      goBack,
+      myComments
     }
   }
 })
@@ -27,18 +32,25 @@ export default defineComponent({
   <van-nav-bar
     left-arrow
     right-text="按钮"
-    title="标题"
+    title="回复我的"
     @click-left="goBack"
   >
     <template #right>
       <p>清除所有</p>
     </template>
   </van-nav-bar>
-  <div>
-    我的消息
+  <div class="myComments">
+    <div v-for="(item,index) in myComments" :key="index">
+      <comment-card :comment="item"></comment-card>
+    </div>
   </div>
+
 </template>
 
 <style scoped>
-
+.myComments {
+  height: 100%;
+  width: 100vw;
+  overflow: auto;
+}
 </style>
