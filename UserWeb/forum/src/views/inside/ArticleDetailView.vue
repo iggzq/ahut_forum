@@ -51,6 +51,7 @@ import { showSuccessToast } from 'vant'
 import emoji from '@/assets/emoji'
 import { useRoute } from 'vue-router'
 import { UComment } from 'undraw-ui'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'ArticleDetailView',
@@ -58,6 +59,7 @@ export default defineComponent({
 
   setup () {
     const route = useRoute()
+    const store = useStore()
     const articleId = route.params.articleId
     const articleDetail = ref({})
     const buttonColor = ref('#afb0b2')
@@ -121,27 +123,27 @@ export default defineComponent({
       })
     }
     onMounted(() => {
-      getArticleDetail()
-      getComments()
-      if (commentPositionId !== undefined) {
-        console.log(123)
-        const targetCommentElement = document.querySelector(`[data-id="${commentPositionId}"]`);
+        getArticleDetail()
+        getComments()
+        store.commit('setActiveTab', 0)
+        if (commentPositionId !== undefined) {
+          const targetCommentElement = document.querySelector(`[data-id="${commentPositionId}"]`)
 
-        if (targetCommentElement) {
-          // 计算目标元素距离页面顶部的距离
-          const targetOffsetTop = targetCommentElement.offsetTop;
-          // 可能需要考虑滚动容器的偏移量，如固定导航栏的高度
-          const containerOffsetTop = document.querySelector('.scroll-container').offsetTop; // 假设有一个类名为'scroll-container'的滚动容器
-          const adjustedTargetTop = targetOffsetTop - containerOffsetTop;
+          if (targetCommentElement) {
+            // 计算目标元素距离页面顶部的距离
+            const targetOffsetTop = targetCommentElement.offsetTop
+            // 可能需要考虑滚动容器的偏移量，如固定导航栏的高度
+            const containerOffsetTop = document.querySelector('.scroll-container').offsetTop // 假设有一个类名为'scroll-container'的滚动容器
+            const adjustedTargetTop = targetOffsetTop - containerOffsetTop
 
-          // 平滑滚动到目标位置
-          window.scrollTo({
-            top: adjustedTargetTop,
-            behavior: 'smooth'
-          });
+            // 平滑滚动到目标位置
+            window.scrollTo({
+              top: adjustedTargetTop,
+              behavior: 'smooth'
+            })
+          }
         }
       }
-    }
     )
 
     const config = reactive({
@@ -168,8 +170,6 @@ export default defineComponent({
       reply,
       finish
     }) => {
-      console.log(1)
-      console.log(reply.id)
       const comment = {
         parentId: parentId,
         likes: 0,
@@ -196,13 +196,10 @@ export default defineComponent({
     }
     // 点赞按钮事件 将评论id返回后端判断是否点赞，然后在处理点赞状态
     const like = (id, finish) => {
-      console.log('点赞: ' + id)
       setTimeout(() => {
         finish()
       }, 200)
     }
-
-    console.log(config.comments)
     return {
       articleDetail,
       goBack,

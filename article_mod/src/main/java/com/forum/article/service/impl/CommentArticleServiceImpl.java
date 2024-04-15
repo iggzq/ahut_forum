@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.forum.article.entity.Article;
 import com.forum.article.entity.CommentArticle;
-import com.forum.article.feign.UserInfoFeign;
 import com.forum.article.mapper.ArticleMapper;
 import com.forum.article.mapper.CommentArticleMapper;
 import com.forum.article.service.CommentArticleService;
@@ -40,16 +39,13 @@ public class CommentArticleServiceImpl extends ServiceImpl<CommentArticleMapper,
     private RedisTemplate<String, Object> redisTemplate;
 
     @Resource
-    private UserInfoFeign userInfoFeign;
-
-    @Resource
     private ArticleMapper articleMapper;
 
 
     @Override
     public List<CommentArticleVO> getCommentsById(String id) {
-        List<CommentArticleVO> commentArticleVOS = new ArrayList<>();
-        List<CommentArticle> commentArticles = new ArrayList<>();
+        List<CommentArticleVO> commentArticleVos = new ArrayList<>();
+        List<CommentArticle> commentArticles;
         if (Objects.isNull(redisTemplate.opsForValue().get(ARTICLE_COMMENTS_REDIS_PRE_KEY + id))) {
             LambdaQueryWrapper<CommentArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper.eq(CommentArticle::getArticleId, id);
@@ -106,18 +102,18 @@ public class CommentArticleServiceImpl extends ServiceImpl<CommentArticleMapper,
                 if (Objects.equals(sonCommentArticle.getParentId(), fatherCommentArticle.getId())) {
                     ReplyVO replyVO = new ReplyVO();
                     BeanUtils.copyProperties(sonCommentArticle, replyVO);
-                    UserVO userVO1 = new UserVO();
-                    userVO1.setUsername(sonCommentArticle.getUsername());
-                    replyVO.setUser(userVO1);
+                    UserVO userVo1 = new UserVO();
+                    userVo1.setUsername(sonCommentArticle.getUsername());
+                    replyVO.setUser(userVo1);
                     list.add(replyVO);
                 }
             }
             reply.setList(list);
             reply.setTotal(list.size());
             commentArticleVO.setReply(reply);
-            commentArticleVOS.add(commentArticleVO);
+            commentArticleVos.add(commentArticleVO);
         }
-        return commentArticleVOS;
+        return commentArticleVos;
     }
 
     @Override
@@ -134,10 +130,9 @@ public class CommentArticleServiceImpl extends ServiceImpl<CommentArticleMapper,
         LambdaQueryWrapper<Article> articleLambdaQueryWrapper = new LambdaQueryWrapper<>();
         articleLambdaQueryWrapper.select(Article::getId, Article::getTitle);
         articleLambdaQueryWrapper.in(Article::getId, artcileIds);
-        HashMap<Long,String> articleMap = new HashMap<>();
-        articleMapper.selectList(articleLambdaQueryWrapper).forEach(article -> {
-            articleMap.put(article.getId(),article.getTitle());
-        });
+        HashMap<Long, String> articleMap = new HashMap<>();
+        articleMapper.selectList(articleLambdaQueryWrapper).forEach(article ->
+                articleMap.put(article.getId(), article.getTitle()));
         //构造返回值
         List<CommentUserVO> commentUserVos = new ArrayList<>();
         commentArticles.forEach(commentArticle -> {

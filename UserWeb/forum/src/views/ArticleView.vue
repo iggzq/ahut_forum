@@ -80,7 +80,7 @@ import { defineComponent, onMounted, ref } from 'vue'
 import axios from 'axios'
 import { showFailToast, showSuccessToast } from 'vant'
 import { useRouter } from 'vue-router'
-// import { useStore } from 'vuex'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'ArticleView',
@@ -97,10 +97,10 @@ export default defineComponent({
     const page = ref(-1)
     const size = ref(5)
     const router = useRouter()
-    // const store = useStore()
+    const store = useStore()
 
     async function load () {
-      console.log('load')
+      store.commit('setActiveTab', 0)
       page.value++
       const result = await getArticlesByPage(page.value, size.value)
       if (!result) {
@@ -110,7 +110,6 @@ export default defineComponent({
     }
 
     async function refresh () {
-      console.log('refresh')
       page.value = 0
       finished.value = false
       articles.value = []
@@ -125,7 +124,6 @@ export default defineComponent({
     }
 
     const getArticlesByPage = async (page, size) => {
-      console.log('getArticlesByPage')
       const fetchedArticles = await axios.get('http://172.20.10.3:8081/article/getArticles?page=' + page + '&size=' + size)
       if (fetchedArticles.data.data.length === 5) {
         finished.value = false
@@ -162,9 +160,6 @@ export default defineComponent({
     })
     const bottom = ref(false)
     const goArticleDetail = (article) => {
-      // // 提交 mutation 更新状态
-      // store.commit('setArticleDetail', article)
-      // 路由跳转到 '/articleDetail'
       router.push(
         {
           name: 'articleDetail',

@@ -3,7 +3,6 @@ package com.forum.article.service.impl;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.lang.generator.SnowflakeGenerator;
-import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.forum.article.entity.Article;
 import com.forum.article.entity.CommentArticle;
@@ -53,7 +52,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         Article article = new Article();
         BeanUtils.copyProperties(saveArticleVO, article);
         //获取数据
-        long articleId = IdUtil.getSnowflakeNextId();
+        SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
+        Long articleId = snowflakeGenerator.next();
         LocalDateTime now = LocalDateTime.now();
         long loginId = StpUtil.getLoginIdAsLong();
         String name = (String) StpUtil.getExtra(LOGIN_USERNAME);
@@ -87,7 +87,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public Boolean likeArticle(LikeArticleVO likeArticleVO) {
         SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
         Long next = snowflakeGenerator.next();
-        System.out.println(Long.valueOf(StpUtil.getLoginId().toString()));
         Long loginId = Long.valueOf(StpUtil.getLoginId().toString());
         likeArticleVO.setId(next);
         likeArticleVO.setLikeUserId(loginId);

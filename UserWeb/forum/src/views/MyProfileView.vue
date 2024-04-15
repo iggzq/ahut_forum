@@ -15,11 +15,14 @@
 <script>
 import router from '@/router'
 import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'MyProfileView',
   setup () {
+    const store = useStore()
     const goMyComments = () => {
+      store.commit('setActiveTab', 1);
       router.push('/myComments')
     }
     return {

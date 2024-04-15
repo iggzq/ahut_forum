@@ -63,7 +63,6 @@ export default defineComponent({
     const answer = ref('')
     const onSubmit = (values) => {
       registerRequest()
-      console.log('submit', values)
     }
     const registerRequest = () => {
       axios.post('/user/register', {

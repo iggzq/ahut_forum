@@ -41,7 +41,8 @@
       "parser": "@babel/eslint-parser"
     },
     "rules": {
-      "semi" : 0
+      "semi": 0,
+      "indent": "off"
     }
   },
   "browserslist": [

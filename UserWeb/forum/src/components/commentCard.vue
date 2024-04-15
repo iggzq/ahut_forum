@@ -13,7 +13,6 @@ export default defineComponent({
   setup (props) {
     const commentNow = ref(props.comment)
     const router = useRouter()
-    console.log(commentNow)
     const goArticleComment = () => {
       router.push({
         name: 'articleDetail',

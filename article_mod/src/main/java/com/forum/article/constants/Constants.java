@@ -1,5 +1,8 @@
 package com.forum.article.constants;
 
+/**
+ * @author lituizi
+ */
 public class Constants {
     public static final String ARTICLE_COMMENTS_REDIS_PRE_KEY = "comment:articleId:";
 

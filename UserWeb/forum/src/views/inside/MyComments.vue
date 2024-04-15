@@ -10,7 +10,9 @@ export default defineComponent({
   setup () {
     const myComments = ref([])
     const goBack = () => {
-      router.back()
+      router.push({
+        path: '/myProfile'
+      })
     }
     const getMyComments = () => {
       axios.get('comment/getCommentsByUserId').then(res => {

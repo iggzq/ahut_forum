@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -24,9 +25,10 @@ import java.io.Serializable;
 @Getter
 @Setter
 @TableName("like_article")
-@ApiModel(value = "LikeArticle对象", description = "")
+@ApiModel(value = "LikeArticle对象", description = "点赞文章对象")
 public class LikeArticle implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)

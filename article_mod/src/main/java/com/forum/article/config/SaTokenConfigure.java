@@ -9,6 +9,9 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * @author lituizi
+ */
 @Configuration
 public class SaTokenConfigure implements WebMvcConfigurer {
     // 注册 Sa-Token 拦截器，打开注解式鉴权功能
@@ -20,11 +23,10 @@ public class SaTokenConfigure implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") // 所有接口
-                .allowCredentials(true) // 是否发送 Cookie
-                .allowedOriginPatterns("**") // 支持域
-                .allowedMethods("GET", "POST", "PUT", "DELETE") // 支持方法
-                .allowedHeaders("*")
+        registry.addMapping("/**")
+                .allowCredentials(true)
+                .allowedOriginPatterns("**")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .exposedHeaders("*");
     }
 

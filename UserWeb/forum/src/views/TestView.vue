@@ -53,7 +53,6 @@ const submit = async ({
 }
 // 点赞按钮事件 将评论id返回后端判断是否点赞，然后在处理点赞状态
 const like = (id, finish) => {
-  console.log('点赞: ' + id)
   setTimeout(() => {
     finish()
   }, 200)
