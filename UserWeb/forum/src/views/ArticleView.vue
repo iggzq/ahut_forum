@@ -80,7 +80,7 @@ import { defineComponent, onMounted, ref } from 'vue'
 import axios from 'axios'
 import { showFailToast, showSuccessToast } from 'vant'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
+// import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'ArticleView',
@@ -97,7 +97,7 @@ export default defineComponent({
     const page = ref(-1)
     const size = ref(5)
     const router = useRouter()
-    const store = useStore()
+    // const store = useStore()
 
     async function load () {
       console.log('load')
@@ -162,11 +162,14 @@ export default defineComponent({
     })
     const bottom = ref(false)
     const goArticleDetail = (article) => {
-      // 提交 mutation 更新状态
-      store.commit('setArticleDetail', article)
-      console.log(article)
+      // // 提交 mutation 更新状态
+      // store.commit('setArticleDetail', article)
       // 路由跳转到 '/articleDetail'
-      router.push({ path: '/articleDetail' })
+      router.push(
+        {
+          path: `/articleDetail/articleId=${article.id}`
+        }
+      )
     }
     return {
       articles,

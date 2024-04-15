@@ -12,13 +12,19 @@ export default defineComponent({
   setup (props) {
     const commentNow = ref(props.comment)
     console.log(commentNow)
-    return { commentNow }
+    const goArticleComment = () => {
+
+    }
+    return {
+      commentNow,
+      goArticleComment
+    }
   }
 })
 </script>
 
 <template>
-  <div class="commentCardBody">
+  <div class="commentCardBody" @click="goArticleComment">
     <div class="commentCardLeft">
       <img class="leftImg" src="src/assets/logo.png"/>
     </div>

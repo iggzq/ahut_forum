@@ -65,17 +65,18 @@
 <script>
 
 import { defineComponent, nextTick, onMounted, reactive, ref, watch } from 'vue'
-import { useStore } from 'vuex'
 import axios from 'axios'
 import { showSuccessToast } from 'vant'
 import emoji from '@/assets/emoji'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
   name: 'ArticleDetailView',
 
   setup () {
-    const store = useStore()
-    const articleDetail = store.state.articleDetail
+    const route = useRoute()
+    const articleId = route.params.articleId
+    const articleDetail = ref({})
     const buttonColor = ref('#afb0b2')
     const likeAnimate = ref('')
     const comment = ref('')
@@ -88,13 +89,22 @@ export default defineComponent({
     const goBack = () => {
       window.history.go(-1)
     }
+    const getArticleDetail = async () => {
+      await axios.get('http://172.20.10.3:8081/article/getArticleById', {
+        params: {
+          articleId: articleId
+        }
+      }).then(res => {
+        articleDetail.value = res.data.data
+      })
+    }
     const sendLikeArticle = () => {
       axios.post('http://172.20.10.3:8081/article/likeArticle', {
-        userId: articleDetail.userId,
-        articleId: articleDetail.id
+        userId: articleDetail.value.userId,
+        articleId: articleDetail.value.id
       }).then(res => {
         if (res.data.code === 200) {
-          articleDetail.likeCount += 1
+          articleDetail.value.likeCount += 1
           buttonColor.value = 'linear-gradient(to right, rgb(17, 153, 142), rgb(56, 239, 125))'
           likeAnimate.value = 'animate__animated animate__wobble'
           showSuccessToast('点赞成功')
@@ -118,7 +128,7 @@ export default defineComponent({
       { immediate: true }
     )
     const getComments = async () => {
-      await axios.get('http://172.20.10.3:8081/comment/getCommentByArticleId?id=' + articleDetail.id).then(res => {
+      await axios.get('http://172.20.10.3:8081/comment/getCommentByArticleId?id=' + articleId).then(res => {
         if (res.data.code === 200) {
           comments.value = res.data.data
           config.comments = comments.value
@@ -127,6 +137,7 @@ export default defineComponent({
       })
     }
     onMounted(() => {
+      getArticleDetail()
       getComments()
     })
 
@@ -160,7 +171,7 @@ export default defineComponent({
         parentId: parentId,
         likes: 0,
         content: content,
-        articleId: articleDetail.id,
+        articleId: articleDetail.value.id,
         toUserId: reply.uid,
         user: {
           username: ''
@@ -175,7 +186,7 @@ export default defineComponent({
         if (res.data.code === 200) {
           getComments()
           finish(comment)
-          articleDetail.commentCount += 1
+          articleDetail.value.commentCount += 1
           showSuccessToast('评论成功')
         }
       })

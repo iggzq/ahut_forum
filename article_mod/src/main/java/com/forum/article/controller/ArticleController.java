@@ -41,6 +41,11 @@ public class ArticleController {
         return CommonResult.success(articleService.getArticles(page, size));
     }
 
+    @GetMapping("getArticleById")
+    public CommonResult<Article> getArticleById(@RequestParam Long articleId) {
+        return CommonResult.success(articleService.getById(articleId));
+    }
+
     @PostMapping("likeArticle")
     public CommonResult<String> likeArticle(@RequestBody LikeArticleVO likeArticleVO) {
         Boolean b = articleService.likeArticle(likeArticleVO);
