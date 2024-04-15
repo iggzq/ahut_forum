@@ -33,8 +33,6 @@ export default defineComponent({
 </script>
 <style scoped>
 .myComments{
-  height: 6vh;
   font-size: medium;
-  line-height: 100%;
 }
 </style>

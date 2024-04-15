@@ -36,8 +36,15 @@
     </div>
     <div>
       <u-comment :config="config" @like="like" @submit="submit">
-        <template>
-          <div>单个comment数据</div>
+        <div v-if="skeletonShow" class="skeletonShow">
+          <var-card class="skeletonShowCard">
+            <template #description>
+              <van-skeleton :row="3" class="commentSkeleton" title/>
+            </template>
+          </var-card>
+        </div>
+        <template #info>
+
         </template>
       </u-comment>
     </div>
@@ -56,7 +63,6 @@ import { useStore } from 'vuex'
 export default defineComponent({
   name: 'ArticleDetailView',
   components: { UComment },
-
   setup () {
     const route = useRoute()
     const store = useStore()
@@ -149,7 +155,7 @@ export default defineComponent({
     const config = reactive({
       user: {
         id: 1,
-        username: 'jack',
+        username: '我的',
         avatar: '',
         // 评论id数组 建议:存储方式用户uid和评论id组成关系,根据用户uid来获取对应点赞评论id,然后加入到数组中返回
         likeIds: [1, 2, 3]
@@ -238,7 +244,7 @@ export default defineComponent({
 
 .itemTitle {
   padding-left: 5px;
-  font-family: 'DYH';
+  font-family: 'DYH',serif;
   text-align: left;
   margin-bottom: 7px;
 }
