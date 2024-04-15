@@ -34,23 +34,8 @@
         </template>
       </var-card>
     </div>
-
-    <!--    <div v-for="(comment, index) in comments" :key="index" class="commentShow">-->
-    <!--      <var-card v-if="comments.length > 0" class="commentCard" ripple>-->
-    <!--        <template #title>-->
-    <!--          <p class="commentUserName">{{ comment.userName }}说：</p>-->
-    <!--        </template>-->
-    <!--        <template #description>-->
-    <!--          <p class="commentContent">{{ comment.comment }}</p>-->
-    <!--        </template>-->
-    <!--      </var-card>-->
-    <!--    </div>-->
     <div>
       <u-comment :config="config" @like="like" @submit="submit">
-        <!-- <template>导航栏卡槽</template> -->
-        <!-- <template #info>用户信息卡槽</template> -->
-        <!-- <template #card>用户信息卡片卡槽</template> -->
-        <!-- <template #opearte>操作栏卡槽</template> -->
         <div v-if="skeletonShow" class="skeletonShow">
           <var-card class="skeletonShowCard">
             <template #description>
@@ -69,9 +54,11 @@ import axios from 'axios'
 import { showSuccessToast } from 'vant'
 import emoji from '@/assets/emoji'
 import { useRoute } from 'vue-router'
+import { UComment } from 'undraw-ui'
 
 export default defineComponent({
   name: 'ArticleDetailView',
+  components: { UComment },
 
   setup () {
     const route = useRoute()
@@ -278,68 +265,4 @@ export default defineComponent({
   margin-top: 10px;
 }
 
-.itemPopular {
-  width: 100%;
-  text-align: right;
-  margin: 0px;
-  color: darkgrey;
-}
-
-.bottomArea {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 6vh;
-  background-color: white;
-  overflow: hidden;
-}
-
-.bottomContent {
-  height: 100%;
-  display: flex;
-  justify-content: space-around;
-}
-
-.bottomCommentInput {
-  width: 83%;
-  height: 85%;
-}
-
-.bottomCommentIcon {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-.writeCommentContent {
-  height: 50vh;
-}
-
-.commentShow {
-  width: 100%;
-  display: flex;
-  margin-top: 10px;
-  justify-content: space-around;
-}
-
-.commentCard {
-  margin-top: 5px;
-  width: 95%;
-}
-
-.commentUserName {
-  padding-left: 5px;
-  font-family: 'DYH';
-  text-align: left;
-  margin-bottom: 7px;
-}
-
-.commentContent {
-  text-align: left;
-  padding-left: 5px;
-}
-
-#app {
-  text-align: left;
-}
 </style>
