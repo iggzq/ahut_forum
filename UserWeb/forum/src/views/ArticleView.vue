@@ -167,7 +167,10 @@ export default defineComponent({
       // 路由跳转到 '/articleDetail'
       router.push(
         {
-          path: `/articleDetail/articleId=${article.id}`
+          name: 'articleDetail',
+          params: {
+            articleId: article.id
+          }
         }
       )
     }

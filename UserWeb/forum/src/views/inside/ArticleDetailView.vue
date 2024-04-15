@@ -36,13 +36,9 @@
     </div>
     <div>
       <u-comment :config="config" @like="like" @submit="submit">
-        <div v-if="skeletonShow" class="skeletonShow">
-          <var-card class="skeletonShowCard">
-            <template #description>
-              <van-skeleton :row="3" class="commentSkeleton" title/>
-            </template>
-          </var-card>
-        </div>
+        <template>
+          <div>单个comment数据</div>
+        </template>
       </u-comment>
     </div>
   </div>
@@ -71,6 +67,7 @@ export default defineComponent({
     const writeComment = ref({
       comment: ''
     })
+    const commentPositionId = route.params.commentId
     const comments = ref([])
     const skeletonShow = ref(true)
     const goBack = () => {
@@ -126,7 +123,26 @@ export default defineComponent({
     onMounted(() => {
       getArticleDetail()
       getComments()
-    })
+      if (commentPositionId !== undefined) {
+        console.log(123)
+        const targetCommentElement = document.querySelector(`[data-id="${commentPositionId}"]`);
+
+        if (targetCommentElement) {
+          // 计算目标元素距离页面顶部的距离
+          const targetOffsetTop = targetCommentElement.offsetTop;
+          // 可能需要考虑滚动容器的偏移量，如固定导航栏的高度
+          const containerOffsetTop = document.querySelector('.scroll-container').offsetTop; // 假设有一个类名为'scroll-container'的滚动容器
+          const adjustedTargetTop = targetOffsetTop - containerOffsetTop;
+
+          // 平滑滚动到目标位置
+          window.scrollTo({
+            top: adjustedTargetTop,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }
+    )
 
     const config = reactive({
       user: {

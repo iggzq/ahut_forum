@@ -1,5 +1,6 @@
 <script>
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'commentCard',
@@ -11,9 +12,16 @@ export default defineComponent({
   },
   setup (props) {
     const commentNow = ref(props.comment)
+    const router = useRouter()
     console.log(commentNow)
     const goArticleComment = () => {
-
+      router.push({
+        name: 'articleDetail',
+        params: {
+          articleId: commentNow.value.articleId,
+          commentId: commentNow.value.id
+        }
+      })
     }
     return {
       commentNow,

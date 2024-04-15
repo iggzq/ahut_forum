@@ -31,7 +31,7 @@ const routes = [
     name: '注册',
     component: () => import('../views/RegisterView.vue')
   }, {
-    path: '/articleDetail/articleId=:articleId',
+    path: '/articleDetail/:articleId&&:commentId?',
     name: 'articleDetail',
     component: () => import('../views/inside/ArticleDetailView.vue')
   }, {
