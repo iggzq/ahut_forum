@@ -126,6 +126,9 @@ public class CommentArticleServiceImpl extends ServiceImpl<CommentArticleMapper,
         lambdaQueryWrapper.select(CommentArticle::getId, CommentArticle::getArticleId, CommentArticle::getUid, CommentArticle::getUsername, CommentArticle::getContent, CommentArticle::getUpdateTime);
         List<CommentArticle> commentArticles = commentArticleMapper.selectList(lambdaQueryWrapper);
         //根据articleId查询文章(id, title)
+        if(commentArticles.isEmpty()){
+            return null;
+        }
         List<Long> artcileIds = commentArticles.stream().map(CommentArticle::getArticleId).toList();
         LambdaQueryWrapper<Article> articleLambdaQueryWrapper = new LambdaQueryWrapper<>();
         articleLambdaQueryWrapper.select(Article::getId, Article::getTitle);

@@ -75,7 +75,7 @@ export default defineComponent({
     const writeComment = ref({
       comment: ''
     })
-    const commentPositionId = route.params.commentId
+    // const commentPositionId = route.params.commentId
     const comments = ref([])
     const skeletonShow = ref(true)
     const goBack = () => {
@@ -132,23 +132,23 @@ export default defineComponent({
         getArticleDetail()
         getComments()
         store.commit('setActiveTab', 0)
-        if (commentPositionId !== undefined) {
-          const targetCommentElement = document.querySelector(`[data-id="${commentPositionId}"]`)
-
-          if (targetCommentElement) {
-            // 计算目标元素距离页面顶部的距离
-            const targetOffsetTop = targetCommentElement.offsetTop
-            // 可能需要考虑滚动容器的偏移量，如固定导航栏的高度
-            const containerOffsetTop = document.querySelector('.scroll-container').offsetTop // 假设有一个类名为'scroll-container'的滚动容器
-            const adjustedTargetTop = targetOffsetTop - containerOffsetTop
-
-            // 平滑滚动到目标位置
-            window.scrollTo({
-              top: adjustedTargetTop,
-              behavior: 'smooth'
-            })
-          }
-        }
+        // if (commentPositionId !== undefined) {
+        //   const targetCommentElement = document.querySelector('')
+        //
+        //   if (targetCommentElement) {
+        //     // 计算目标元素距离页面顶部的距离
+        //     const targetOffsetTop = targetCommentElement.offsetTop
+        //     // 可能需要考虑滚动容器的偏移量，如固定导航栏的高度
+        //     const containerOffsetTop = document.querySelector('.scroll-container').offsetTop // 假设有一个类名为'scroll-container'的滚动容器
+        //     const adjustedTargetTop = targetOffsetTop - containerOffsetTop
+        //
+        //     // 平滑滚动到目标位置
+        //     window.scrollTo({
+        //       top: adjustedTargetTop,
+        //       behavior: 'smooth'
+        //     })
+        //   }
+        // }
       }
     )
 
@@ -244,7 +244,7 @@ export default defineComponent({
 
 .itemTitle {
   padding-left: 5px;
-  font-family: 'DYH',serif;
+  font-family: 'DYH', serif;
   text-align: left;
   margin-bottom: 7px;
 }
