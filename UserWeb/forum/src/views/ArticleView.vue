@@ -32,7 +32,14 @@
     </var-popup>
     <div class="mainContent">
       <van-grid>
-        <van-grid-item icon="photo-o" text="文字"/>
+        <van-grid-item class="vanItem">
+          <template #icon>
+            <img src="@/assets/chat.png" style="width: 90%;height: auto">
+          </template>
+          <template #text>
+            <p>聊天室</p>
+          </template>
+        </van-grid-item>
         <van-grid-item icon="photo-o" text="文字"/>
         <van-grid-item icon="photo-o" text="文字"/>
         <van-grid-item icon="photo-o" text="文字"/>
@@ -191,7 +198,8 @@ export default defineComponent({
   flex-wrap: wrap;
   justify-content: space-around;
 }
-.mainContent{
+
+.mainContent {
   height: calc(100vh - 96px);
   overflow-y: auto;
 }
@@ -234,7 +242,7 @@ export default defineComponent({
   color: darkgrey;
 }
 
-.var-card >>> .var-card__footer {
+.var-card :deep(.var-card__footer) {
   padding: 0px 5px !important;
   margin-top: 3px;
 }
@@ -252,5 +260,22 @@ export default defineComponent({
 
 .writeArticleContent {
   height: 78vh;
+}
+
+.van-grid-item :deep(.van-badge__wrapper) {
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+}
+.vanItem{
+  font-size: medium;
+  font-weight: bold;
+  p{
+    margin-bottom: 1px;
+    margin-top: 0px;
+  }
+}
+.van-grid-item :deep(.van-grid-item__content){
+  padding: 0;
 }
 </style>
