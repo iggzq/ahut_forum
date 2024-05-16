@@ -4,9 +4,11 @@ import com.forum.article.entity.Article;
 import com.forum.article.entity.CommentArticle;
 import com.forum.article.result.CommonResult;
 import com.forum.article.service.ArticleService;
+import com.forum.article.service.impl.TestServiceImpl;
 import com.forum.article.vo.LikeArticleVO;
 import com.forum.article.vo.SaveArticleVO;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,10 +24,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/article/")
 public class ArticleController {
+    private TestServiceImpl testService;
 
     @Resource
     private ArticleService articleService;
 
+    @Autowired
+    private TestServiceImpl testServiceImpl;
+
+    @Resource
+    private TestServiceImpl testServiceImpl2;
+
+    @Autowired
+    private void articleService(TestServiceImpl testService){
+        this.testService = testService;
+    }
     @PostMapping("saveArticle")
     public CommonResult<String> saveArticle(@RequestBody SaveArticleVO saveArticleVO) {
         Boolean b = articleService.saveArticle(saveArticleVO);
@@ -38,6 +51,7 @@ public class ArticleController {
 
     @GetMapping("getArticles")
     public CommonResult<List<Article>> getArticles(@RequestParam int page, @RequestParam int size) {
+        System.out.println("");
         return CommonResult.success(articleService.getArticles(page, size));
     }
 

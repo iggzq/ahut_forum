@@ -4,6 +4,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.lang.generator.SnowflakeGenerator;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.forum.article.config.ConfigProperties;
 import com.forum.article.entity.Article;
 import com.forum.article.entity.CommentArticle;
 import com.forum.article.mapper.ArticleMapper;
@@ -47,6 +48,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
+    @Resource
+    private ConfigProperties configProperties;
+
     @Override
     public Boolean saveArticle(SaveArticleVO saveArticleVO) {
         Article article = new Article();
@@ -76,6 +80,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public List<Article> getArticles(int page, int size) {
+        System.out.println(configProperties.getUrl());
         return articleMapper.getArticleByPage(page * size, size);
     }
 
