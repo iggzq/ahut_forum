@@ -1,5 +1,6 @@
-package com.forum.chatroom.config;
+package com.forum.chatroom.handler;
 
+import com.forum.chatroom.config.WebSocketMapping;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.socket.WebSocketHandler;
 import org.springframework.web.reactive.socket.WebSocketSession;
@@ -9,6 +10,7 @@ import reactor.core.publisher.Mono;
  * @author lituizi
  */
 @Component
+@WebSocketMapping("/hello")
 public class DemoHandler implements WebSocketHandler {
 
     @Override
