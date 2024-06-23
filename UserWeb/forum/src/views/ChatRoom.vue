@@ -1,11 +1,15 @@
 <template>
   <div class="topArea">
     <van-sticky :offset-top="0" position="top">
-      <van-nav-bar left-arrow title="聊天室"  @click-left="goBack">
+      <van-nav-bar left-arrow title="聊天室" @click-left="goBack">
       </van-nav-bar>
     </van-sticky>
   </div>
 
+  <div class="hint">
+    <p v-if="isConnected">已成功连接</p>
+    <p v-else>连接失败</p>
+  </div>
   <div class="chatHistory">
     <div v-for="(comment, index) in othersComments" :key="index" class="otherComment">
       <strong>{{ comment.id }}:</strong> {{ comment.comment }}
@@ -42,6 +46,7 @@ export default defineComponent({
     const socket = ref(null)
     const commentValue = ref('')
     const othersComments = reactive([])
+    const isConnected = ref(false)
 
     function adjustChatHistoryHeight () {
       const navBarContent = document.querySelector('.topArea')
@@ -64,6 +69,7 @@ export default defineComponent({
       socket.value = new WebSocket('ws://172.20.10.3:8082/chat/' + randomUserId) // 替换为你的WebSocket服务器地址
       socket.value.addEventListener('open', (event) => {
         console.log('WebSocket连接已打开')
+        isConnected.value = true
       })
       socket.value.addEventListener('message', (event) => {
         console.log('接收到消息:', event.data)
@@ -102,7 +108,8 @@ export default defineComponent({
       commentValue,
       sendComment,
       othersComments,
-      goBack
+      goBack,
+      isConnected
     }
   }
 })
@@ -133,5 +140,12 @@ export default defineComponent({
 
 .chatHistory {
   overflow-y: auto;
+}
+
+.hint {
+  font-size: small;
+  color: #acacac;
+  display: flex;
+  justify-content: center;
 }
 </style>

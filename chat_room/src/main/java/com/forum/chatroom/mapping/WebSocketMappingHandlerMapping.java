@@ -18,7 +18,6 @@ public class WebSocketMappingHandlerMapping extends SimpleUrlHandlerMapping {
 
     @Override
     public void initApplicationContext() throws BeansException {
-        System.out.println(1);
         Map<String, Object> beansWithAnnotation = obtainApplicationContext().getBeansWithAnnotation(WebSocketMapping.class);
 
         for (Object bean : beansWithAnnotation.values()) {
