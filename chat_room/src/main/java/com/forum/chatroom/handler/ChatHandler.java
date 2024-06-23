@@ -1,6 +1,8 @@
 package com.forum.chatroom.handler;
 
+import cn.hutool.json.JSONUtil;
 import com.forum.chatroom.config.WebSocketMapping;
+import com.forum.chatroom.entity.ChatRoomComment;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.socket.WebSocketHandler;
 import org.springframework.web.reactive.socket.WebSocketMessage;
@@ -16,20 +18,21 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author lituizi
  */
 @Component
-@WebSocketMapping("/cha/{name}")
+@WebSocketMapping("/chat/{id}")
 public class ChatHandler implements WebSocketHandler {
 
     public static final Map<WebSocketSession, FluxSink<WebSocketMessage>> MY_CLIENTS = new ConcurrentHashMap<>();
-
     @Override
     public Mono<Void> handle(WebSocketSession webSocketSession) {
+        ChatRoomComment chatRoomComment = new ChatRoomComment();
         String path = webSocketSession.getHandshakeInfo().getUri().getPath();
-        String name = path.substring(path.lastIndexOf("/") + 1);
+        chatRoomComment.setId(path.substring(path.lastIndexOf("/") + 1));
         Flux<WebSocketMessage> receive = webSocketSession.receive();
         Mono<Void> mono1 = receive.map(message -> {
             String payloadAsText = message.getPayloadAsText();
-            //返回 用户名+消息
-            return name + " ： " + payloadAsText;
+            chatRoomComment.setComment(payloadAsText);
+            //返回 id+消息
+            return String.valueOf(JSONUtil.parse(chatRoomComment));
         }).doOnNext(message -> {
             //此处做消息广播,      keySet()用于遍历map中的所有key，存在一个set集合中
             for (WebSocketSession session : MY_CLIENTS.keySet()) {

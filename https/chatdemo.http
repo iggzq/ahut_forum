@@ -1,4 +1,4 @@
-WEBSOCKET ws://localhost:8082/hello/123
+WEBSOCKET ws://localhost:8082/chat/123
 Content-Type: application/json // used only for IDE highlighting.
 // Highlighting is applied for each message independently.
 
@@ -7,7 +7,7 @@ Content-Type: application/json // used only for IDE highlighting.
     "message": "客户端1，已连接"
 }
 ###
-WEBSOCKET ws://localhost:8082/hello/456
+WEBSOCKET ws://localhost:8082/chat/456
 Content-Type: application/json // used only for IDE highlighting.
 // Highlighting is applied for each message independently.
 
