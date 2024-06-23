@@ -5,14 +5,15 @@
       </van-nav-bar>
     </van-sticky>
   </div>
-
-  <div class="hint">
-    <p v-if="isConnected">已成功连接</p>
-    <p v-else>连接失败</p>
-  </div>
   <div class="chatHistory">
+    <div class="hint">
+      <p v-if="isConnected">——————— 已成功连接,本次随机id为 {{ randomUserId }} ———————</p>
+      <p v-else>连接失败,请刷新重试</p>
+    </div>
     <div v-for="(comment, index) in othersComments" :key="index" class="otherComment">
-      <strong>{{ comment.id }}:</strong> {{ comment.comment }}
+      <strong>{{ comment.id }} {{comment.time}}:</strong>
+      <br>
+      {{ comment.comment }}
     </div>
   </div>
 
@@ -20,11 +21,9 @@
     <div class="bottomContent">
       <van-field
         v-model="commentValue"
-        autosize
         placeholder="加入聊天吧! 🥳 :)"
-        rows="2"
-        show-word-limit
-        type="textarea"
+        clearable
+        maxlength="80"
       >
       </van-field>
       <div class="bottomCommentIcon">
@@ -47,7 +46,7 @@ export default defineComponent({
     const commentValue = ref('')
     const othersComments = reactive([])
     const isConnected = ref(false)
-
+    const randomUserId = Math.floor(Math.random() * 1000).toString()
     function adjustChatHistoryHeight () {
       const navBarContent = document.querySelector('.topArea')
       const bottomArea = document.querySelector('.bottomArea')
@@ -65,8 +64,7 @@ export default defineComponent({
     onMounted(() => {
       adjustChatHistoryHeight()
       window.addEventListener('resize', adjustChatHistoryHeight)
-      const randomUserId = Math.floor(Math.random() * 1000).toString()
-      socket.value = new WebSocket('ws://172.20.10.3:8082/chat/' + randomUserId) // 替换为你的WebSocket服务器地址
+      socket.value = new WebSocket('ws://172.20.10.3:8082/chat/' + randomUserId)
       socket.value.addEventListener('open', (event) => {
         console.log('WebSocket连接已打开')
         isConnected.value = true
@@ -109,7 +107,8 @@ export default defineComponent({
       sendComment,
       othersComments,
       goBack,
-      isConnected
+      isConnected,
+      randomUserId
     }
   }
 })
@@ -144,8 +143,19 @@ export default defineComponent({
 
 .hint {
   font-size: small;
-  color: #acacac;
+  color: #cccbcb;
   display: flex;
   justify-content: center;
+}
+
+.bottomContent .van-cell :deep(.van-field) {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.otherComment{
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 5px;
 }
 </style>

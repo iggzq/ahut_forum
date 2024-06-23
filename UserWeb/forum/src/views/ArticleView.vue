@@ -34,7 +34,7 @@
       <van-grid>
         <van-grid-item v-ripple class="vanItem" @click="goChatRoom">
           <template #icon>
-            <img src="@/assets/chat.png" style="width: 90%;height: auto">
+            <img src="@/assets/chat.png" style="width: 90%;height: auto;color: #42b983">
           </template>
           <template #text>
             <p>聊天室</p>

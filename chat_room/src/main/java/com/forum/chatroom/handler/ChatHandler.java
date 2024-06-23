@@ -11,6 +11,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -39,10 +41,14 @@ public class ChatHandler implements WebSocketHandler {
             chatRoomComment.setComment(payloadAsText);
             return chatRoomComment;
         }).doOnNext(comment -> {
-            chatRoomComment.setId(id);
+            LocalTime now = LocalTime.now();
+            String nowTime = now.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+            chatRoomComment.setTime(nowTime);
+            System.out.println(nowTime);
+            chatRoomComment.setId("(" + id + ")");
             String broadcastMessage = JSONUtil.parse(chatRoomComment).toString();
             // 返回自定义的响应给发送者，例如加上"您说："的前缀
-            chatRoomComment.setId(String.format("您说(%s)",id));
+            chatRoomComment.setId(String.format("您说(%s)", id));
             chatRoomComment.setComment(chatRoomComment.getComment());
             String responseToSender = JSONUtil.parse(chatRoomComment).toString();
             // 向发送者发送定制的消息

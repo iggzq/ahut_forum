@@ -10,4 +10,5 @@ public class ChatRoomComment {
 
     private String id;
     private String comment;
+    private String time;
 }
