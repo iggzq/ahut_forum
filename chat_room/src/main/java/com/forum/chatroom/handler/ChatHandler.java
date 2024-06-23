@@ -22,25 +22,39 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ChatHandler implements WebSocketHandler {
 
     public static final Map<WebSocketSession, FluxSink<WebSocketMessage>> MY_CLIENTS = new ConcurrentHashMap<>();
+
     @Override
     public Mono<Void> handle(WebSocketSession webSocketSession) {
         ChatRoomComment chatRoomComment = new ChatRoomComment();
         String path = webSocketSession.getHandshakeInfo().getUri().getPath();
-        chatRoomComment.setId(path.substring(path.lastIndexOf("/") + 1));
+        String id = path.substring(path.lastIndexOf("/") + 1);
+        chatRoomComment.setId(id);
+        // 创建一个变量来保存发送消息的WebSocketSession
+        final WebSocketSession senderSession = webSocketSession;
+
         Flux<WebSocketMessage> receive = webSocketSession.receive();
         Mono<Void> mono1 = receive.map(message -> {
             String payloadAsText = message.getPayloadAsText();
+            // 广播给其他客户端的原始消息
             chatRoomComment.setComment(payloadAsText);
-            //返回 id+消息
-            return String.valueOf(JSONUtil.parse(chatRoomComment));
-        }).doOnNext(message -> {
-            //此处做消息广播,      keySet()用于遍历map中的所有key，存在一个set集合中
-            for (WebSocketSession session : MY_CLIENTS.keySet()) {
-                //通过session这个key ， 获取消息通道FluxSink
-                FluxSink<WebSocketMessage> fluxSink = MY_CLIENTS.get(session);
-                //调用 fluxSink 的 next() 方法向 Flux 发送消息
-                //textMessage() 方法负责将 String 转换成 WebSocketMessage，把string类型的消息转回 WebSocketMessage
-                fluxSink.next(session.textMessage(message));
+            return chatRoomComment;
+        }).doOnNext(comment -> {
+            chatRoomComment.setId(id);
+            String broadcastMessage = JSONUtil.parse(chatRoomComment).toString();
+            // 返回自定义的响应给发送者，例如加上"您说："的前缀
+            chatRoomComment.setId(String.format("您说(%s)",id));
+            chatRoomComment.setComment(chatRoomComment.getComment());
+            String responseToSender = JSONUtil.parse(chatRoomComment).toString();
+            // 向发送者发送定制的消息
+            FluxSink<WebSocketMessage> senderSink = MY_CLIENTS.get(senderSession);
+            if (senderSink != null) {
+                senderSink.next(senderSession.textMessage(responseToSender));
+            }
+            // 广播给除了发送者之外的所有客户端
+            for (Map.Entry<WebSocketSession, FluxSink<WebSocketMessage>> entry : MY_CLIENTS.entrySet()) {
+                if (!entry.getKey().equals(senderSession)) {
+                    entry.getValue().next(entry.getKey().textMessage(broadcastMessage));
+                }
             }
         }).then();
         //创建要发送消息的 outFlux

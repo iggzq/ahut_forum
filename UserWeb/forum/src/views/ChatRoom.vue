@@ -41,7 +41,27 @@ export default defineComponent({
     const socket = ref(null)
     const commentValue = ref('')
     const othersComments = reactive([])
+
+    function adjustChatHistoryHeight () {
+      const navBarContent = document.querySelector('.topArea')
+      const bottomArea = document.querySelector('.bottomArea')
+      const chatHistoryElement = document.querySelector('.chatHistory')
+      console.log('navBarContent:', navBarContent)
+      console.log('bottomArea:', bottomArea)
+      console.log('chatHistoryRef:', chatHistoryElement)
+
+      if (navBarContent && bottomArea && chatHistoryElement) {
+        const navBarContentHeight = navBarContent.getBoundingClientRect().height
+        console.log('navBarContentHeight:', navBarContentHeight)
+        const bottomAreaHeight = bottomArea.getBoundingClientRect().height
+        console.log('bottomAreaHeight:', bottomAreaHeight)
+        chatHistoryElement.style.height = `calc(100vh - ${navBarContentHeight}px - ${bottomAreaHeight}px)`
+      }
+    }
+
     onMounted(() => {
+      adjustChatHistoryHeight()
+      window.addEventListener('resize', adjustChatHistoryHeight)
       const randomUserId = Math.floor(Math.random() * 1000).toString()
       socket.value = new WebSocket('ws://172.20.10.3:8082/chat/' + randomUserId) // 替换为你的WebSocket服务器地址
       socket.value.addEventListener('open', (event) => {
@@ -50,8 +70,8 @@ export default defineComponent({
       socket.value.addEventListener('message', (event) => {
         console.log('接收到消息:', event.data)
         // 在这里可以处理接收到的消息，比如将其显示在聊天记录中
-        const newComment = JSON.parse(event.data);
-        othersComments.push(newComment);
+        const newComment = JSON.parse(event.data)
+        othersComments.push(newComment)
         console.log(othersComments)
       })
       socket.value.addEventListener('error', (error) => {
@@ -62,6 +82,7 @@ export default defineComponent({
       })
     })
     onUnmounted(() => {
+      window.removeEventListener('resize', adjustChatHistoryHeight)
       if (socket.value && socket.value.readyState === WebSocket.OPEN) {
         socket.value.close()
       }
@@ -69,6 +90,7 @@ export default defineComponent({
     const sendComment = () => {
       if (socket.value && socket.value.readyState === WebSocket.OPEN) {
         socket.value.send(commentValue.value)
+        console.log(commentValue.value)
         commentValue.value = '' // 清空输入框
       } else {
         console.warn('WebSocket连接未建立')
@@ -100,14 +122,13 @@ export default defineComponent({
   justify-content: space-around;
 }
 
-.bottomCommentInput {
-  width: 83%;
-  height: 85%;
-}
-
 .bottomCommentIcon {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+
+.chatHistory {
+  overflow-y: auto;
 }
 </style>
