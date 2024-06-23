@@ -4,7 +4,8 @@
     "animate.css": "^4.1.1",
     "axios": "^1.6.7",
     "undraw-ui": "^1.0.82",
-    "vant": "^4.8.5"
+    "vant": "^4.8.5",
+    "vue-socket.io": "^3.0.10"
   },
   "devDependencies": {
     "@varlet/import-resolver": "^3.1.3",

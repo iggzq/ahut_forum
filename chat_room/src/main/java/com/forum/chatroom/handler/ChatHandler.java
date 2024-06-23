@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author lituizi
  */
 @Component
-@WebSocketMapping("/hello/{name}")
+@WebSocketMapping("/cha/{name}")
 public class ChatHandler implements WebSocketHandler {
 
     public static final Map<WebSocketSession, FluxSink<WebSocketMessage>> MY_CLIENTS = new ConcurrentHashMap<>();
