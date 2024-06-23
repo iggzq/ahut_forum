@@ -1,13 +1,17 @@
-WEBSOCKET ws://localhost:8082/hello
+WEBSOCKET ws://localhost:8082/hello/123
 Content-Type: application/json // used only for IDE highlighting.
 // Highlighting is applied for each message independently.
 
 
 {
-    "message": "Send when the WebSocket connection is opened"
+    "message": "客户端1，已连接"
 }
-=== wait-for-server
-
 ###
+WEBSOCKET ws://localhost:8082/hello/456
+Content-Type: application/json // used only for IDE highlighting.
+// Highlighting is applied for each message independently.
 
+{
+  "message": "客户端2，已连接"
+}
 ###
