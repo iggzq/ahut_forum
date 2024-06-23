@@ -181,7 +181,7 @@ export default defineComponent({
         likes: 0,
         content: content,
         articleId: articleDetail.value.id,
-        toUserId: reply.uid,
+        toUserId: reply != null ? reply.uid : null,
         user: {
           username: ''
         }

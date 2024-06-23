@@ -20,6 +20,11 @@ import { useStore } from 'vuex'
 export default defineComponent({
   name: 'MyProfileView',
   setup () {
+    // 查看token是否有值
+    if (localStorage.getItem('satoken') == null) {
+      alert(localStorage.getItem('satoken'))
+      router.push('/login')
+    }
     const store = useStore()
     const goMyComments = () => {
       store.commit('setActiveTab', 1);

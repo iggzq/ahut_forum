@@ -38,6 +38,10 @@ const routes = [
     path: '/myComments',
     name: 'myComments',
     component: () => import('../views/inside/MyComments.vue')
+  }, {
+    path: '/chatroom',
+    name: 'ChatRoom',
+    component: () => import('../views/ChatRoom.vue')
   }
 
 ]
