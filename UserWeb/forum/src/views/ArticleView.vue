@@ -32,7 +32,7 @@
     </var-popup>
     <div class="mainContent">
       <van-grid>
-        <van-grid-item class="vanItem" @click="goChatRoom">
+        <van-grid-item v-ripple class="vanItem" @click="goChatRoom">
           <template #icon>
             <img src="@/assets/chat.png" style="width: 90%;height: auto">
           </template>
@@ -40,9 +40,9 @@
             <p>聊天室</p>
           </template>
         </van-grid-item>
-        <van-grid-item icon="photo-o" text="文字"/>
-        <van-grid-item icon="photo-o" text="文字"/>
-        <van-grid-item icon="photo-o" text="文字"/>
+        <van-grid-item v-ripple icon="photo-o" text="文字"/>
+        <van-grid-item v-ripple icon="photo-o" text="文字"/>
+        <van-grid-item v-ripple icon="photo-o" text="文字"/>
       </van-grid>
       <div class="articleContent">
         <var-pull-refresh v-model="refreshing" @refresh="refresh">
@@ -275,15 +275,19 @@ export default defineComponent({
   justify-content: space-around;
   width: 60%;
 }
-.vanItem{
-  font-size: medium;
+
+.vanItem {
+  font-size: small;
   font-weight: bold;
-  p{
+
+  p {
     margin-bottom: 1px;
     margin-top: 0px;
   }
 }
-.van-grid-item :deep(.van-grid-item__content){
+
+.van-grid-item :deep(.van-grid-item__content) {
   padding: 0;
 }
+
 </style>

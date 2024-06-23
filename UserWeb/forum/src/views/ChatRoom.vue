@@ -21,7 +21,7 @@
       <van-field
         v-model="commentValue"
         autosize
-        placeholder="加入聊天吧!   :)"
+        placeholder="加入聊天吧! 🥳 :)"
         rows="2"
         show-word-limit
         type="textarea"
