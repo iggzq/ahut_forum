@@ -32,7 +32,7 @@
     </var-popup>
     <div class="mainContent">
       <van-grid>
-        <van-grid-item class="vanItem">
+        <van-grid-item class="vanItem" @click="goChatRoom">
           <template #icon>
             <img src="@/assets/chat.png" style="width: 90%;height: auto">
           </template>
@@ -176,6 +176,13 @@ export default defineComponent({
         }
       )
     }
+    const goChatRoom = () => {
+      router.push(
+        {
+          name: 'ChatRoom'
+        }
+      )
+    }
     return {
       articles,
       bottom,
@@ -187,7 +194,8 @@ export default defineComponent({
       goArticleDetail,
       refresh,
       refreshing,
-      totalShow
+      totalShow,
+      goChatRoom
     }
   }
 })

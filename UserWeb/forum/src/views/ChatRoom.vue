@@ -1,7 +1,7 @@
 <template>
   <div class="topArea">
     <van-sticky :offset-top="0" position="top">
-      <van-nav-bar left-arrow title="聊天室">
+      <van-nav-bar left-arrow title="聊天室"  @click-left="goBack">
       </van-nav-bar>
     </van-sticky>
   </div>
@@ -34,6 +34,7 @@
 
 <script>
 import { defineComponent, onMounted, onUnmounted, reactive, ref } from 'vue'
+import router from '@/router'
 
 export default defineComponent({
   name: 'ChatRoom',
@@ -46,9 +47,6 @@ export default defineComponent({
       const navBarContent = document.querySelector('.topArea')
       const bottomArea = document.querySelector('.bottomArea')
       const chatHistoryElement = document.querySelector('.chatHistory')
-      console.log('navBarContent:', navBarContent)
-      console.log('bottomArea:', bottomArea)
-      console.log('chatHistoryRef:', chatHistoryElement)
 
       if (navBarContent && bottomArea && chatHistoryElement) {
         const navBarContentHeight = navBarContent.getBoundingClientRect().height
@@ -96,10 +94,15 @@ export default defineComponent({
         console.warn('WebSocket连接未建立')
       }
     }
+
+    const goBack = () => {
+      router.back()
+    }
     return {
       commentValue,
       sendComment,
-      othersComments
+      othersComments,
+      goBack
     }
   }
 })

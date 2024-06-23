@@ -1,11 +1,13 @@
 <template>
-  <van-sticky>
-    <van-nav-bar left-arrow title="文章详情">
-      <template #left>
-        <van-icon name="arrow-left" @click="goBack"/>
-      </template>
-    </van-nav-bar>
-  </van-sticky>
+  <div class="top">
+    <van-sticky>
+      <van-nav-bar left-arrow title="文章详情">
+        <template #left>
+          <van-icon name="arrow-left" @click="goBack"/>
+        </template>
+      </van-nav-bar>
+    </van-sticky>
+  </div>
   <div class="articleDetail">
     <div class="articleShow">
       <var-card
@@ -128,7 +130,16 @@ export default defineComponent({
         }
       })
     }
+
+    function caculateArticleDetailHeight () {
+      const top = document.querySelector('.top')
+      const articleDetail = document.querySelector('.articleDetail')
+      const topHeight = top.getBoundingClientRect().height
+      articleDetail.style.height = `calc(100vh - ${topHeight}px)`
+    }
+
     onMounted(() => {
+        caculateArticleDetailHeight()
         getArticleDetail()
         getComments()
         store.commit('setActiveTab', 0)
