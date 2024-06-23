@@ -1,0 +1,13 @@
+WEBSOCKET ws://localhost:8082/hello
+Content-Type: application/json // used only for IDE highlighting.
+// Highlighting is applied for each message independently.
+
+
+{
+    "message": "Send when the WebSocket connection is opened"
+}
+=== wait-for-server
+
+###
+
+###
