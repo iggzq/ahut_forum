@@ -1,7 +1,10 @@
 <template>
   <div class="topArea">
     <van-sticky :offset-top="0" position="top">
-      <van-nav-bar left-arrow title="聊天室" @click-left="goBack">
+      <van-nav-bar left-arrow @click-left="goBack">
+        <template #title>
+          <p class="animate__animated animate__fadeInRight title">聊天室</p>
+        </template>
       </van-nav-bar>
     </van-sticky>
   </div>
@@ -11,13 +14,13 @@
       <p v-else>连接失败,请刷新重试</p>
     </div>
     <div v-for="(comment, index) in othersComments" :key="index" class="otherComment">
-      <strong>{{ comment.id }} {{comment.time}}:</strong>
+      <strong>{{ comment.id }} {{ comment.time }}:</strong>
       <br>
       {{ comment.comment }}
     </div>
   </div>
 
-  <div class="bottomArea">
+  <div class="animate__animated animate__fadeInRight animate__faster bottomArea">
     <div class="bottomContent">
       <van-field
         v-model="commentValue"
@@ -47,6 +50,7 @@ export default defineComponent({
     const othersComments = reactive([])
     const isConnected = ref(false)
     const randomUserId = Math.floor(Math.random() * 1000).toString()
+
     function adjustChatHistoryHeight () {
       const navBarContent = document.querySelector('.topArea')
       const bottomArea = document.querySelector('.bottomArea')
@@ -99,7 +103,7 @@ export default defineComponent({
       }
     }
 
-    const goBack = () => {
+    const goBack = async () => {
       router.back()
     }
     return {
@@ -153,9 +157,14 @@ export default defineComponent({
   padding-bottom: 0;
 }
 
-.otherComment{
+.otherComment {
   padding-top: 7px;
   padding-bottom: 7px;
   padding-left: 5px;
 }
+
+.animate__fadeInRight {
+  animation-duration: 0.2s;
+}
+
 </style>

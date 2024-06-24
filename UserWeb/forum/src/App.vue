@@ -1,5 +1,5 @@
 <template>
-<router-view/>
+  <router-view/>
 </template>
 
 <style>
@@ -13,7 +13,7 @@
   background-color: #f4f6f9;
 }
 
-body,html{
+body, html {
   height: 100%;
 }
 
@@ -30,7 +30,7 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 
-:root{
+:root {
   --card-footer-padding: 0 5px;
 }
 </style>
