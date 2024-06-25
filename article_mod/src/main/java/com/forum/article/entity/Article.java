@@ -3,12 +3,10 @@ package com.forum.article.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.deser.std.NumberDeserializers;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -22,8 +20,7 @@ import java.time.LocalDateTime;
  * @author LiTuiZi
  * @since 2024-03-16 09:50:58
  */
-@Getter
-@Setter
+@Data
 @TableName("article")
 @ApiModel(value = "Article对象", description = "存储文章数据")
 public class Article implements Serializable {
@@ -34,13 +31,13 @@ public class Article implements Serializable {
     @ApiModelProperty("文章id")
     @TableId(value = "id", type = IdType.AUTO)
     @JsonSerialize(using = ToStringSerializer.class)
-    @JsonDeserialize(using = NumberDeserializers.LongDeserializer.class)
+    @JsonDeserialize(as = Long.class)
     private Long id;
 
     @ApiModelProperty("发布人ID")
     @TableField("user_id")
     @JsonSerialize(using = ToStringSerializer.class)
-    @JsonDeserialize(using = NumberDeserializers.LongDeserializer.class)
+    @JsonDeserialize(as = Long.class)
     private Long userId;
 
     @ApiModelProperty("发布人姓名")

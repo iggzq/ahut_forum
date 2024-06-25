@@ -26,7 +26,7 @@ public class ArticleController {
     @Resource
     private ArticleService articleService;
 
-    @PostMapping("saveArticle")
+    @PostMapping(path = "saveArticle")
     public CommonResult<String> saveArticle(@RequestBody SaveArticleVO saveArticleVO) {
         Boolean b = articleService.saveArticle(saveArticleVO);
         if (b) {

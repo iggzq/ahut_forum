@@ -1,6 +1,8 @@
 <template>
   <keep-alive>
-    <router-view/>
+    <div>
+      <router-view/>
+    </div>
   </keep-alive>
   <div :class="totalShow">
     <van-sticky :offset-top="0">
@@ -134,7 +136,7 @@ async function load () {
 
 async function refresh () {
   page.value = 0
-  finished.value = false
+  finished.value = true
   articles.value = []
   loading.value = false
   refreshing.value = true
@@ -162,7 +164,8 @@ const getArticlesByPage = async (page, size) => {
   }
 }
 const sendArticle = async () => {
-  const res = await axios.post('http://172.20.10.3:8081/article/saveArticle', {
+  console.log(writeArticle.value)
+  const res = await axios.post('article/saveArticle', {
     title: writeArticle.value.title,
     content: writeArticle.value.content
   })
@@ -199,20 +202,6 @@ const goChatRoom = () => {
     }
   )
 }
-// 导航守卫：beforeRouteUpdate
-// router.beforeEach((to, from, next) => {
-//   // 判断是否是从 ArticleDetail 页面返回
-//   if (from.name !== 'articleDetail') {
-//     // 执行刷新操作
-//     refresh().then(() => {
-//       next()
-//     }).catch(() => {
-//       next(false) // 可能需要处理刷新失败的情况
-//     })
-//   } else {
-//     next()
-//   }
-// })
 </script>
 <style scoped>
 .itemList {

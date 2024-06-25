@@ -1,54 +1,56 @@
 <template>
-  <div class="top">
-    <van-sticky>
-      <van-nav-bar left-arrow title="文章详情">
-        <template #left>
-          <van-icon name="arrow-left" @click="goBack"/>
-        </template>
-      </van-nav-bar>
-    </van-sticky>
-  </div>
-  <div class="articleDetail">
-    <div class="articleShow">
-      <var-card
-        class="articleDetailShow"
-      >
-        <template #subtitle>
-          <p class="itemUserName">发帖人：{{ articleDetail.userName }}</p>
-        </template>
-        <template #title>
-          <h3 class="itemTitle">{{ articleDetail.title }}</h3>
-        </template>
-        <template #description>
-          <van-text-ellipsis
-            :content="articleDetail.content"
-            class="itemContent"
-            collapse-text="收起"
-            expand-text="展开"
-            rows="4"
-          />
-        </template>
-        <template #extra>
-          <van-button :color="buttonColor" round type="success" @click="sendLikeArticle()">
-            <van-icon :class="likeAnimate" name="good-job"/>
-            {{ articleDetail.likeCount }} 点赞 {{ articleDetail.commentCount }} 评论数
-          </van-button>
-        </template>
-      </var-card>
+  <div class="animate__animated animate__fadeInRight animate__faster">
+    <div class="top">
+      <van-sticky>
+        <van-nav-bar left-arrow title="文章详情">
+          <template #left>
+            <van-icon name="arrow-left" @click="goBack"/>
+          </template>
+        </van-nav-bar>
+      </van-sticky>
     </div>
-    <div>
-      <u-comment :config="config" @like="like" @submit="submit">
-        <div v-if="skeletonShow" class="skeletonShow">
-          <var-card class="skeletonShowCard">
-            <template #description>
-              <van-skeleton :row="3" class="commentSkeleton" title/>
-            </template>
-          </var-card>
-        </div>
-        <template #info>
+    <div class="articleDetail">
+      <div class="articleShow">
+        <var-card
+          class="articleDetailShow"
+        >
+          <template #subtitle>
+            <p class="itemUserName">发帖人：{{ articleDetail.userName }}</p>
+          </template>
+          <template #title>
+            <h3 class="itemTitle">{{ articleDetail.title }}</h3>
+          </template>
+          <template #description>
+            <van-text-ellipsis
+              :content="articleDetail.content"
+              class="itemContent"
+              collapse-text="收起"
+              expand-text="展开"
+              rows="4"
+            />
+          </template>
+          <template #extra>
+            <van-button :color="buttonColor" round type="success" @click="sendLikeArticle()">
+              <van-icon :class="likeAnimate" name="good-job"/>
+              {{ articleDetail.likeCount }} 点赞 {{ articleDetail.commentCount }} 评论数
+            </van-button>
+          </template>
+        </var-card>
+      </div>
+      <div>
+        <u-comment :config="config" @like="like" @submit="submit">
+          <div v-if="skeletonShow" class="skeletonShow">
+            <var-card class="skeletonShowCard">
+              <template #description>
+                <van-skeleton :row="3" class="commentSkeleton" title/>
+              </template>
+            </var-card>
+          </div>
+          <template #info>
 
-        </template>
-      </u-comment>
+          </template>
+        </u-comment>
+      </div>
     </div>
   </div>
 </template>
@@ -143,23 +145,6 @@ export default defineComponent({
         getArticleDetail()
         getComments()
         store.commit('setActiveTab', 0)
-        // if (commentPositionId !== undefined) {
-        //   const targetCommentElement = document.querySelector('')
-        //
-        //   if (targetCommentElement) {
-        //     // 计算目标元素距离页面顶部的距离
-        //     const targetOffsetTop = targetCommentElement.offsetTop
-        //     // 可能需要考虑滚动容器的偏移量，如固定导航栏的高度
-        //     const containerOffsetTop = document.querySelector('.scroll-container').offsetTop // 假设有一个类名为'scroll-container'的滚动容器
-        //     const adjustedTargetTop = targetOffsetTop - containerOffsetTop
-        //
-        //     // 平滑滚动到目标位置
-        //     window.scrollTo({
-        //       top: adjustedTargetTop,
-        //       behavior: 'smooth'
-        //     })
-        //   }
-        // }
       }
     )
 
@@ -295,4 +280,7 @@ export default defineComponent({
   margin-top: 10px;
 }
 
+.animate__fadeInRight {
+  animation-duration: 0.4s;
+}
 </style>

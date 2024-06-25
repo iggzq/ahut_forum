@@ -41,6 +41,7 @@
 <script>
 import { defineComponent, onMounted, onUnmounted, reactive, ref } from 'vue'
 import router from '@/router'
+import { showFailToast } from 'vant'
 
 export default defineComponent({
   name: 'ChatRoom',
@@ -58,9 +59,7 @@ export default defineComponent({
 
       if (navBarContent && bottomArea && chatHistoryElement) {
         const navBarContentHeight = navBarContent.getBoundingClientRect().height
-        console.log('navBarContentHeight:', navBarContentHeight)
         const bottomAreaHeight = bottomArea.getBoundingClientRect().height
-        console.log('bottomAreaHeight:', bottomAreaHeight)
         chatHistoryElement.style.height = `calc(100vh - ${navBarContentHeight}px - ${bottomAreaHeight}px)`
       }
     }
@@ -96,10 +95,9 @@ export default defineComponent({
     const sendComment = () => {
       if (socket.value && socket.value.readyState === WebSocket.OPEN) {
         socket.value.send(commentValue.value)
-        console.log(commentValue.value)
         commentValue.value = '' // 清空输入框
       } else {
-        console.warn('WebSocket连接未建立')
+        showFailToast('未连接到服务器，请检查网络连接')
       }
     }
 
