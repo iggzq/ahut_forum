@@ -46,9 +46,6 @@
               </template>
             </var-card>
           </div>
-          <template #info>
-
-          </template>
         </u-comment>
       </div>
     </div>

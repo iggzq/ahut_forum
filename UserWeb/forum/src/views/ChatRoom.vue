@@ -69,21 +69,16 @@ export default defineComponent({
       window.addEventListener('resize', adjustChatHistoryHeight)
       socket.value = new WebSocket('ws://172.20.10.3:8082/chat/' + randomUserId)
       socket.value.addEventListener('open', (event) => {
-        console.log('WebSocket连接已打开')
         isConnected.value = true
       })
       socket.value.addEventListener('message', (event) => {
-        console.log('接收到消息:', event.data)
         // 在这里可以处理接收到的消息，比如将其显示在聊天记录中
         const newComment = JSON.parse(event.data)
         othersComments.push(newComment)
-        console.log(othersComments)
       })
-      socket.value.addEventListener('error', (error) => {
-        console.error('WebSocket错误:', error)
+      socket.value.addEventListener('error', () => {
       })
-      socket.value.addEventListener('close', (event) => {
-        console.log('WebSocket连接已关闭')
+      socket.value.addEventListener('close', () => {
       })
     })
     onUnmounted(() => {

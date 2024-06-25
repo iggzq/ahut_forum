@@ -149,7 +149,7 @@ async function refresh () {
 }
 
 const getArticlesByPage = async (page, size) => {
-  const fetchedArticles = await axios.get('http://172.20.10.3:8081/article/getArticles?page=' + page + '&size=' + size)
+  const fetchedArticles = await axios.get('article/getArticles?page=' + page + '&size=' + size)
   if (fetchedArticles.data.data.length === 5) {
     finished.value = false
     articles.value = [...articles.value, ...fetchedArticles.data.data]

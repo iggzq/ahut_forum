@@ -5,9 +5,6 @@ const routes = [
     path: '/',
     name: '首页',
     component: () => import('../views/MenuView.vue'),
-    meta: {
-      isKeepAlive: true
-    },
     children: [
       {
         path: '/article',
@@ -17,7 +14,10 @@ const routes = [
           {
             path: '/article/:articleId&&:commentId?',
             name: 'articleDetail',
-            component: () => import('../views/inside/ArticleDetailView.vue')
+            component: () => import('../views/inside/ArticleDetailView.vue'),
+            meta: {
+              hideTabbar: true
+            }
           }
         ]
       },
