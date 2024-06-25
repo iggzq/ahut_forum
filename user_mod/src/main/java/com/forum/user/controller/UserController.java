@@ -5,8 +5,6 @@ import com.forum.user.service.UserService;
 import com.forum.user.vo.LoginUserVo;
 import com.forum.user.vo.RegisterUserVo;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -23,8 +21,6 @@ public class UserController {
 
     @Resource
     private UserService userService;
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
 
     @GetMapping("/1")
     public CommonResult<String> test() {

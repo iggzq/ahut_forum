@@ -5,11 +5,21 @@ const routes = [
     path: '/',
     name: '首页',
     component: () => import('../views/MenuView.vue'),
+    meta: {
+      isKeepAlive: true
+    },
     children: [
       {
         path: '/article',
         name: 'article',
-        component: () => import('../views/ArticleView.vue')
+        component: () => import('../views/ArticleView.vue'),
+        children: [
+          {
+            path: '/article/:articleId&&:commentId?',
+            name: 'articleDetail',
+            component: () => import('../views/inside/ArticleDetailView.vue')
+          }
+        ]
       },
       {
         path: '/myProfile',
@@ -26,10 +36,6 @@ const routes = [
     path: '/register',
     name: '注册',
     component: () => import('../views/RegisterView.vue')
-  }, {
-    path: '/articleDetail/:articleId&&:commentId?',
-    name: 'articleDetail',
-    component: () => import('../views/inside/ArticleDetailView.vue')
   }, {
     path: '/test',
     name: 'test',
@@ -50,5 +56,4 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
-
 export default router

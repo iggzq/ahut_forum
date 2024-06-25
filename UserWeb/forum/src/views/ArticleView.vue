@@ -1,4 +1,7 @@
 <template>
+  <keep-alive>
+    <router-view/>
+  </keep-alive>
   <div :class="totalShow">
     <van-sticky :offset-top="0">
       <van-nav-bar title="新鲜事">
@@ -98,123 +101,118 @@
     </div>
   </div>
 </template>
-<script>
-import { defineComponent, onMounted, ref } from 'vue'
+<script setup>
+import { onMounted, ref } from 'vue'
 import axios from 'axios'
 import { showFailToast, showSuccessToast } from 'vant'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
-export default defineComponent({
-  name: 'ArticleView',
-  setup () {
-    const totalShow = ref('')
-    const articles = ref([])
-    const writeArticle = ref({
-      title: '',
-      content: ''
-    })
-    const loading = ref(true)
-    const finished = ref(false)
-    const refreshing = ref(false)
-    const page = ref(-1)
-    const size = ref(5)
-    const router = useRouter()
-    const store = useStore()
-
-    async function load () {
-      store.commit('setActiveTab', 0)
-      page.value++
-      const result = await getArticlesByPage(page.value, size.value)
-      if (!result) {
-        page.value--
-      }
-      loading.value = false
-    }
-
-    async function refresh () {
-      page.value = 0
-      finished.value = false
-      articles.value = []
-      loading.value = false
-      refreshing.value = true
-      const result = await getArticlesByPage(0, 5)
-      if (!result) {
-        showFailToast('加载失败')
-      } else {
-        refreshing.value = false
-      }
-    }
-
-    const getArticlesByPage = async (page, size) => {
-      const fetchedArticles = await axios.get('http://172.20.10.3:8081/article/getArticles?page=' + page + '&size=' + size)
-      if (fetchedArticles.data.data.length === 5) {
-        finished.value = false
-        articles.value = [...articles.value, ...fetchedArticles.data.data]
-        return true
-      } else if (fetchedArticles.data.code === 200 && fetchedArticles.data.data.length < 5 && fetchedArticles.data.data.length > 0) {
-        articles.value = [...articles.value, ...fetchedArticles.data.data]
-        finished.value = true
-        return true
-      } else if (fetchedArticles.data.code === 200 && fetchedArticles.data.data.length === 0) {
-        finished.value = true
-        return false
-      }
-    }
-    const sendArticle = async () => {
-      const res = await axios.post('http://172.20.10.3:8081/article/saveArticle', {
-        title: writeArticle.value.title,
-        content: writeArticle.value.content
-      })
-      if (res.data.code === 200) {
-        writeArticle.value.title = ''
-        writeArticle.value.content = ''
-        page.value = 0
-        articles.value = []
-        showSuccessToast('发布成功')
-        bottom.value = false
-        await getArticlesByPage(0, 5)
-      } else {
-        showFailToast('发布失败，请重试')
-      }
-    }
-    onMounted(() => {
-      load()
-    })
-    const bottom = ref(false)
-    const goArticleDetail = (article) => {
-      router.push(
-        {
-          name: 'articleDetail',
-          params: {
-            articleId: article.id
-          }
-        }
-      )
-    }
-    const goChatRoom = () => {
-      router.push(
-        {
-          name: 'ChatRoom'
-        }
-      )
-    }
-    return {
-      articles,
-      bottom,
-      writeArticle,
-      sendArticle,
-      load,
-      loading,
-      finished,
-      goArticleDetail,
-      refresh,
-      refreshing,
-      totalShow,
-      goChatRoom
-    }
-  }
+const totalShow = ref('')
+const articles = ref([])
+const writeArticle = ref({
+  title: '',
+  content: ''
 })
+const loading = ref(true)
+const finished = ref(false)
+const refreshing = ref(false)
+const page = ref(-1)
+const size = ref(5)
+const router = useRouter()
+const store = useStore()
+
+async function load () {
+  store.commit('setActiveTab', 0)
+  page.value++
+  const result = await getArticlesByPage(page.value, size.value)
+  if (!result) {
+    page.value--
+  }
+  loading.value = false
+}
+
+async function refresh () {
+  page.value = 0
+  finished.value = false
+  articles.value = []
+  loading.value = false
+  refreshing.value = true
+  const result = await getArticlesByPage(0, 5)
+  if (!result) {
+    showFailToast('加载失败')
+  } else {
+    refreshing.value = false
+  }
+}
+
+const getArticlesByPage = async (page, size) => {
+  const fetchedArticles = await axios.get('http://172.20.10.3:8081/article/getArticles?page=' + page + '&size=' + size)
+  if (fetchedArticles.data.data.length === 5) {
+    finished.value = false
+    articles.value = [...articles.value, ...fetchedArticles.data.data]
+    return true
+  } else if (fetchedArticles.data.code === 200 && fetchedArticles.data.data.length < 5 && fetchedArticles.data.data.length > 0) {
+    articles.value = [...articles.value, ...fetchedArticles.data.data]
+    finished.value = true
+    return true
+  } else if (fetchedArticles.data.code === 200 && fetchedArticles.data.data.length === 0) {
+    finished.value = true
+    return false
+  }
+}
+const sendArticle = async () => {
+  const res = await axios.post('http://172.20.10.3:8081/article/saveArticle', {
+    title: writeArticle.value.title,
+    content: writeArticle.value.content
+  })
+  if (res.data.code === 200) {
+    writeArticle.value.title = ''
+    writeArticle.value.content = ''
+    page.value = 0
+    articles.value = []
+    showSuccessToast('发布成功')
+    bottom.value = false
+    await getArticlesByPage(0, 5)
+  } else {
+    showFailToast('发布失败，请重试')
+  }
+}
+onMounted(() => {
+  load()
+})
+const bottom = ref(false)
+const goArticleDetail = (article) => {
+  router.push(
+    {
+      name: 'articleDetail',
+      params: {
+        articleId: article.id
+      }
+    }
+  )
+}
+const goChatRoom = () => {
+  router.push(
+    {
+      name: 'ChatRoom'
+    }
+  )
+}
+// 导航守卫：beforeRouteUpdate
+// router.beforeEach((to, from, next) => {
+//   // 判断是否是从 ArticleDetail 页面返回
+//   if (from.name !== 'articleDetail') {
+//     // 执行刷新操作
+//     refresh().then(() => {
+//       next()
+//     }).catch(() => {
+//       next(false) // 可能需要处理刷新失败的情况
+//     })
+//   } else {
+//     next()
+//   }
+// })
 </script>
 <style scoped>
 .itemList {

@@ -14,6 +14,7 @@ import java.util.Collections;
 
 /**
  * MybatisPlus代码生成
+ * @author lituizi
  */
 public class MybatisPlusGenerate {
 
@@ -24,13 +25,11 @@ public class MybatisPlusGenerate {
     public static void main(String[] args) {
         // 代码生成器全局配置
         FastAutoGenerator fastAutoGenerator = FastAutoGenerator.create(URL, USERNAME, PASSWORD)
-                .globalConfig(builder -> {
-                    builder.author("LiTuiZi")
-                            .enableSwagger()
-                            .outputDir("/home/lituizi/IdeaProjects/ahut_forum/article_mod/src/main/java")
-                            .commentDate("yyyy-MM-dd hh:mm:ss")   //注释日期
-                            .dateType(DateType.TIME_PACK);
-                });
+                .globalConfig(builder -> builder.author("LiTuiZi")
+                        .enableSwagger()
+                        .outputDir("/home/lituizi/IdeaProjects/ahut_forum/article_mod/src/main/java")
+                        .commentDate("yyyy-MM-dd hh:mm:ss")   //注释日期
+                        .dateType(DateType.TIME_PACK));
         fastAutoGenerator.packageConfig(builder -> {
                     //包配置
                     builder.parent("com.forum.article")

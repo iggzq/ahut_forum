@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author LiTuiZi
@@ -18,9 +18,9 @@ import java.util.List;
  */
 public interface UserService extends IService<User> {
 
-    public void registerSave(RegisterUserVo registerUserVo);
+    void registerSave(RegisterUserVo registerUserVo);
 
-    public String login(LoginUserVo loginUserVo);
+    String login(LoginUserVo loginUserVo);
 
-    List<UserNameVo> getUserNames(List<Long> uids);
+    List<UserNameVo> getUserNames(List<Long> uIds);
 }

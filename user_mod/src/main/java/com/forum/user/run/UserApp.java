@@ -7,16 +7,16 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * Hello world!
+ * @author lituizi
  */
 @SpringBootApplication
 @ComponentScan("com.forum.user")
 @MapperScan("com.forum.user.mapper")
 @EnableFeignClients
-public class UserApplication {
+public class UserApp {
 
     public static void main(String[] args) {
-        SpringApplication springApplication = new SpringApplication(UserApplication.class);
+        SpringApplication springApplication = new SpringApplication(UserApp.class);
         springApplication.run(args);
 
     }
