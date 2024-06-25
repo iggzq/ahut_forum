@@ -1,8 +1,10 @@
 <template>
-  <router-view/>
-  <van-tabbar v-model="active" route >
-    <van-tabbar-item icon="home-o" replace to="/article">文章</van-tabbar-item>
-    <van-tabbar-item icon="manager-o" replace  to="/myProfile">我的</van-tabbar-item>
+  <keep-alive>
+    <router-view/>
+  </keep-alive>
+  <van-tabbar v-model="active" route>
+    <van-tabbar-item icon="home-o" to="/article">文章</van-tabbar-item>
+    <van-tabbar-item icon="manager-o" to="/myProfile">我的</van-tabbar-item>
   </van-tabbar>
 </template>
 <script>
