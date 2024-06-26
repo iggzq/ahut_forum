@@ -1,5 +1,6 @@
 package com.forum.chatroom.handler;
 
+import cn.hutool.json.JSONStrFormatter;
 import cn.hutool.json.JSONUtil;
 import com.forum.chatroom.config.WebSocketMapping;
 import com.forum.chatroom.entity.ChatRoomComment;
@@ -25,28 +26,43 @@ public class ChatHandler implements WebSocketHandler {
 
     public static final Map<WebSocketSession, FluxSink<WebSocketMessage>> MY_CLIENTS = new ConcurrentHashMap<>();
 
+    // 客户端数量
+    private static int clientCount = 0;
+
+    /**
+     * 处理WebSocket请求
+     */
     @Override
     public Mono<Void> handle(WebSocketSession webSocketSession) {
         ChatRoomComment chatRoomComment = new ChatRoomComment();
         String path = webSocketSession.getHandshakeInfo().getUri().getPath();
         String id = path.substring(path.lastIndexOf("/") + 1);
         chatRoomComment.setId(id);
+
+        // 客户端数量加1
+        clientCount++;
+
+        // Send initial message with current clientCount to the new session
+        sendClientCountToNewSession(webSocketSession);
+
         // 创建一个变量来保存发送消息的WebSocketSession
         final WebSocketSession senderSession = webSocketSession;
 
         Flux<WebSocketMessage> receive = webSocketSession.receive();
         Mono<Void> mono1 = receive.map(message -> {
             String payloadAsText = message.getPayloadAsText();
-            // 广播给其他客户端的原始消息
+            // 原始消息
             chatRoomComment.setComment(payloadAsText);
             return chatRoomComment;
         }).doOnNext(comment -> {
+            // 广播的消息
             LocalTime now = LocalTime.now();
             String nowTime = now.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
             chatRoomComment.setTime(nowTime);
             System.out.println(nowTime);
             chatRoomComment.setId("(" + id + ")");
             String broadcastMessage = JSONUtil.parse(chatRoomComment).toString();
+
             // 返回自定义的响应给发送者，例如加上"您说："的前缀
             chatRoomComment.setId(String.format("您说(%s)", id));
             chatRoomComment.setComment(chatRoomComment.getComment());
@@ -71,8 +87,30 @@ public class ChatHandler implements WebSocketHandler {
         });
         //发送消息
         Mono<Void> mono2 = webSocketSession.send(outFlux);
+
+        // Send messages and handle disconnection
+        Mono<Void> sendMono = webSocketSession.send(outFlux)
+                .doFinally(signalType -> {
+                    // Remove the session from MY_CLIENTS map when the session ends
+                    MY_CLIENTS.remove(webSocketSession);
+                    // Decrement client count when the session ends
+                    clientCount--;
+                    System.out.println("Client disconnected. Remaining clients: " + clientCount);
+                });
         //把两个mono 的消息汇总起来 再返回
-        return Mono.zip(mono1, mono2).then();
+        return Mono.zip(mono1, mono2)
+                .then(sendMono);
 
     }
+
+    // Method to send current clientCount to the newly connected session
+    private void sendClientCountToNewSession(WebSocketSession webSocketSession) {
+        String format = JSONStrFormatter.format(String.valueOf(clientCount));
+        System.out.println(format);
+        webSocketSession.send(Mono.just(webSocketSession.textMessage(format)))
+                .subscribe();
+    }
+
 }
+
+

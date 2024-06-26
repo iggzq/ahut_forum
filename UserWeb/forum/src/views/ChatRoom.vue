@@ -3,7 +3,11 @@
     <van-sticky :offset-top="0" position="top">
       <van-nav-bar left-arrow @click-left="goBack">
         <template #title>
-          <p class="animate__animated animate__fadeInRight title">聊天室</p>
+          <div class="title-container">
+            <p class="animate__animated animate__fadeInRight title">
+              聊天室<span class="connection-status"></span>
+            </p>
+          </div>
         </template>
       </van-nav-bar>
     </van-sticky>
@@ -51,6 +55,7 @@ export default defineComponent({
     const othersComments = reactive([])
     const isConnected = ref(false)
     const randomUserId = Math.floor(Math.random() * 1000).toString()
+    const currentOnlineUserCount = ref(0)
 
     function adjustChatHistoryHeight () {
       const navBarContent = document.querySelector('.topArea')
@@ -70,11 +75,16 @@ export default defineComponent({
       socket.value = new WebSocket('ws://172.20.10.3:8082/chat/' + randomUserId)
       socket.value.addEventListener('open', (event) => {
         isConnected.value = true
+        console.log(event)
       })
       socket.value.addEventListener('message', (event) => {
         // 在这里可以处理接收到的消息，比如将其显示在聊天记录中
         const newComment = JSON.parse(event.data)
-        othersComments.push(newComment)
+        if (newComment.toString().length === 1) {
+          currentOnlineUserCount.value = newComment
+        } else {
+          othersComments.push(newComment)
+        }
       })
       socket.value.addEventListener('error', () => {
       })
@@ -160,4 +170,36 @@ export default defineComponent({
   animation-duration: 0.2s;
 }
 
+.title-container {
+  position: relative; /* 保留相对定位 */
+}
+
+.connection-status {
+  margin: 4px;
+  width: 10px;
+  height: 10px;
+  background-color: #30bf36; /* 绿色 */
+  border-radius: 50%; /* 圆形 */
+  animation: breathing 2s infinite; /* 呼吸灯效果动画 */
+}
+
+@keyframes breathing {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.6);
+    opacity: 0.6;
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
 </style>
