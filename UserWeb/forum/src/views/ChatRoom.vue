@@ -26,10 +26,31 @@
       <p v-if="isConnected">——————— 已成功连接,本次随机id为 {{ randomUserId }} ———————</p>
       <p v-else>连接失败,请刷新重试</p>
     </div>
-    <div v-for="(comment, index) in othersComments" :key="index" class="otherComment">
-      <strong>{{ comment.id }} {{ comment.time }}:</strong>
-      <br>
-      {{ comment.comment }}
+    <div v-for="(comment, index) in othersComments" :key="index">
+      <div v-if="comment.id.includes('您说')" class="myCommentShow">
+        <div class="myCommentIdShow">
+          <strong v-if="(othersComments.length > 1 && comment.id !== othersComments[index - 1]?.id) || index === 0"
+                  style="color: #244cff">
+            {{ comment.id }} {{
+              comment.time
+            }}:</strong>
+        </div>
+        <div class="myCommentContentShow">
+          {{ comment.comment }}
+        </div>
+      </div>
+      <div v-else>
+        <div class="otherCommentIdShow">
+          <strong v-if="(othersComments.length > 1 && comment.id !== othersComments[index - 1]?.id) || index === 0"
+                  style="color: #65b36a">
+            {{ comment.id }} {{
+              comment.time
+            }}:</strong>
+        </div>
+        <div class="otherCommentContentShow">
+          {{ comment.comment }}
+        </div>
+      </div>
     </div>
   </div>
 
@@ -40,6 +61,7 @@
         placeholder="加入聊天吧! 🥳 :)"
         clearable
         maxlength="80"
+        @keyup.enter="sendComment"
       >
       </van-field>
       <div class="bottomCommentIcon">
@@ -151,7 +173,7 @@ const scrollToBottom = () => {
 }
 
 const goBack = async () => {
-  router.back()
+  router.push('article')
 }
 
 </script>
@@ -194,10 +216,32 @@ const goBack = async () => {
   padding-bottom: 0;
 }
 
-.otherComment {
-  padding-top: 7px;
+.myCommentShow {
+  height: auto;
+}
+
+.myCommentIdShow {
+  padding-right: 5px;
+  margin-top: 10px;
+  text-align: right;
+}
+
+.myCommentContentShow {
+  padding-bottom: 7px;
+  padding-right: 5px;
+  text-align: right;
+}
+
+.otherCommentIdShow {
+  padding-left: 5px;
+  margin-top: 10px;
+  text-align: left;
+}
+
+.otherCommentContentShow{
   padding-bottom: 7px;
   padding-left: 5px;
+  text-align: left;
 }
 
 .animate__fadeInRight {
@@ -246,4 +290,5 @@ const goBack = async () => {
   font-size: small;
   color: #ccc9c9;
 }
+
 </style>
