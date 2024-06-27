@@ -5,9 +5,18 @@
         <template #title>
           <div class="title-container">
             <p class="animate__animated animate__fadeInRight title">
-              聊天室<span class="connection-status"></span>{{ currentOnlineUserCount }}人
+              聊天室
+              <span v-if="isConnected" class="connection-status"></span>
+              <svg v-else class="outlineIcon" height="12px" p-id="7669"
+                   version="1.1" viewBox="0 0 1024 1024" width="12px" x="1719456864823"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#C4C4C4" p-id="7670"></path>
+              </svg>
             </p>
           </div>
+        </template>
+        <template #right>
+          <span v-if="isConnected" class="currentUserCount">{{ currentOnlineUserCount }}人</span>
         </template>
       </van-nav-bar>
     </van-sticky>
@@ -163,7 +172,8 @@ const goBack = async () => {
 }
 
 .connection-status {
-  margin: 4px;
+  margin-left: 4px;
+  margin-right: 4px;
   width: 10px;
   height: 10px;
   background-color: #30bf36; /* 绿色 */
@@ -189,5 +199,13 @@ const goBack = async () => {
 .title {
   display: flex;
   align-items: center;
+}
+
+.outlineIcon{
+  margin-left: 4px;
+}
+.currentUserCount{
+  font-size: small;
+  color: #ccc9c9;
 }
 </style>

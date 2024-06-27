@@ -40,7 +40,6 @@ public class ChatHandler implements WebSocketHandler {
         String path = webSocketSession.getHandshakeInfo().getUri().getPath();
         String id = path.substring(path.lastIndexOf("/") + 1);
         chatRoomComment.setId(id);
-
         // 创建一个变量来保存发送消息的WebSocketSession
         final WebSocketSession senderSession = webSocketSession;
 
@@ -80,11 +79,11 @@ public class ChatHandler implements WebSocketHandler {
         {
             //Flux 真正发布消息用的是Flux 底层的 fluxSink
             MY_CLIENTS.put(webSocketSession, fluxSink);
-            // 客户端数量加1
-            clientCount++;
-            // Send initial message with current clientCount to the new session
-            sendClientCountToAllSessions();
         });
+        // 客户端数量加1
+        clientCount++;
+        // Send initial message with current clientCount to all sessions
+        sendClientCountToAllSessions(webSocketSession);
         //发送消息
         Mono<Void> mono2 = webSocketSession.send(outFlux);
         // Send messages and handle disconnection
@@ -94,6 +93,7 @@ public class ChatHandler implements WebSocketHandler {
                     MY_CLIENTS.remove(webSocketSession);
                     // Decrement client count when the session ends
                     clientCount--;
+                    sendClientCountToAllSessions(webSocketSession);
                     System.out.println("Client disconnected. Remaining clients: " + clientCount);
                 });
         //把两个mono 的消息汇总起来 再返回
@@ -103,9 +103,12 @@ public class ChatHandler implements WebSocketHandler {
     }
 
     // Method to send current clientCount to all connected sessions
-    private void sendClientCountToAllSessions() {
+    private void sendClientCountToAllSessions(WebSocketSession webSocketSession) {
         String format = JSONStrFormatter.format(String.valueOf(clientCount));
-        System.out.println(format);
+        if (webSocketSession.isOpen()) {
+            webSocketSession.send(Mono.just(webSocketSession.textMessage(format)))
+                    .subscribe();
+        }
         // 遍历所有客户端并发送当前的客户端连接数
         for (Map.Entry<WebSocketSession, FluxSink<WebSocketMessage>> entry : MY_CLIENTS.entrySet()) {
             entry.getValue().next(entry.getKey().textMessage(format));
