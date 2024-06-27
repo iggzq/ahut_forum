@@ -5,7 +5,7 @@
         <template #title>
           <div class="title-container">
             <p class="animate__animated animate__fadeInRight title">
-              聊天室<span class="connection-status"></span>
+              聊天室<span class="connection-status"></span>{{ currentOnlineUserCount }}人
             </p>
           </div>
         </template>
@@ -42,83 +42,71 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, onMounted, onUnmounted, reactive, ref } from 'vue'
+<script setup>
+import { onMounted, onUnmounted, reactive, ref } from 'vue'
 import router from '@/router'
 import { showFailToast } from 'vant'
 
-export default defineComponent({
-  name: 'ChatRoom',
-  setup () {
-    const socket = ref(null)
-    const commentValue = ref('')
-    const othersComments = reactive([])
-    const isConnected = ref(false)
-    const randomUserId = Math.floor(Math.random() * 1000).toString()
-    const currentOnlineUserCount = ref(0)
+const socket = ref(null)
+const commentValue = ref('')
+const othersComments = reactive([])
+const isConnected = ref(false)
+const randomUserId = Math.floor(Math.random() * 1000).toString()
+const currentOnlineUserCount = ref(0)
 
-    function adjustChatHistoryHeight () {
-      const navBarContent = document.querySelector('.topArea')
-      const bottomArea = document.querySelector('.bottomArea')
-      const chatHistoryElement = document.querySelector('.chatHistory')
+function adjustChatHistoryHeight () {
+  const navBarContent = document.querySelector('.topArea')
+  const bottomArea = document.querySelector('.bottomArea')
+  const chatHistoryElement = document.querySelector('.chatHistory')
 
-      if (navBarContent && bottomArea && chatHistoryElement) {
-        const navBarContentHeight = navBarContent.getBoundingClientRect().height
-        const bottomAreaHeight = bottomArea.getBoundingClientRect().height
-        chatHistoryElement.style.height = `calc(100vh - ${navBarContentHeight}px - ${bottomAreaHeight}px)`
-      }
-    }
+  if (navBarContent && bottomArea && chatHistoryElement) {
+    const navBarContentHeight = navBarContent.getBoundingClientRect().height
+    const bottomAreaHeight = bottomArea.getBoundingClientRect().height
+    chatHistoryElement.style.height = `calc(100vh - ${navBarContentHeight}px - ${bottomAreaHeight}px)`
+  }
+}
 
-    onMounted(() => {
-      adjustChatHistoryHeight()
-      window.addEventListener('resize', adjustChatHistoryHeight)
-      socket.value = new WebSocket('ws://172.20.10.3:8082/chat/' + randomUserId)
-      socket.value.addEventListener('open', (event) => {
-        isConnected.value = true
-        console.log(event)
-      })
-      socket.value.addEventListener('message', (event) => {
-        // 在这里可以处理接收到的消息，比如将其显示在聊天记录中
-        const newComment = JSON.parse(event.data)
-        if (newComment.toString().length === 1) {
-          currentOnlineUserCount.value = newComment
-        } else {
-          othersComments.push(newComment)
-        }
-      })
-      socket.value.addEventListener('error', () => {
-      })
-      socket.value.addEventListener('close', () => {
-      })
-    })
-    onUnmounted(() => {
-      window.removeEventListener('resize', adjustChatHistoryHeight)
-      if (socket.value && socket.value.readyState === WebSocket.OPEN) {
-        socket.value.close()
-      }
-    })
-    const sendComment = () => {
-      if (socket.value && socket.value.readyState === WebSocket.OPEN) {
-        socket.value.send(commentValue.value)
-        commentValue.value = '' // 清空输入框
-      } else {
-        showFailToast('未连接到服务器，请检查网络连接')
-      }
+onMounted(() => {
+  adjustChatHistoryHeight()
+  window.addEventListener('resize', adjustChatHistoryHeight)
+  socket.value = new WebSocket('ws://172.20.10.3:8082/chat/' + randomUserId)
+  socket.value.addEventListener('open', (event) => {
+    isConnected.value = true
+    console.log(event)
+  })
+  socket.value.addEventListener('message', (event) => {
+    // 在这里可以处理接收到的消息，比如将其显示在聊天记录中
+    const newComment = JSON.parse(event.data)
+    if (newComment.toString().length === 1) {
+      currentOnlineUserCount.value = newComment
+      console.log(currentOnlineUserCount.value)
+    } else {
+      othersComments.push(newComment)
     }
-
-    const goBack = async () => {
-      router.back()
-    }
-    return {
-      commentValue,
-      sendComment,
-      othersComments,
-      goBack,
-      isConnected,
-      randomUserId
-    }
+  })
+  socket.value.addEventListener('error', () => {
+  })
+  socket.value.addEventListener('close', () => {
+  })
+})
+onUnmounted(() => {
+  window.removeEventListener('resize', adjustChatHistoryHeight)
+  if (socket.value && socket.value.readyState === WebSocket.OPEN) {
+    socket.value.close()
   }
 })
+const sendComment = () => {
+  if (socket.value && socket.value.readyState === WebSocket.OPEN) {
+    socket.value.send(commentValue.value)
+    commentValue.value = '' // 清空输入框
+  } else {
+    showFailToast('未连接到服务器，请检查网络连接')
+  }
+}
+
+const goBack = async () => {
+  router.back()
+}
 
 </script>
 

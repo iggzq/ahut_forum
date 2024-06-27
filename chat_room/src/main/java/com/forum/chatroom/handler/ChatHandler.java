@@ -4,6 +4,7 @@ import cn.hutool.json.JSONStrFormatter;
 import cn.hutool.json.JSONUtil;
 import com.forum.chatroom.config.WebSocketMapping;
 import com.forum.chatroom.entity.ChatRoomComment;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.socket.WebSocketHandler;
 import org.springframework.web.reactive.socket.WebSocketMessage;
@@ -33,17 +34,12 @@ public class ChatHandler implements WebSocketHandler {
      * 处理WebSocket请求
      */
     @Override
+    @NonNull
     public Mono<Void> handle(WebSocketSession webSocketSession) {
         ChatRoomComment chatRoomComment = new ChatRoomComment();
         String path = webSocketSession.getHandshakeInfo().getUri().getPath();
         String id = path.substring(path.lastIndexOf("/") + 1);
         chatRoomComment.setId(id);
-
-        // 客户端数量加1
-        clientCount++;
-
-        // Send initial message with current clientCount to the new session
-        sendClientCountToNewSession(webSocketSession);
 
         // 创建一个变量来保存发送消息的WebSocketSession
         final WebSocketSession senderSession = webSocketSession;
@@ -84,10 +80,13 @@ public class ChatHandler implements WebSocketHandler {
         {
             //Flux 真正发布消息用的是Flux 底层的 fluxSink
             MY_CLIENTS.put(webSocketSession, fluxSink);
+            // 客户端数量加1
+            clientCount++;
+            // Send initial message with current clientCount to the new session
+            sendClientCountToAllSessions();
         });
         //发送消息
         Mono<Void> mono2 = webSocketSession.send(outFlux);
-
         // Send messages and handle disconnection
         Mono<Void> sendMono = webSocketSession.send(outFlux)
                 .doFinally(signalType -> {
@@ -98,17 +97,19 @@ public class ChatHandler implements WebSocketHandler {
                     System.out.println("Client disconnected. Remaining clients: " + clientCount);
                 });
         //把两个mono 的消息汇总起来 再返回
-        return Mono.zip(mono1, mono2)
+        return Mono.when(mono1, mono2)
                 .then(sendMono);
 
     }
 
-    // Method to send current clientCount to the newly connected session
-    private void sendClientCountToNewSession(WebSocketSession webSocketSession) {
+    // Method to send current clientCount to all connected sessions
+    private void sendClientCountToAllSessions() {
         String format = JSONStrFormatter.format(String.valueOf(clientCount));
         System.out.println(format);
-        webSocketSession.send(Mono.just(webSocketSession.textMessage(format)))
-                .subscribe();
+        // 遍历所有客户端并发送当前的客户端连接数
+        for (Map.Entry<WebSocketSession, FluxSink<WebSocketMessage>> entry : MY_CLIENTS.entrySet()) {
+            entry.getValue().next(entry.getKey().textMessage(format));
+        }
     }
 
 }
