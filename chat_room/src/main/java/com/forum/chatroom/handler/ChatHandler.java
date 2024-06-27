@@ -1,9 +1,10 @@
 package com.forum.chatroom.handler;
 
-import cn.hutool.json.JSONStrFormatter;
 import cn.hutool.json.JSONUtil;
 import com.forum.chatroom.config.WebSocketMapping;
 import com.forum.chatroom.entity.ChatRoomComment;
+import lombok.SneakyThrows;
+import org.json.JSONObject;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.socket.WebSocketHandler;
@@ -103,15 +104,18 @@ public class ChatHandler implements WebSocketHandler {
     }
 
     // Method to send current clientCount to all connected sessions
+    @SneakyThrows
     private void sendClientCountToAllSessions(WebSocketSession webSocketSession) {
-        String format = JSONStrFormatter.format(String.valueOf(clientCount));
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("clientCount", clientCount);
+        String currentClientCount = jsonObject.toString();
         if (webSocketSession.isOpen()) {
-            webSocketSession.send(Mono.just(webSocketSession.textMessage(format)))
+            webSocketSession.send(Mono.just(webSocketSession.textMessage(currentClientCount)))
                     .subscribe();
         }
         // 遍历所有客户端并发送当前的客户端连接数
         for (Map.Entry<WebSocketSession, FluxSink<WebSocketMessage>> entry : MY_CLIENTS.entrySet()) {
-            entry.getValue().next(entry.getKey().textMessage(format));
+            entry.getValue().next(entry.getKey().textMessage(currentClientCount));
         }
     }
 

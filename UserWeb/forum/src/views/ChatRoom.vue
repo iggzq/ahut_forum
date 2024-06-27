@@ -86,8 +86,9 @@ onMounted(() => {
   socket.value.addEventListener('message', (event) => {
     // 在这里可以处理接收到的消息，比如将其显示在聊天记录中
     const newComment = JSON.parse(event.data)
-    if (newComment.toString().length === 1) {
-      currentOnlineUserCount.value = newComment
+    console.log(newComment)
+    if (Object.prototype.hasOwnProperty.call(newComment, 'clientCount')) {
+      currentOnlineUserCount.value = newComment.clientCount
       console.log(currentOnlineUserCount.value)
     } else {
       othersComments.push(newComment)
@@ -201,10 +202,11 @@ const goBack = async () => {
   align-items: center;
 }
 
-.outlineIcon{
+.outlineIcon {
   margin-left: 4px;
 }
-.currentUserCount{
+
+.currentUserCount {
   font-size: small;
   color: #ccc9c9;
 }
