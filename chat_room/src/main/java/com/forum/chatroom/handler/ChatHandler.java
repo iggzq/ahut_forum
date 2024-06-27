@@ -55,7 +55,6 @@ public class ChatHandler implements WebSocketHandler {
             LocalTime now = LocalTime.now();
             String nowTime = now.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
             chatRoomComment.setTime(nowTime);
-            System.out.println(nowTime);
             chatRoomComment.setId("(" + id + ")");
             String broadcastMessage = JSONUtil.parse(chatRoomComment).toString();
 

@@ -8,7 +8,7 @@
               聊天室
               <span v-if="isConnected" class="connection-status"></span>
               <svg v-else class="outlineIcon" height="12px" p-id="7669"
-                   version="1.1" viewBox="0 0 1024 1024" width="12px" x="1719456864823"
+                   viewBox="0 0 1024 1024" width="12px" x="1719456864823"
                    xmlns="http://www.w3.org/2000/svg">
                 <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#C4C4C4" p-id="7670"></path>
               </svg>
@@ -21,7 +21,7 @@
       </van-nav-bar>
     </van-sticky>
   </div>
-  <div class="chatHistory">
+  <div ref="chatContainer" class="chatHistory" @scroll="onChatScroll">
     <div class="hint">
       <p v-if="isConnected">——————— 已成功连接,本次随机id为 {{ randomUserId }} ———————</p>
       <p v-else>连接失败,请刷新重试</p>
@@ -62,6 +62,8 @@ const othersComments = reactive([])
 const isConnected = ref(false)
 const randomUserId = Math.floor(Math.random() * 1000).toString()
 const currentOnlineUserCount = ref(0)
+const chatContainer = ref(null)
+const isAtBottom = ref(true)
 
 function adjustChatHistoryHeight () {
   const navBarContent = document.querySelector('.topArea')
@@ -77,6 +79,8 @@ function adjustChatHistoryHeight () {
 
 onMounted(() => {
   adjustChatHistoryHeight()
+  // 页面加载完成后默认滚动到底部
+  scrollToBottom()
   window.addEventListener('resize', adjustChatHistoryHeight)
   socket.value = new WebSocket('ws://172.20.10.3:8082/chat/' + randomUserId)
   socket.value.addEventListener('open', (event) => {
@@ -92,6 +96,12 @@ onMounted(() => {
       console.log(currentOnlineUserCount.value)
     } else {
       othersComments.push(newComment)
+      // 在新消息添加后，根据isAtBottom决定是否滚动
+      setTimeout(() => {
+        if (isAtBottom.value) {
+          scrollToBottom()
+        }
+      })
     }
   })
   socket.value.addEventListener('error', () => {
@@ -107,10 +117,36 @@ onUnmounted(() => {
 })
 const sendComment = () => {
   if (socket.value && socket.value.readyState === WebSocket.OPEN) {
-    socket.value.send(commentValue.value)
-    commentValue.value = '' // 清空输入框
+    if (commentValue.value === '') {
+      showFailToast('请输入聊天内容')
+    } else {
+      socket.value.send(commentValue.value)
+      commentValue.value = ''
+    }
   } else {
     showFailToast('未连接到服务器，请检查网络连接')
+  }
+}
+
+// 监听滚动事件
+const onChatScroll = () => {
+  // 判断是否滚动到了底部
+  const container = chatContainer.value
+  if (container) {
+    const {
+      scrollTop,
+      scrollHeight,
+      clientHeight
+    } = container
+    isAtBottom.value = Math.abs(scrollHeight - scrollTop - clientHeight) < 1
+  }
+}
+
+// 滚动到底部的方法
+const scrollToBottom = () => {
+  console.log(isAtBottom.value)
+  if (chatContainer.value) {
+    chatContainer.value.scrollTop = chatContainer.value.scrollHeight
   }
 }
 
