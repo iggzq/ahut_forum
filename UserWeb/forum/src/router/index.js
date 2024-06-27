@@ -12,7 +12,7 @@ const routes = [
         component: () => import('../views/ArticleView.vue'),
         children: [
           {
-            path: '/article/:articleId&&:commentId?',
+            path: '/articlDetail/:articleId&&:commentId?',
             name: 'articleDetail',
             component: () => import('../views/inside/ArticleDetailView.vue'),
             meta: {
@@ -27,6 +27,10 @@ const routes = [
         component: () => import('../views/MyProfileView.vue')
       }
     ]
+  }, {
+    path: '/commentArticlDetail/:articleId&&:commentId?',
+    name: 'commentArticleDetail',
+    component: () => import('../views/inside/ArticleDetailView.vue')
   },
   {
     path: '/login',

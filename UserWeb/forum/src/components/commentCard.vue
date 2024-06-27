@@ -15,7 +15,7 @@ export default defineComponent({
     const router = useRouter()
     const goArticleComment = () => {
       router.push({
-        name: 'articleDetail',
+        name: 'commentArticleDetail',
         params: {
           articleId: commentNow.value.articleId,
           commentId: commentNow.value.id

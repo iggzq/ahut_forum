@@ -8,18 +8,21 @@
         我的消息
       </van-badge>
     </template>
-  <template #value>
-  </template>
+    <template #value>
+    </template>
   </van-cell>
 </template>
 <script>
 import router from '@/router'
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'MyProfileView',
   setup () {
+    onMounted(() => {
+      store.commit('setActiveTab', 1)
+    })
     // 查看token是否有值
     if (localStorage.getItem('satoken') == null) {
       alert(localStorage.getItem('satoken'))
@@ -27,7 +30,7 @@ export default defineComponent({
     }
     const store = useStore()
     const goMyComments = () => {
-      store.commit('setActiveTab', 1);
+      store.commit('setActiveTab', 1)
       router.push('/myComments')
     }
     return {
@@ -37,7 +40,7 @@ export default defineComponent({
 })
 </script>
 <style scoped>
-.myComments{
+.myComments {
   font-size: medium;
 }
 </style>
