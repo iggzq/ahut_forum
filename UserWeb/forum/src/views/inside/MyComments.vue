@@ -46,7 +46,7 @@ export default defineComponent({
       <p>清除所有</p>
     </template>
   </van-nav-bar>
-  <div class="myComments">
+  <div class="myCommentsContent">
     <div v-for="(item,index) in myComments" :key="index">
       <comment-card :comment="item"></comment-card>
     </div>
