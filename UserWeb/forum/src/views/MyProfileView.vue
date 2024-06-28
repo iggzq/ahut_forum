@@ -40,7 +40,5 @@ export default defineComponent({
 })
 </script>
 <style scoped>
-.myComments {
-  font-size: medium;
-}
+@import "@/assets/css/MyProfileView.css";
 </style>

@@ -1,0 +1,32 @@
+html, body {
+    height: 100%;
+
+}
+
+.entireBody {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: rgba(72, 50, 133, 0);
+}
+
+.entireBody .inputForm {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.infoInputForm {
+    border-radius: 10px;
+    border: 1px #42b983;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 85vw;
+}
+.inputField{
+    margin-top: 3px;
+    margin-bottom: 4px;
+}

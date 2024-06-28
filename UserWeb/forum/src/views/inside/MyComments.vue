@@ -55,9 +55,5 @@ export default defineComponent({
 </template>
 
 <style scoped>
-.myComments {
-  height: 100%;
-  width: 100vw;
-  overflow: auto;
-}
+@import "@/assets/css/MyComments.css";
 </style>

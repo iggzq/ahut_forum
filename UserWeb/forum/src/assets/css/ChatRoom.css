@@ -1,0 +1,111 @@
+.bottomArea {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 6vh;
+    background-color: white;
+    overflow: hidden;
+}
+
+.bottomContent {
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.bottomCommentIcon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.chatHistory {
+    overflow-y: auto;
+}
+
+.hint {
+    font-size: small;
+    color: #cccbcb;
+    display: flex;
+    justify-content: center;
+}
+
+.bottomContent .van-cell :deep(.van-field) {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.myCommentShow {
+    height: auto;
+}
+
+.myCommentIdShow {
+    padding-right: 5px;
+    margin-top: 10px;
+    text-align: right;
+}
+
+.myCommentContentShow {
+    padding-bottom: 7px;
+    padding-right: 5px;
+    text-align: right;
+}
+
+.otherCommentIdShow {
+    padding-left: 5px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.otherCommentContentShow{
+    padding-bottom: 7px;
+    padding-left: 5px;
+    text-align: left;
+}
+
+.animate__fadeInRight {
+    animation-duration: 0.2s;
+}
+
+.title-container {
+    position: relative; /* 保留相对定位 */
+}
+
+.connection-status {
+    margin-left: 4px;
+    margin-right: 4px;
+    width: 10px;
+    height: 10px;
+    background-color: #30bf36; /* 绿色 */
+    border-radius: 50%; /* 圆形 */
+    animation: breathing 2s infinite; /* 呼吸灯效果动画 */
+}
+
+@keyframes breathing {
+    0% {
+        transform: scale(0.6);
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.6);
+        opacity: 0.6;
+    }
+}
+
+.title {
+    display: flex;
+    align-items: center;
+}
+
+.outlineIcon {
+    margin-left: 4px;
+}
+
+.currentUserCount {
+    font-size: small;
+    color: #ccc9c9;
+}

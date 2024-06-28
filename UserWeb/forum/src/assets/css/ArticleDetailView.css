@@ -1,0 +1,61 @@
+.articleShow {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.articleDetail {
+    height: 88vh;
+    overflow-y: auto;
+}
+
+.articleDetailShow {
+    margin-top: 5px;
+    width: 95%;
+}
+
+.itemTitle {
+    padding-left: 5px;
+    font-family: 'DYH', serif;
+    text-align: left;
+    margin-bottom: 7px;
+}
+
+.itemUserName {
+    text-align: left;
+    padding-left: 5px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    color: darkgrey;
+}
+
+.itemContent {
+    text-align: left;
+    padding-left: 5px;
+}
+
+.itemUserName {
+    text-align: left;
+    padding-left: 5px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    color: darkgrey;
+}
+
+.skeletonShow {
+    width: 93vw;
+    justify-content: space-around;
+}
+
+.skeletonShowCard {
+    margin-top: 5px;
+    width: 95%;
+}
+
+.commentSkeleton {
+    margin-top: 10px;
+}
+
+.animate__fadeInRight {
+    animation-duration: 0.4s;
+}
