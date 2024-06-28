@@ -13,6 +13,7 @@ import com.forum.article.mapper.ArticleMapper;
 import com.forum.article.mapper.CommentArticleMapper;
 import com.forum.article.mapper.LikeArticleMapper;
 import com.forum.article.service.ArticleService;
+import com.forum.article.utils.ArticleRecommender;
 import com.forum.article.vo.ArticleVo;
 import com.forum.article.vo.LikeArticleVO;
 import com.forum.article.vo.SaveArticleVO;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -82,7 +84,18 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public List<Article> getArticles(int page, int size) {
-        return articleMapper.getArticleByPage(page * size, size);
+        List<Article> articleByPage = articleMapper.getArticleByPage(page * size, size);
+        LocalDateTime now = LocalDateTime.now();
+        articleByPage.sort(new Comparator<Article>() {
+            @Override
+            public int compare(Article o1, Article o2) {
+                double score1 = ArticleRecommender.calculateRecommendScore(o1, now);
+                double score2 = ArticleRecommender.calculateRecommendScore(o2, now);
+                // 注意这里使用降序排列
+                return Double.compare(score2, score1);
+            }
+        });
+        return articleByPage;
     }
 
     /**
