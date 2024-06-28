@@ -4,6 +4,7 @@ import com.forum.article.entity.Article;
 import com.forum.article.entity.CommentArticle;
 import com.forum.article.result.CommonResult;
 import com.forum.article.service.ArticleService;
+import com.forum.article.vo.ArticleVo;
 import com.forum.article.vo.LikeArticleVO;
 import com.forum.article.vo.SaveArticleVO;
 import jakarta.annotation.Resource;
@@ -42,8 +43,8 @@ public class ArticleController {
     }
 
     @GetMapping("getArticleById")
-    public CommonResult<Article> getArticleById(@RequestParam Long articleId) {
-        return CommonResult.success(articleService.getById(articleId));
+    public CommonResult<ArticleVo> getArticleById(@RequestParam Long articleId) {
+        return CommonResult.success(articleService.getArticleById(articleId));
     }
 
     @PostMapping("likeArticle")

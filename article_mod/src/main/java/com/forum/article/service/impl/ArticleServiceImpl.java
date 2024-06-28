@@ -3,19 +3,24 @@ package com.forum.article.service.impl;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.lang.generator.SnowflakeGenerator;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.forum.article.entity.Article;
 import com.forum.article.entity.CommentArticle;
+import com.forum.article.entity.LikeArticle;
 import com.forum.article.mapper.ArticleMapper;
 import com.forum.article.mapper.CommentArticleMapper;
 import com.forum.article.mapper.LikeArticleMapper;
 import com.forum.article.service.ArticleService;
+import com.forum.article.vo.ArticleVo;
 import com.forum.article.vo.LikeArticleVO;
 import com.forum.article.vo.SaveArticleVO;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -46,6 +51,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
+
 
     @Override
     public Boolean saveArticle(SaveArticleVO saveArticleVO) {
@@ -84,15 +90,32 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * 还未做点赞重复校验和异常处理
      */
     @Override
+    @Transactional
     public Boolean likeArticle(LikeArticleVO likeArticleVO) {
-        SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
-        Long next = snowflakeGenerator.next();
-        Long loginId = Long.valueOf(StpUtil.getLoginId().toString());
-        likeArticleVO.setId(next);
-        likeArticleVO.setLikeUserId(loginId);
-        likeArticleMapper.insert(likeArticleVO);
-        articleMapper.addLikeNumber(likeArticleVO.getArticleId());
-        return true;
+        LambdaQueryWrapper<LikeArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(LikeArticle::getArticleId, likeArticleVO.getArticleId());
+        lambdaQueryWrapper.eq(LikeArticle::getUserId, likeArticleVO.getUserId());
+        lambdaQueryWrapper.eq(LikeArticle::getStatus, 0);
+        boolean isLike = likeArticleMapper.exists(lambdaQueryWrapper);
+        if(isLike){
+            LambdaUpdateWrapper<LikeArticle> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+            lambdaUpdateWrapper.eq(LikeArticle::getArticleId, likeArticleVO.getArticleId());
+            lambdaUpdateWrapper.eq(LikeArticle::getUserId, likeArticleVO.getUserId());
+            lambdaUpdateWrapper.eq(LikeArticle::getStatus, 0);
+            lambdaUpdateWrapper.set(LikeArticle::getStatus, 1);
+            likeArticleMapper.update(lambdaUpdateWrapper);
+            articleMapper.subLikeNumber(likeArticleVO.getArticleId());
+            return true;
+        }else {
+            SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
+            Long next = snowflakeGenerator.next();
+            Long loginId = Long.valueOf(StpUtil.getLoginId().toString());
+            likeArticleVO.setId(next);
+            likeArticleVO.setLikeUserId(loginId);
+            likeArticleMapper.insert(likeArticleVO);
+            articleMapper.addLikeNumber(likeArticleVO.getArticleId());
+            return true;
+        }
     }
 
     /**
@@ -115,5 +138,20 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         articleMapper.addCommentNumber(commentArticle.getArticleId());
         redisTemplate.delete(ARTICLE_COMMENTS_REDIS_PRE_KEY + commentArticle.getArticleId());
         return true;
+    }
+
+    @Override
+    public ArticleVo getArticleById(Long articleId) {
+        ArticleVo articleVo = new ArticleVo();
+        Article article = articleMapper.selectById(articleId);
+        BeanUtils.copyProperties(article, articleVo);
+        Long loginId = Long.valueOf(StpUtil.getLoginId().toString());
+        LambdaQueryWrapper<LikeArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(LikeArticle::getArticleId, articleId);
+        lambdaQueryWrapper.eq(LikeArticle::getUserId, loginId);
+        lambdaQueryWrapper.eq(LikeArticle::getStatus, 0);
+        boolean isLike = likeArticleMapper.exists(lambdaQueryWrapper);
+        articleVo.setIsLike(isLike);
+        return articleVo;
     }
 }
