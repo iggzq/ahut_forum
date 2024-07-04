@@ -27,7 +27,7 @@ jobs:
 
       - name: Build with Maven
         working-directory: .
-        run: mvn clean package -DskipTests
+        run: mvn clean package -DskipTests -e
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
