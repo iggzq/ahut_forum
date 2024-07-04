@@ -4,7 +4,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /article
 
 # 将jar文件复制到容器中
-COPY article_mod-1.0-SNAPSHOT.jar  article.jar
+COPY ./target/article_mod-1.0-SNAPSHOT.jar  article.jar
 
 # EXPOSE PORT
 EXPOSE 8081
