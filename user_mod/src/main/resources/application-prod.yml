@@ -1,16 +1,13 @@
 server:
-  port: 8081
-  tomcat:
-    accept-count: 10000
-    threads:
-      max: 500
-      min-spare: 50
+  port: 8083
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
+    # Redis配置 （SSO模式一和模式二使用Redis来同步会话）
   data:
     redis:
       database: 1
@@ -25,16 +22,18 @@ spring:
           # 连接池最大阻塞等待时间（使用负值表示没有限制）
           max-wait: -1ms
           # 连接池中的最大空闲连接
-          max-idle: 20
+          max-idle: 10
           # 连接池中的最小空闲连接
           min-idle: 0
 
 sa-token:
+  cookie:
+    domain: localhost
+  # jwt秘钥
   jwt-secret-key: asdhkasdbascbasbchajsbchjabshcbashdjajs
+
+
 logging:
   level:
     sql: trace
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 

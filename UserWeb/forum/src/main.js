@@ -41,7 +41,7 @@ app.use(Form).use(Button).use(Field).use(Toast).use(store).use(router)
   .use(Grid).use(GridItem).use(Skeleton).use(Varlet).use(Tag).use(Sticky).use(TextEllipsis)
   .use(Icon).use(UComment).use(Cell).use(CellGroup).use(Badge)
   .mount('#app')
-axios.defaults.baseURL = 'http://172.20.10.3:8081/'
+ axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
 
 axios.interceptors.request.use((config) => {
   config.headers.satoken = localStorage.getItem('satoken')

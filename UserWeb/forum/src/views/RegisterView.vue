@@ -65,7 +65,7 @@ export default defineComponent({
       registerRequest()
     }
     const registerRequest = () => {
-      axios.post('/user/register', {
+      axios.post('http://47.116.223.33:8083/user/register', {
         name: name.value,
         password: password.value,
         question: question.value,

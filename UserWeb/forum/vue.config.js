@@ -22,7 +22,7 @@ module.exports = defineConfig({
       }),
       AutoImport.default({
         resolvers: [VarletImportResolver({ autoImport: true })]
-      })
+      }),
     ]
   }
 })

@@ -48,7 +48,7 @@ export default defineComponent({
     const password = ref('')
     const router = useRouter();
     const onSubmit = (values) => {
-      axios.post('http://172.20.10.3:8080/user/login', {
+      axios.post('http://47.116.223.33:8083/user/login', {
         name: name.value,
         password: password.value
       }).then(res => {

@@ -75,7 +75,7 @@ const goBack = () => {
   window.history.go(-1)
 }
 const getArticleDetail = async () => {
-  await axios.get('http://172.20.10.3:8081/article/getArticleById', {
+  await axios.get('http://47.116.223.33:8081/article/getArticleById', {
     params: {
       articleId: articleId
     }
@@ -84,7 +84,7 @@ const getArticleDetail = async () => {
   })
 }
 const sendLikeArticle = async () => {
-  await axios.post('http://172.20.10.3:8081/article/likeArticle', {
+  await axios.post('http://47.116.223.33:8081/article/likeArticle', {
     userId: articleDetail.value.userId,
     articleId: articleDetail.value.id
   }).then(res => {
@@ -126,7 +126,7 @@ watch(() => bottom.value,
   { immediate: true }
 )
 const getComments = async () => {
-  await axios.get('http://172.20.10.3:8081/comment/getCommentByArticleId?id=' + articleId).then(res => {
+  await axios.get('http://47.116.223.33:8081/comment/getCommentByArticleId?id=' + articleId).then(res => {
     if (res.data.code === 200) {
       comments.value = res.data.data
       config.comments = comments.value
@@ -185,7 +185,7 @@ const submit = async ({
       username: ''
     }
   }
-  await axios.post('http://172.20.10.3:8081/article/commentArticle', {
+  await axios.post('http://47.116.223.33:8081/article/commentArticle', {
     parentId: comment.parentId,
     content: comment.content,
     articleId: comment.articleId,

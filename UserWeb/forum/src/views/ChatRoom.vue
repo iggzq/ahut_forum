@@ -104,7 +104,7 @@ onMounted(() => {
   // 页面加载完成后默认滚动到底部
   scrollToBottom()
   window.addEventListener('resize', adjustChatHistoryHeight)
-  socket.value = new WebSocket('ws://172.20.10.3:8082/chat/' + randomUserId)
+  socket.value = new WebSocket('ws://47.116.223.33:8082/chat/' + randomUserId)
   socket.value.addEventListener('open', (event) => {
     isConnected.value = true
     console.log(event)
