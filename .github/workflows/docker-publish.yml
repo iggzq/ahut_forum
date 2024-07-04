@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        module: [ article_mod ] # 动态生成或手动列出所有模块
+        module: [ article_mod, article_mod, chat_room ] # 动态生成或手动列出所有模块
     runs-on: ubuntu-latest
 
 
