@@ -7,14 +7,22 @@ on:
     branches: [ main ]
 
 jobs:
-
   build:
-
+    strategy:
+      matrix:
+        module: [article_mod] # 动态生成或手动列出所有模块
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
@@ -23,9 +31,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker image
+        id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./${{ matrix.module }} # 指定模块目录
+          file: ./${{ matrix.module }}/Dockerfile # 指定Dockerfile位置
           push: true
-          tags: lituizi/article_mod:latest
+          tags: lituizi/${{ matrix.module }}:latest
