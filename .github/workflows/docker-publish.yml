@@ -39,16 +39,13 @@ jobs:
       - name: Login to Alibaba Cloud Container Registry
         run: |
           echo "Logging in to Alibaba Cloud Container Registry..."
-        # 直接调用aliyun cr token获取登录token，无需额外配置
           TOKEN=$(aliyun cr token \
             --instance "https://${{ secrets.ALIYUN_REGISTRY }}/acr-auth" \
-            --username "${{ secrets.ALIYUN_ACCESS_KEY_ID}}" \
-            --password "${{ secrets.ALIYUN_ACCESS_KEY_SECRET}}")
-
-        # 使用获取的token进行docker login
-            docker login \
-             --username "${{ secrets.ALIYUN_ACCESS_KEY_ID}}" \
-             --password-stdin https://${{ secrets.ALIYUN_REGISTRY }}/acr-auth <<< "$TOKEN"
+            --username "${{ secrets.ALIYUN_ACCESS_KEY_ID }}" \
+            --password "${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}")
+          docker login \
+            --username "${{ secrets.ALIYUN_ACCESS_KEY_ID }}" \
+            --password-stdin https://${{ secrets.ALIYUN_REGISTRY }}/acr-auth <<< "$TOKEN"
         env:
           ALIYUN_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
           ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
