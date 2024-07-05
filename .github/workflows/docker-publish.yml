@@ -39,6 +39,7 @@ jobs:
       - name: Login to Alibaba Cloud Container Registry
         run: |
           echo "Logging in to Alibaba Cloud Container Registry..."
+          export ALIYUN_REGION=cn-shanghai
           TOKEN=$(aliyun cr token \
             --instance "https://${{ secrets.ALIYUN_REGISTRY }}/acr-auth" \
             --username "${{ secrets.ALIYUN_ACCESS_KEY_ID }}" \
