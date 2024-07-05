@@ -39,9 +39,9 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          registry: ${{ secrets.ALI_DOCKER_HUB_REGISTRY }}
-          username: ${{ secrets.ALI_DOCKER_HUB_USN }}
-          password: ${{ secrets.ALI_DOCKER_HUB_PWD }}
+          registry: ${{ secrets.ALIYUN_REGISTRY }}
+          username: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+          password: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
