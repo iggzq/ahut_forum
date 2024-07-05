@@ -27,7 +27,7 @@ jobs:
 
       - name: Build with Maven
         working-directory: .
-        run: mvn clean package -DskipTests -e
+        run: mvn clean package -DskipTests
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -36,21 +36,12 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Login to Alibaba Cloud Container Registry
-        run: |
-          echo "Logging in to Alibaba Cloud Container Registry..."
-          export ALIYUN_REGION=cn-shanghai
-          TOKEN=$(aliyun cr token \
-            --instance "https://${{ secrets.ALIYUN_REGISTRY }}/acr-auth" \
-            --username "${{ secrets.ALIYUN_ACCESS_KEY_ID }}" \
-            --password "${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}")
-          docker login \
-            --username "${{ secrets.ALIYUN_ACCESS_KEY_ID }}" \
-            --password-stdin https://${{ secrets.ALIYUN_REGISTRY }}/acr-auth <<< "$TOKEN"
-        env:
-          ALIYUN_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
-          ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
-          ALIYUN_REGISTRY: ${{ secrets.ALIYUN_REGISTRY }}
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.ALI_DOCKER_HUB_REGISTRY }}
+          username: ${{ secrets.ALI_DOCKER_HUB_USN }}
+          password: ${{ secrets.ALI_DOCKER_HUB_PWD }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
