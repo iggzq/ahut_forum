@@ -1,12 +1,12 @@
 FROM openjdk:17-jdk-slim
 
 # 设置工作目录
-WORKDIR /ahut-forum
+WORKDIR /ahutforum
 
 # 将jar文件复制到容器中
-COPY article_mod/target/article_mod-1.0-SNAPSHOT.jar  article.jar
-COPY user_mod/target/user_mod-1.0-SNAPSHOT.jar user.jar
-COPY chat_room/target/chat_room-1.0-SNAPSHOT.jar chatroom.jar
+COPY ./article_mod/target/article_mod-1.0-SNAPSHOT.jar  article.jar
+COPY ./user_mod/target/user_mod-1.0-SNAPSHOT.jar user.jar
+COPY ./chat_room/target/chat_room-1.0-SNAPSHOT.jar chatroom.jar
 # EXPOSE PORT
 EXPOSE 8081
 EXPOSE 8082
