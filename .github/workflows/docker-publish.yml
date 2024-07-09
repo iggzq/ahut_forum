@@ -33,6 +33,7 @@ jobs:
       - name: Build Frontend
         working-directory: UserWeb/forum
         run: |
+          npm install -g @vue/cli # 全局安装Vue CLI
           npm install --legacy-peer-deps
           npm run build --mode production
 
