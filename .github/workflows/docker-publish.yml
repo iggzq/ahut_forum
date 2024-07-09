@@ -29,8 +29,14 @@ jobs:
         working-directory: .
         run: mvn clean package -DskipTests
 
-      # 前端构建步骤
-      - name: Build Frontend
+      # 前端构建步骤1
+      - name: Build Frontend 1
+        working-directory: UserWeb/
+        run: |
+          npm install
+
+      # 前端构建步骤2
+      - name: Build Frontend 2
         working-directory: UserWeb/forum
         run: |
           npm install -g @vue/cli # 全局安装Vue CLI
