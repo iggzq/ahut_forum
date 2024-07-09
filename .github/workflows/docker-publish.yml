@@ -34,7 +34,7 @@ jobs:
         working-directory: UserWeb/forum
         run: |
           npm install --legacy-peer-deps
-          vue-cli-service build --mode production
+          npm run build --mode production
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
