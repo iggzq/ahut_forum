@@ -29,6 +29,13 @@ jobs:
         working-directory: .
         run: mvn clean package -DskipTests
 
+      # 前端构建步骤
+      - name: Build Frontend
+        working-directory: UserWeb/forum
+        run: |
+          npm install
+          npm run build
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -43,10 +50,20 @@ jobs:
           username: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
           password: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
 
-      - name: Build and push Docker image
+      # 后端镜像构建与推送
+      - name: Build and push Backend Docker image
         uses: docker/build-push-action@v2
         with:
-            context: .
-            file: ./Dockerfile
-            push: true
-            tags: ${{secrets.ALIYUN_REGISTRY}}/lituizi/ahut_forum:latest
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{secrets.ALIYUN_REGISTRY}}/lituizi/ahut_forum_backend:latest
+
+      # 前端镜像构建与推送
+      - name: Build and push Frontend Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: UserWeb/forum
+          file: UserWeb/forum/Dockerfile
+          push: true
+          tags: ${{secrets.ALIYUN_REGISTRY}}/lituizi/ahut_forum_frontend:latest
