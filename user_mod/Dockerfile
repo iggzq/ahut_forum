@@ -16,4 +16,4 @@ ENV DATABASE_PASSWORD=""
 
 # SET RUN COMMAND
 
-CMD ["java", "-Xms400m", "-Xmx512m", "-Dserver.port=8083", "-Dspring.datasource.url=${DATABASE_URL}", "-Dspring.datasource.username=${DATABASE_USERNAME}", "-Dspring.datasource.password=${DATABASE_PASSWORD}", "-jar", "user.jar"]
+CMD ["java", "-Xms256m", "-Xmx512m", "-Dserver.port=8083", "-Dspring.datasource.url=${DATABASE_URL}", "-Dspring.datasource.username=${DATABASE_USERNAME}", "-Dspring.datasource.password=${DATABASE_PASSWORD}", "-jar", "user.jar"]

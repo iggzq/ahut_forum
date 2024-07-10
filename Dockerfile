@@ -19,18 +19,20 @@ ENV DATABASE_PASSWORD=""
 
 # SET RUN COMMAND
 
-CMD ["sh", "-c", "exec java -Xms512m -Xmx1024m -XX:MaxNewSize=256m -XX:MaxPermSize=512m -Dserver.port=8081 \
-  -Dspring.datasource.url=${DATABASE_URL} \
-  -Dspring.datasource.username=${DATABASE_USERNAME} \
-  -Dspring.datasource.password=${DATABASE_PASSWORD} \
+CMD ["sh", "-c", "exec java -Xmx512m -Dserver.port=8081 \
+  -Dspring.datasource.url=$DATABASE_URL \
+  -Dspring.datasource.username=$DATABASE_USERNAME \
+  -Dspring.datasource.password=$DATABASE_PASSWORD \
   -jar article.jar & \
-  exec java -Xms256m -Xmx512m -Dserver.port=8082 \
-  -Dspring.datasource.url=${DATABASE_URL} \
-  -Dspring.datasource.username=${DATABASE_USERNAME} \
-  -Dspring.datasource.password=${DATABASE_PASSWORD} \
+  sleep 10s; \
+  exec java -Xmx512m -Dserver.port=8082 \
+  -Dspring.datasource.url=$DATABASE_URL \
+  -Dspring.datasource.username=$DATABASE_USERNAME \
+  -Dspring.datasource.password=$DATABASE_PASSWORD \
   -jar chatroom.jar & \
-  exec java -Xms256m -Xmx512m -Dserver.port=8081 \
-  -Dspring.datasource.url=${DATABASE_URL} \
-  -Dspring.datasource.username=${DATABASE_USERNAME} \
-  -Dspring.datasource.password=${DATABASE_PASSWORD} \
+  sleep 10s; \
+  exec java -Xmx512m -Dserver.port=8083 \
+  -Dspring.datasource.url=$DATABASE_URL \
+  -Dspring.datasource.username=$DATABASE_USERNAME \
+  -Dspring.datasource.password=$DATABASE_PASSWORD \
   -jar user.jar"]

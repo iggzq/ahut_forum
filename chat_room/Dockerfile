@@ -16,4 +16,4 @@ ENV DATABASE_PASSWORD=""
 
 # SET RUN COMMAND
 
-CMD ["java", "-Xms300m", "-Xmx512m", "-Dserver.port=8082", "-Dspring.datasource.url=${DATABASE_URL}", "-Dspring.datasource.username=${DATABASE_USERNAME}", "-Dspring.datasource.password=${DATABASE_PASSWORD}", "-jar", "chatroom.jar"]
+CMD ["java", "-Xms256m", "-Xmx512m", "-Dserver.port=8082", "-Dspring.datasource.url=${DATABASE_URL}", "-Dspring.datasource.username=${DATABASE_USERNAME}", "-Dspring.datasource.password=${DATABASE_PASSWORD}", "-jar", "chatroom.jar"]
