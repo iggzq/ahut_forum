@@ -57,14 +57,24 @@ jobs:
           username: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
           password: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
 
-      # 后端镜像构建与推送
+      # 后端镜像分开构建与推送
+#      - name: Build and push Backend Docker image
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: ./${{ matrix.module }}
+#          file: ./${{ matrix.module }}/Dockerfile
+#          push: true
+#          tags: ${{secrets.ALIYUN_REGISTRY}}/lituizi/${{ matrix.module }}:latest
+
+      # 后端镜像合体构建与推送
       - name: Build and push Backend Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ./${{ matrix.module }}
-          file: ./${{ matrix.module }}/Dockerfile
+          context: .
+          file: ./Dockerfile
           push: true
-          tags: ${{secrets.ALIYUN_REGISTRY}}/lituizi/${{ matrix.module }}:latest
+          tags: ${{secrets.ALIYUN_REGISTRY}}/lituizi/ahut_forum_backend:latest
+
 
       # 前端镜像构建与推送
       - name: Build and push Frontend Docker image
