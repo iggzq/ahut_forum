@@ -16,6 +16,8 @@ EXPOSE 8083
 ENV DATABASE_URL=""
 ENV DATABASE_USERNAME=""
 ENV DATABASE_PASSWORD=""
+ENV KEY_STORE_PATH=""
+ENV KEY_STORE_PASSWORD=""
 
 # SET RUN COMMAND
 
@@ -23,16 +25,22 @@ CMD ["sh", "-c", "exec java -Xmx512m -Dserver.port=8081 \
   -Dspring.datasource.url=$DATABASE_URL \
   -Dspring.datasource.username=$DATABASE_USERNAME \
   -Dspring.datasource.password=$DATABASE_PASSWORD \
+  -Dserver.ssl.key-store=$KEY_STORE_PATH \
+  -Dserver.ssl.key-store-password=$KEY_STORE_PASSWORD \
   -jar article.jar & \
   sleep 10s; \
   exec java -Xmx512m -Dserver.port=8082 \
   -Dspring.datasource.url=$DATABASE_URL \
   -Dspring.datasource.username=$DATABASE_USERNAME \
   -Dspring.datasource.password=$DATABASE_PASSWORD \
+  -Dserver.ssl.key-store=$KEY_STORE_PATH \
+  -Dserver.ssl.key-store-password=$KEY_STORE_PASSWORD \
   -jar chatroom.jar & \
   sleep 10s; \
   exec java -Xmx512m -Dserver.port=8083 \
   -Dspring.datasource.url=$DATABASE_URL \
   -Dspring.datasource.username=$DATABASE_USERNAME \
   -Dspring.datasource.password=$DATABASE_PASSWORD \
+  -Dserver.ssl.key-store=$KEY_STORE_PATH \
+  -Dserver.ssl.key-store-password=$KEY_STORE_PASSWORD \
   -jar user.jar"]
