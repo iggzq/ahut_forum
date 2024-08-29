@@ -8,5 +8,7 @@ public class Constants {
 
     public static final String LOGIN_USERNAME = "name";
 
+    public static final String LOGIN_ADMISSION_YEAR = "admissionYear";
+
     public static final String ARTICLE_PER_KEY = "articleId:";
 }

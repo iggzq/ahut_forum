@@ -12,6 +12,8 @@ public class RegisterUserVo {
 
     private String password;
 
+    private Integer admissionYear;
+
     private String question;
 
     private String answer;

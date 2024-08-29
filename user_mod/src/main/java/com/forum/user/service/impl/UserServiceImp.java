@@ -59,6 +59,7 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
         if (user != null) {
             StpUtil.login(user.getId(), SaLoginConfig
                     .setExtra("name", user.getName())
+                    .setExtra("admissionYear", user.getAdmissionYear())
             );
             String name = (String) StpUtil.getExtra("name");
             System.out.println(name);

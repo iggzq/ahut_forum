@@ -38,6 +38,9 @@ public class User implements Serializable {
     @TableField("password")
     private String password;
 
+    @TableField("admission_year")
+    private Integer admissionYear;
+
     @ApiModelProperty("用户自我描述")
     @TableField("profile_desc")
     private String profileDesc;
