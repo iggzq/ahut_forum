@@ -28,8 +28,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import static com.forum.article.constants.Constants.ARTICLE_COMMENTS_REDIS_PRE_KEY;
-import static com.forum.article.constants.Constants.LOGIN_USERNAME;
+import static com.forum.article.constants.Constants.*;
 
 /**
  * <p>
@@ -65,9 +64,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         LocalDateTime now = LocalDateTime.now();
         long loginId = StpUtil.getLoginIdAsLong();
         String name = (String) StpUtil.getExtra(LOGIN_USERNAME);
+        Integer admissionYear = Integer.valueOf(String.valueOf(StpUtil.getExtra(LOGIN_ADMISSION_YEAR)));
         //补充数据
         article.setId(articleId);
         article.setUserName(name);
+        article.setAdmissionYear(admissionYear);
         article.setCreateTime(now);
         article.setUpdateTime(now);
         article.setUserId(loginId);

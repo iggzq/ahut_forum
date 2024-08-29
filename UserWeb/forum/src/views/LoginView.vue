@@ -36,42 +36,32 @@
   </div>
 
 </template>
-<script>
-import { defineComponent, ref } from 'vue'
+<script setup>
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 import { showFailToast, showSuccessToast } from 'vant'
 
-export default defineComponent({
-  setup () {
-    const name = ref('')
-    const password = ref('')
-    const router = useRouter();
-    const onSubmit = (values) => {
-      axios.post('http://47.116.223.33:8083/user/login', {
-        name: name.value,
-        password: password.value
-      }).then(res => {
-        if (res.data.code === 200) {
-          showSuccessToast('登陆成功')
-          localStorage.setItem('satoken', res.data.data)
-          router.push('/article')
-        } else {
-          showFailToast('登陆失败，请重试')
-        }
-      })
+const name = ref('')
+const password = ref('')
+const router = useRouter()
+const onSubmit = (values) => {
+  axios.post(`${process.env.VUE_APP_USER_LOGIN}` + 'user/login', {
+    name: name.value,
+    password: password.value
+  }).then(res => {
+    if (res.data.code === 200) {
+      showSuccessToast('登陆成功')
+      localStorage.setItem('satoken', res.data.data)
+      router.push('/article')
+    } else {
+      showFailToast('登陆失败，请重试')
     }
-    const registerRequest = () => {
-      router.push('/register')
-    }
-    return {
-      name,
-      password,
-      onSubmit,
-      registerRequest
-    }
-  }
-})
+  })
+}
+const registerRequest = () => {
+  router.push('/register')
+}
 
 </script>
 <style scoped>

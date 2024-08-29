@@ -44,6 +44,10 @@ public class Article implements Serializable {
     @TableField("user_name")
     private String userName;
 
+    @ApiModelProperty("入学年份")
+    @TableField("admission_year")
+    private Integer admissionYear;
+
     @ApiModelProperty("标题")
     @TableField("title")
     private String title;
