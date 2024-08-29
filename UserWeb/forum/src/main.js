@@ -13,6 +13,8 @@ import {
   GridItem,
   Icon,
   NavBar,
+  Picker,
+  Popup,
   Skeleton,
   Sticky,
   Swipe,
@@ -39,7 +41,7 @@ const app = createApp(App)
 app.use(Form).use(Button).use(Field).use(Toast).use(store).use(router)
   .use(Swipe).use(SwipeItem).use(Tabbar).use(TabbarItem).use(Tab).use(Tabs).use(NavBar)
   .use(Grid).use(GridItem).use(Skeleton).use(Varlet).use(Tag).use(Sticky).use(TextEllipsis)
-  .use(Icon).use(UComment).use(Cell).use(CellGroup).use(Badge)
+  .use(Icon).use(UComment).use(Cell).use(CellGroup).use(Badge).use(Picker).use(Popup)
   .mount('#app')
  axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
 

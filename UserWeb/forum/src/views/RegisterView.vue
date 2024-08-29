@@ -22,6 +22,22 @@
             type="password"
           />
           <van-field
+            v-model="admissionYearKey"
+            is-link
+            label="请选择"
+            name="picker"
+            placeholder="点击选择入学年份"
+            readonly
+            @click="showPicker = true"
+          />
+          <van-popup v-model:show="showPicker" position="bottom">
+            <van-picker
+              :columns="columns"
+              @cancel="showPicker = false"
+              @confirm="onConfirm"
+            />
+          </van-popup>
+          <van-field
             v-model="question"
             :rules="[{ required: true, message: '请填写自定义安全问题' }]"
             class="inputField"
@@ -49,49 +65,72 @@
   </div>
 
 </template>
-<script>
-import { defineComponent, ref } from 'vue'
+<script setup>
+import { ref } from 'vue'
 import axios from 'axios'
 import { showFailToast, showSuccessToast } from 'vant'
 import router from '@/router'
 
-export default defineComponent({
-  setup () {
-    const name = ref('')
-    const password = ref('')
-    const question = ref('')
-    const answer = ref('')
-    const onSubmit = (values) => {
-      registerRequest()
-    }
-    const registerRequest = () => {
-      axios.post('http://47.116.223.33:8083/user/register', {
-        name: name.value,
-        password: password.value,
-        question: question.value,
-        answer: answer.value
-      }).then(res => {
-        if (res.data.code === 200) {
-          name.value = ''
-          password.value = ''
-          question.value = ''
-          answer.value = ''
-          showSuccessToast('注册成功')
-          router.push('/login')
-        } else {
-          showFailToast('注册失败，请重试')
-        }
-      })
-    }
-    return {
-      name,
-      password,
-      question,
-      answer,
-      onSubmit
-    }
+const name = ref('')
+const password = ref('')
+const question = ref('')
+const answer = ref('')
+const onSubmit = (values) => {
+  registerRequest()
+}
+const admissionYearKey = ref('')
+const admissionYearValue = ref('')
+const showPicker = ref(false)
+const columns = [
+  {
+    text: '2021级',
+    value: '2021'
+  },
+  {
+    text: '2022级',
+    value: '2022'
+  },
+  {
+    text: '2023级',
+    value: '2023'
+  },
+  {
+    text: '2024级',
+    value: '2024'
+  },
+  {
+    text: '2025级',
+    value: '2025'
   }
-})
+]
+
+const onConfirm = ({ selectedOptions }) => {
+  admissionYearKey.value = selectedOptions[0]?.text
+  admissionYearValue.value = selectedOptions[0]?.value
+  showPicker.value = false
+}
+const registerRequest = () => {
+  axios.post(`${process.env.VUE_APP_USER_LOGIN}` + 'user/register', {
+    name: name.value,
+    password: password.value,
+    admissionYear: admissionYearValue.value,
+    question: question.value,
+    answer: answer.value
+  }).then(res => {
+    if (res.data.code === 200) {
+      name.value = ''
+      password.value = ''
+      question.value = ''
+      answer.value = ''
+      admissionYearValue.value = ''
+      admissionYearKey.value = ''
+      showSuccessToast('注册成功')
+      router.push('/login')
+    } else {
+      showFailToast('注册失败，请重试')
+    }
+  })
+}
 
 </script>
 <style scoped>

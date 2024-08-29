@@ -2,7 +2,7 @@
   <van-sticky :offset-top="0">
     <van-nav-bar title="个人信息"/>
   </van-sticky>
-  <van-cell class="myComments" @click="goMyComments">
+  <van-cell class="myComments" size="large" @click="goMyComments">
     <template #title>
       <van-badge dot is-link>
         我的消息
