@@ -80,7 +80,7 @@
                 @click="goArticleDetail(item)"
               >
                 <template #subtitle>
-                  <p class="itemUserName">发帖人：{{ item.userName }}</p>
+                  <p class="itemUserName">{{item.admissionYear}}级 发帖人：{{ item.userName }}</p>
                 </template>
                 <template #title>
                   <h3 class="itemTitle">{{ item.title }}</h3>

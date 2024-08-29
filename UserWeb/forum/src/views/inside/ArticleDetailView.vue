@@ -15,7 +15,7 @@
           class="articleDetailShow"
         >
           <template #subtitle>
-            <p class="itemUserName">{{articleDetail.admissionYear}}级 发帖人：{{ articleDetail.userName }}</p>
+            <p class="itemUserName">{{ articleDetail.admissionYear }}级 发帖人：{{ articleDetail.userName }}</p>
           </template>
           <template #title>
             <h3 class="itemTitle">{{ articleDetail.title }}</h3>
