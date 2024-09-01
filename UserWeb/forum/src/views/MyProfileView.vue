@@ -19,16 +19,20 @@ import { useStore } from 'vuex'
 
 onMounted(() => {
   store.commit('setActiveTab', 1)
+  if (localStorage.getItem('satoken') == null) {
+    router.push('/login')
+  }
 })
-// 查看token是否有值
-if (localStorage.getItem('satoken') == null) {
-  alert(localStorage.getItem('satoken'))
-  router.push('/login')
-}
+
 const store = useStore()
 const goMyComments = () => {
   store.commit('setActiveTab', 1)
   router.push('/myComments')
+}
+</script>
+<script>
+export default {
+  name: 'MyProfileView'
 }
 </script>
 <style scoped>

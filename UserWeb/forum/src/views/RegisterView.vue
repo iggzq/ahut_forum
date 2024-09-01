@@ -1,7 +1,7 @@
 <template>
   <div class="entireBody">
     <div class="inputForm">
-      <van-form style="display: block" @submit="onSubmit">
+      <van-form required="auto" style="display: block" @submit="onSubmit">
         <van-cell-group class="infoInputForm">
           <h2 style="text-align: center">注册</h2>
           <van-field
@@ -27,6 +27,7 @@
             label="请选择"
             name="picker"
             placeholder="点击选择入学年份"
+            :rules="[{ required: true, message: '请选择入学年份'}]"
             readonly
             @click="showPicker = true"
           />

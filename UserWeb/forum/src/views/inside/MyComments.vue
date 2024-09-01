@@ -13,7 +13,7 @@ export default defineComponent({
     const store = useStore()
     const goBack = () => {
       router.push({
-        name: 'myProfile'
+        name: 'MyProfileView'
       })
     }
     const getMyComments = () => {

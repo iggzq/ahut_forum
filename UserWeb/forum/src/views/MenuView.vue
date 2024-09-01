@@ -1,7 +1,11 @@
 <template>
-  <router-view/>
-  <van-tabbar v-if="!isTabbarHidden" v-model="active" route>
-    <van-tabbar-item icon="home-o" to="/article" @click="handleIsFresh">文章</van-tabbar-item>
+  <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component"/>
+    </keep-alive>
+  </router-view>
+  <van-tabbar v-if="!isTabbarHidden" v-model="active">
+    <van-tabbar-item icon="home-o" to="/article">首页</van-tabbar-item>
     <van-tabbar-item icon="manager-o" to="/myProfile">我的</van-tabbar-item>
   </van-tabbar>
 </template>
@@ -18,9 +22,17 @@ const isTabbarHidden = computed(() => {
 })
 
 onMounted(() => {
-  router.push(active === 0 ? '/article' : '/myProfile')
+  console.log('active: ' + active)
+  if (active === 0) {
+    router.push({
+      name: 'ArticleView'
+    })
+  } else {
+    router.push({
+      name: 'MyProfileView'
+    })
+  }
 })
 </script>
 <style scoped>
-
 </style>

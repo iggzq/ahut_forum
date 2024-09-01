@@ -13,21 +13,23 @@
       </van-nav-bar>
     </van-sticky>
     <var-popup v-model:show="bottom" :default-style="true" position="bottom">
-      <van-nav-bar title="新鲜事">
+      <van-nav-bar title="发布">
         <template #left>
-          <van-icon name="cross" size="25" @click="bottom = false"/>
+          <van-icon name="cross" size="25" @click="cancelPublish"/>
         </template>
         <template #right>
           <van-button style="height: 30px" type="primary" @click="sendArticle">发布</van-button>
         </template>
       </van-nav-bar>
       <van-cell-group inset>
-        <van-field v-model="writeArticle.title" placeholder="请输入帖子标题"/>
+        <van-field v-model="writeArticle.title" autosize
+                   maxlength="50" placeholder="请输入帖子标题(限50字)" show-word-limit/>
+        <van-field placeholder="可选标签，格式：#+文字"/>
         <van-field
           v-model="writeArticle.content"
           autosize
           class="writeArticleContent"
-          maxlength="50"
+          maxlength="400"
           placeholder="请输入帖子正文"
           rows="2"
           show-word-limit
@@ -35,7 +37,7 @@
         />
       </van-cell-group>
     </var-popup>
-    <div class="mainContent">
+    <div ref="scrollableArea" class="mainContent">
       <van-grid>
         <van-grid-item v-ripple class="vanItem" @click="goChatRoom">
           <template #icon>
@@ -103,12 +105,13 @@
     </div>
   </div>
 </template>
+
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onActivated, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import axios from 'axios'
 import { showFailToast, showSuccessToast } from 'vant'
-import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
+import { useRoute, useRouter } from 'vue-router'
+// import { useStore } from 'vuex'
 
 const totalShow = ref('')
 const articles = ref([])
@@ -122,10 +125,12 @@ const refreshing = ref(false)
 const page = ref(-1)
 const size = ref(5)
 const router = useRouter()
-const store = useStore()
+// const store = useStore()
+const route = useRoute()
+const scrollPosition = ref(100)
+const scrollableArea = ref(null)
 
 async function load () {
-  store.commit('setActiveTab', 0)
   page.value++
   const result = await getArticlesByPage(page.value, size.value)
   if (!result) {
@@ -181,8 +186,14 @@ const sendArticle = async () => {
     showFailToast('发布失败，请重试')
   }
 }
-onMounted(() => {
-  load()
+const cancelPublish = () => {
+  writeArticle.value.content = ''
+  writeArticle.value.title = ''
+  bottom.value = false
+}
+onMounted(async () => {
+  // 初始化逻辑，如数据请求
+  await load()
 })
 const bottom = ref(false)
 const goArticleDetail = (article) => {
@@ -201,6 +212,43 @@ const goChatRoom = () => {
       name: 'ChatRoom'
     }
   )
+}
+// 监听路由变化
+watch(route, (to, from) => {
+  if (to.name === 'article') {
+    console.log('ArticleView activated')
+  } else if (from.name === 'article') {
+    console.log('ArticleView deactivated')
+  }
+})
+onMounted(() => {
+  if (scrollableArea.value) {
+    scrollableArea.value.addEventListener('scroll', handleScroll)
+  }
+})
+const handleScroll = () => {
+  scrollPosition.value = scrollableArea.value.scrollTop
+}
+onBeforeUnmount(() => {
+  if (scrollableArea.value) {
+    scrollableArea.value.removeEventListener('scroll', handleScroll)
+  }
+})
+onActivated(() => {
+  // 恢复滚动位置
+  scrollableArea.value.scrollTop = scrollPosition.value
+})
+
+// onDeactivated(() => {
+//   // 保存滚动位置
+//   console.log(scrollableArea.value)
+//   scrollPosition.value = scrollableArea.value.scrollTop
+// })
+
+</script>
+<script>
+export default {
+  name: 'ArticleView'
 }
 </script>
 <style scoped>
