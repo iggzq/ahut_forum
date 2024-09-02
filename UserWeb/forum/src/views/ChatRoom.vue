@@ -77,6 +77,7 @@
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
 import router from '@/router'
 import { showFailToast } from 'vant'
+import { useStore } from 'vuex'
 
 const socket = ref(null)
 const commentValue = ref('')
@@ -86,6 +87,7 @@ const randomUserId = Math.floor(Math.random() * 1000).toString()
 const currentOnlineUserCount = ref(0)
 const chatContainer = ref(null)
 const isAtBottom = ref(true)
+const store = useStore()
 
 function adjustChatHistoryHeight () {
   const navBarContent = document.querySelector('.topArea')
@@ -100,6 +102,7 @@ function adjustChatHistoryHeight () {
 }
 
 onMounted(() => {
+  store.commit('setActiveTab', 0)
   adjustChatHistoryHeight()
   // 页面加载完成后默认滚动到底部
   scrollToBottom()
@@ -107,7 +110,6 @@ onMounted(() => {
   socket.value = new WebSocket(`${process.env.VUE_APP_CHAT_ROOM}` + randomUserId)
   socket.value.addEventListener('open', (event) => {
     isConnected.value = true
-    console.log(event)
   })
   socket.value.addEventListener('message', (event) => {
     // 在这里可以处理接收到的消息，比如将其显示在聊天记录中

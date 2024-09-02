@@ -127,7 +127,7 @@ const size = ref(5)
 const router = useRouter()
 // const store = useStore()
 const route = useRoute()
-const scrollPosition = ref(100)
+const scrollPosition = ref(0)
 const scrollableArea = ref(null)
 
 async function load () {
