@@ -5,7 +5,7 @@
     </keep-alive>
   </router-view>
   <van-tabbar v-if="!isTabbarHidden" v-model="active">
-    <van-tabbar-item icon="home-o" to="/article">首页</van-tabbar-item>
+    <van-tabbar-item icon="home-o" to="/article" @click="handleArticleRefresh">首页</van-tabbar-item>
     <van-tabbar-item icon="manager-o" to="/myProfile">我的</van-tabbar-item>
   </van-tabbar>
 </template>
@@ -33,6 +33,13 @@ onMounted(() => {
     })
   }
 })
+
+const handleArticleRefresh = () => {
+  if (store.state.activeTab === 0) {
+    console.log('handleArticleRefresh')
+    store.dispatch('triggerArticleRefresh')
+  }
+}
 </script>
 <style scoped>
 </style>

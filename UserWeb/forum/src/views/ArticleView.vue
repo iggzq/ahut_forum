@@ -111,7 +111,7 @@ import { onActivated, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import axios from 'axios'
 import { showFailToast, showSuccessToast } from 'vant'
 import { useRoute, useRouter } from 'vue-router'
-// import { useStore } from 'vuex'
+import { useStore } from 'vuex'
 
 const totalShow = ref('')
 const articles = ref([])
@@ -125,12 +125,13 @@ const refreshing = ref(false)
 const page = ref(-1)
 const size = ref(5)
 const router = useRouter()
-// const store = useStore()
+const store = useStore()
 const route = useRoute()
 const scrollPosition = ref(0)
 const scrollableArea = ref(null)
 
 async function load () {
+  loading.value = true
   page.value++
   const result = await getArticlesByPage(page.value, size.value)
   if (!result) {
@@ -145,7 +146,7 @@ async function refresh () {
   articles.value = []
   loading.value = false
   refreshing.value = true
-  const result = await getArticlesByPage(0, 5)
+  const result = await getArticlesByPage(page.value, size.value)
   if (!result) {
     showFailToast('加载失败')
   } else {
@@ -235,9 +236,34 @@ onBeforeUnmount(() => {
   }
 })
 onActivated(() => {
+  store.commit('setActiveTab', 0)
   // 恢复滚动位置
   scrollableArea.value.scrollTop = scrollPosition.value
 })
+
+const doubleClickRefresh = async () => {
+  articles.value = []
+  loading.value = true
+  page.value = 0
+  const result = await getArticlesByPage(page.value, size.value)
+  if (!result) {
+    showFailToast('加载失败')
+  } else {
+    loading.value = false
+  }
+}
+
+watch(
+  () => store.state.refreshArticle,
+  async (newVal) => {
+    console.log(newVal)
+    if (newVal) {
+      scrollableArea.value.scrollTop = 0
+      await doubleClickRefresh()
+      store.commit('SET_REFRESH_ARTICLE', false)
+    }
+  }
+)
 
 // onDeactivated(() => {
 //   // 保存滚动位置

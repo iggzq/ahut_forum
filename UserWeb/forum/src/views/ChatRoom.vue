@@ -77,7 +77,6 @@
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
 import router from '@/router'
 import { showFailToast } from 'vant'
-import { useStore } from 'vuex'
 
 const socket = ref(null)
 const commentValue = ref('')
@@ -87,7 +86,6 @@ const randomUserId = Math.floor(Math.random() * 1000).toString()
 const currentOnlineUserCount = ref(0)
 const chatContainer = ref(null)
 const isAtBottom = ref(true)
-const store = useStore()
 
 function adjustChatHistoryHeight () {
   const navBarContent = document.querySelector('.topArea')
@@ -102,7 +100,6 @@ function adjustChatHistoryHeight () {
 }
 
 onMounted(() => {
-  store.commit('setActiveTab', 0)
   adjustChatHistoryHeight()
   // 页面加载完成后默认滚动到底部
   scrollToBottom()
