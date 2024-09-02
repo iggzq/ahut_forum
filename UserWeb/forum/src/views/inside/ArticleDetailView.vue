@@ -59,10 +59,8 @@ import { showSuccessToast } from 'vant'
 import emoji from '@/assets/emoji'
 import { useRoute } from 'vue-router'
 import { UComment } from 'undraw-ui'
-import { useStore } from 'vuex'
 
 const route = useRoute()
-const store = useStore()
 const articleId = route.params.articleId
 const articleDetail = ref({})
 const buttonColor = ref('#afb0b2')
@@ -148,7 +146,6 @@ onMounted(async () => {
     await getArticleDetail()
     await getComments()
     changeLikeCss()
-    store.commit('setActiveTab', 0)
   }
 )
 

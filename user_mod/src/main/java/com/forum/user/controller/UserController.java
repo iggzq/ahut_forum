@@ -42,7 +42,8 @@ public class UserController {
      * @return 登陆结果
      */
     @PostMapping("/login")
-    public CommonResult<String> login(@RequestBody LoginUserVo loginUserVo){
+    public CommonResult<String> login(@RequestBody LoginUserVo loginUserVo) throws InterruptedException {
+        Thread.sleep(3000);
         String token = userService.login(loginUserVo);
         return token != null ? CommonResult.success(token) : CommonResult.failed("登录失败");
     }

@@ -12,7 +12,7 @@
         </template>
       </van-nav-bar>
     </van-sticky>
-    <var-popup v-model:show="bottom" :default-style="true" position="bottom">
+    <var-popup v-model:show="bottom" :default-style="true" position="bottom" safe-area-top>
       <van-nav-bar title="发布">
         <template #left>
           <van-icon name="cross" size="25" @click="cancelPublish"/>
@@ -81,11 +81,14 @@
                 ripple
                 @click="goArticleDetail(item)"
               >
-                <template #subtitle>
-                  <p class="itemUserName">{{ item.admissionYear }}级 发帖人：{{ item.userName }}</p>
-                </template>
                 <template #title>
                   <h3 class="itemTitle">{{ item.title }}</h3>
+                </template>
+                <template #subtitle>
+                  <div class="subtitleCss">
+                    <p class="itemUserName">{{ item.admissionYear }}级 发帖人：{{ item.userName }}</p>
+                    <p class="itemCreateTime">{{ item.createTime }}</p>
+                  </div>
                 </template>
                 <template #description>
                   <van-text-ellipsis
@@ -198,6 +201,7 @@ onMounted(async () => {
 })
 const bottom = ref(false)
 const goArticleDetail = (article) => {
+  store.commit('setActiveTab', 0)
   router.push(
     {
       name: 'articleDetail',
@@ -208,6 +212,7 @@ const goArticleDetail = (article) => {
   )
 }
 const goChatRoom = () => {
+  store.commit('setActiveTab', 0)
   router.push(
     {
       name: 'ChatRoom'
@@ -236,7 +241,6 @@ onBeforeUnmount(() => {
   }
 })
 onActivated(() => {
-  store.commit('setActiveTab', 0)
   // 恢复滚动位置
   scrollableArea.value.scrollTop = scrollPosition.value
 })

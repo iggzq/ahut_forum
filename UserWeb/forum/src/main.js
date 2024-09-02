@@ -12,6 +12,7 @@ import {
   Grid,
   GridItem,
   Icon,
+  Loading,
   NavBar,
   Picker,
   Popup,
@@ -42,6 +43,7 @@ app.use(Form).use(Button).use(Field).use(Toast).use(store).use(router)
   .use(Swipe).use(SwipeItem).use(Tabbar).use(TabbarItem).use(Tab).use(Tabs).use(NavBar)
   .use(Grid).use(GridItem).use(Skeleton).use(Varlet).use(Tag).use(Sticky).use(TextEllipsis)
   .use(Icon).use(UComment).use(Cell).use(CellGroup).use(Badge).use(Picker).use(Popup)
+  .use(Loading)
   .mount('#app')
 axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
 

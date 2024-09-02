@@ -34,6 +34,9 @@
     </div>
 
   </div>
+  <van-popup v-model:show="showIsLogin" :style="{ padding: '40px' }" round>
+    <van-loading color="#0094ff" size="24px" vertical>登录中...</van-loading>
+  </van-popup>
 
 </template>
 <script setup>
@@ -45,12 +48,16 @@ import { showFailToast, showSuccessToast } from 'vant'
 const name = ref('')
 const password = ref('')
 const router = useRouter()
+const showIsLogin = ref(false)
+
 const onSubmit = (values) => {
+  showIsLogin.value = true
   axios.post(`${process.env.VUE_APP_USER_LOGIN}` + 'user/login', {
     name: name.value,
     password: password.value
   }).then(res => {
     if (res.data.code === 200) {
+      showIsLogin.value = false
       showSuccessToast('登陆成功')
       localStorage.setItem('satoken', res.data.data)
       router.push('/article')
