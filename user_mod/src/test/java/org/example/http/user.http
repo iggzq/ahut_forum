@@ -6,6 +6,7 @@ Content-Type: application/json
   "name": "test",
   "password": "test"
 }
+
 ###
 
 POST localhost:8080/user/register HTTP/1.1

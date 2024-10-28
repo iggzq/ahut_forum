@@ -24,19 +24,18 @@ import java.util.List;
 @RequestMapping("/comment/")
 public class CommentArticleController {
 
-    @Resource
-    private CommentArticleService commentArticleService;
+	@Resource
+	private CommentArticleService commentArticleService;
 
-    @GetMapping("getCommentByArticleId")
-    public CommonResult<List<CommentArticleVO>> getCommentsById(@RequestParam String id) {
-        List<CommentArticleVO> commentsById = commentArticleService.getCommentsById(id);
-        return CommonResult.success(commentsById);
-    }
+	@GetMapping("getCommentByArticleId")
+	public CommonResult<List<CommentArticleVO>> getCommentsById(@RequestParam String id) {
+		List<CommentArticleVO> commentsById = commentArticleService.getCommentsById(id);
+		return CommonResult.success(commentsById);
+	}
 
-    @GetMapping("getCommentsByUserId")
-    public CommonResult<List<CommentUserVO>> getCommentsByUserId(){
-        return CommonResult.success(commentArticleService.getCommentsByUserId());
-    }
-
+	@GetMapping("getCommentsByUserId")
+	public CommonResult<List<CommentUserVO>> getCommentsByUserId() {
+		return CommonResult.success(commentArticleService.getCommentsByUserId());
+	}
 
 }

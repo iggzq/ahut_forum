@@ -24,48 +24,50 @@ import java.util.List;
 @RequestMapping("/article/")
 public class ArticleController {
 
-    @Resource
-    private ArticleService articleService;
+	@Resource
+	private ArticleService articleService;
 
-    @PostMapping(path = "saveArticle")
-    public CommonResult<String> saveArticle(@RequestBody SaveArticleVO saveArticleVO) {
-        Boolean b = articleService.saveArticle(saveArticleVO);
-        if (b) {
-            return CommonResult.success("保存成功");
-        } else {
-            return CommonResult.failed("保存失败,请重试");
-        }
-    }
+	@PostMapping(path = "saveArticle")
+	public CommonResult<String> saveArticle(@RequestBody SaveArticleVO saveArticleVO) {
+		Boolean b = articleService.saveArticle(saveArticleVO);
+		if (b) {
+			return CommonResult.success("保存成功");
+		}
+		else {
+			return CommonResult.failed("保存失败,请重试");
+		}
+	}
 
-    @GetMapping("getArticles")
-    public CommonResult<List<Article>> getArticles(@RequestParam int page, @RequestParam int size) {
-        return CommonResult.success(articleService.getArticles(page, size));
-    }
+	@GetMapping("getArticles")
+	public CommonResult<List<Article>> getArticles(@RequestParam int page, @RequestParam int size) {
+		return CommonResult.success(articleService.getArticles(page, size));
+	}
 
-    @GetMapping("getArticleById")
-    public CommonResult<ArticleVo> getArticleById(@RequestParam Long articleId) {
-        return CommonResult.success(articleService.getArticleById(articleId));
-    }
+	@GetMapping("getArticleById")
+	public CommonResult<ArticleVo> getArticleById(@RequestParam Long articleId) {
+		return CommonResult.success(articleService.getArticleById(articleId));
+	}
 
-    @PostMapping("likeArticle")
-    public CommonResult<String> likeArticle(@RequestBody LikeArticleVO likeArticleVO) {
-        Boolean b = articleService.likeArticle(likeArticleVO);
-        if (b) {
-            return CommonResult.success("点赞成功");
-        } else {
-            return CommonResult.failed("点赞失败,请重试");
-        }
-    }
+	@PostMapping("likeArticle")
+	public CommonResult<String> likeArticle(@RequestBody LikeArticleVO likeArticleVO) {
+		Boolean b = articleService.likeArticle(likeArticleVO);
+		if (b) {
+			return CommonResult.success("点赞成功");
+		}
+		else {
+			return CommonResult.failed("点赞失败,请重试");
+		}
+	}
 
-    @PostMapping("commentArticle")
-    public CommonResult<String> commentArticle(@RequestBody CommentArticle commentArticle) {
-        Boolean b = articleService.commentArticle(commentArticle);
-        if (b) {
-            return CommonResult.success("评论成功");
-        } else {
-            return CommonResult.failed("评论失败,请重试");
-        }
-    }
-
+	@PostMapping("commentArticle")
+	public CommonResult<String> commentArticle(@RequestBody CommentArticle commentArticle) {
+		Boolean b = articleService.commentArticle(commentArticle);
+		if (b) {
+			return CommonResult.success("评论成功");
+		}
+		else {
+			return CommonResult.failed("评论失败,请重试");
+		}
+	}
 
 }

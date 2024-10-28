@@ -27,11 +27,12 @@ html, body {
     width: 85vw;
 }
 
-.buttons{
+.buttons {
     display: flex;
     justify-content: space-between;
 }
-.inputField{
+
+.inputField {
     margin-top: 3px;
     margin-bottom: 4px;
 }

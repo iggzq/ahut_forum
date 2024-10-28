@@ -16,7 +16,9 @@ import java.util.List;
  * @since 2024-03-21 09:44:10
  */
 public interface CommentArticleService extends IService<CommentArticle> {
-    List<CommentArticleVO> getCommentsById(String id);
 
-    List<CommentUserVO> getCommentsByUserId();
+	List<CommentArticleVO> getCommentsById(String id);
+
+	List<CommentUserVO> getCommentsByUserId();
+
 }

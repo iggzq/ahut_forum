@@ -11,8 +11,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface WebSocketMapping {
-    /**
-     *  websocket连接路由地址
-     **/
-    String value() default "";
+
+	/**
+	 * websocket连接路由地址
+	 **/
+	String value() default "";
+
 }

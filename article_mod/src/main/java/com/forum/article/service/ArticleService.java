@@ -19,13 +19,14 @@ import java.util.List;
  */
 public interface ArticleService extends IService<Article> {
 
-    Boolean saveArticle(SaveArticleVO saveArticleVO);
+	Boolean saveArticle(SaveArticleVO saveArticleVO);
 
-    List<Article> getArticles(int page, int size);
+	List<Article> getArticles(int page, int size);
 
-    Boolean likeArticle(LikeArticleVO likeArticleVO);
+	Boolean likeArticle(LikeArticleVO likeArticleVO);
 
-    Boolean commentArticle(CommentArticle commentArticle);
+	Boolean commentArticle(CommentArticle commentArticle);
 
-    ArticleVo getArticleById(Long articleId);
+	ArticleVo getArticleById(Long articleId);
+
 }

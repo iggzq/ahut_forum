@@ -11,13 +11,15 @@ import org.springframework.web.reactive.socket.server.support.WebSocketHandlerAd
  */
 @Configuration
 public class WebSocketConfig {
-    @Bean
-    public HandlerMapping webSocketMapping() {
-        return new WebSocketMappingHandlerMapping();
-    }
-    @Bean
-    public WebSocketHandlerAdapter handlerAdapter() {
-        return new WebSocketHandlerAdapter();
-    }
+
+	@Bean
+	public HandlerMapping webSocketMapping() {
+		return new WebSocketMappingHandlerMapping();
+	}
+
+	@Bean
+	public WebSocketHandlerAdapter handlerAdapter() {
+		return new WebSocketHandlerAdapter();
+	}
 
 }

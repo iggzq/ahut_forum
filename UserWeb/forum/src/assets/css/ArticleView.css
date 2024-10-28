@@ -67,8 +67,24 @@
 .itemPopular {
     width: 100%;
     text-align: left;
-    margin: 0px;
-    color: darkgrey;
+    margin: 0;
+    color: #0094ff;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.likeCss {
+    width: 15%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.commentCss {
+    width: 15%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
 }
 
 :root {

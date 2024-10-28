@@ -8,15 +8,14 @@ import lombok.Data;
 @Data
 public class RegisterUserVo {
 
-    private String name;
+	private String name;
 
-    private String password;
+	private String password;
 
-    private Integer admissionYear;
+	private Integer admissionYear;
 
-    private String question;
+	private String question;
 
-    private String answer;
-
+	private String answer;
 
 }

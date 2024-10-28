@@ -18,9 +18,10 @@ import java.util.List;
  */
 public interface UserService extends IService<User> {
 
-    void registerSave(RegisterUserVo registerUserVo);
+	void registerSave(RegisterUserVo registerUserVo);
 
-    String login(LoginUserVo loginUserVo);
+	String login(LoginUserVo loginUserVo);
 
-    List<UserNameVo> getUserNames(List<Long> uIds);
+	List<UserNameVo> getUserNames(List<Long> uIds);
+
 }

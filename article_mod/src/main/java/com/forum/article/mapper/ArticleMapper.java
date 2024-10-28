@@ -17,13 +17,12 @@ import java.util.List;
 @Mapper
 public interface ArticleMapper extends BaseMapper<Article> {
 
-    List<Article> getArticleByPage(int page, int size);
+	List<Article> getArticleByPage(int page, int size);
 
-    void addLikeNumber(Long id);
+	void addLikeNumber(Long id);
 
-    void addCommentNumber(Long id);
+	void addCommentNumber(Long id);
 
-    void subLikeNumber(Long id);
-
+	void subLikeNumber(Long id);
 
 }

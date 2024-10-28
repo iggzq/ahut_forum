@@ -10,5 +10,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ArticleVo extends Article {
-    Boolean isLike;
+
+	Boolean isLike;
+
 }

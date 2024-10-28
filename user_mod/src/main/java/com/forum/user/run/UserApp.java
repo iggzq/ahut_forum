@@ -15,9 +15,10 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableFeignClients
 public class UserApp {
 
-    public static void main(String[] args) {
-        SpringApplication springApplication = new SpringApplication(UserApp.class);
-        springApplication.run(args);
+	public static void main(String[] args) {
+		SpringApplication springApplication = new SpringApplication(UserApp.class);
+		springApplication.run(args);
 
-    }
+	}
+
 }

@@ -19,34 +19,32 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user/")
 public class UserController {
 
-    @Resource
-    private UserService userService;
+	@Resource
+	private UserService userService;
 
-    @GetMapping("/1")
-    public CommonResult<String> test() {
-        return CommonResult.success("测试成功");
-    }
+	@GetMapping("/1")
+	public CommonResult<String> test() {
+		return CommonResult.success("测试成功");
+	}
 
-    /**
-     * 注册
-     * @return 注册结果
-     */
-    @PostMapping("/register")
-    public CommonResult<String> register(@RequestBody RegisterUserVo registerUserVo) {
-        userService.registerSave(registerUserVo);
-        return CommonResult.success("注册成功");
-    }
+	/**
+	 * 注册
+	 * @return 注册结果
+	 */
+	@PostMapping("/register")
+	public CommonResult<String> register(@RequestBody RegisterUserVo registerUserVo) {
+		userService.registerSave(registerUserVo);
+		return CommonResult.success("注册成功");
+	}
 
-    /**
-     * 登陆
-     * @return 登陆结果
-     */
-    @PostMapping("/login")
-    public CommonResult<String> login(@RequestBody LoginUserVo loginUserVo) throws InterruptedException {
-        Thread.sleep(3000);
-        String token = userService.login(loginUserVo);
-        return token != null ? CommonResult.success(token) : CommonResult.failed("登录失败");
-    }
+	/**
+	 * 登陆
+	 * @return 登陆结果
+	 */
+	@PostMapping("/login")
+	public CommonResult<String> login(@RequestBody LoginUserVo loginUserVo) {
+		String token = userService.login(loginUserVo);
+		return token != null ? CommonResult.success(token) : CommonResult.failed("登录失败");
+	}
 
 }
-
