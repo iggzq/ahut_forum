@@ -10,6 +10,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class CommentArticleVO extends CommentArticle {
-   private UserVO user;
-   private ReplyListVO reply;
+
+	private UserVO user;
+
+	private ReplyListVO reply;
+
 }

@@ -26,7 +26,8 @@ html, body {
     flex-direction: column;
     width: 85vw;
 }
-.inputField{
+
+.inputField {
     margin-top: 3px;
     margin-bottom: 4px;
 }

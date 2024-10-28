@@ -8,7 +8,10 @@ import lombok.Data;
 @Data
 public class ChatRoomComment {
 
-    private String id;
-    private String comment;
-    private String time;
+	private String id;
+
+	private String comment;
+
+	private String time;
+
 }

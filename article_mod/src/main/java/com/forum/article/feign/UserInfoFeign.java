@@ -12,6 +12,8 @@ import java.util.List;
  */
 @FeignClient(name = "UserInfoFeign", url = "http://localhost:8080/feign/server")
 public interface UserInfoFeign {
-    @RequestMapping("/getUserNames")
-    List<UserNameVo> getUserNames(@RequestBody List<Long> ids);
+
+	@RequestMapping("/getUserNames")
+	List<UserNameVo> getUserNames(@RequestBody List<Long> ids);
+
 }

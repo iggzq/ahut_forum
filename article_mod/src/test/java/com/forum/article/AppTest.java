@@ -9,9 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @SpringBootTest
 public class AppTest {
-    @Test
-    public void TestNanoID(){
-        String s = NanoId.randomNanoId();
-        System.out.println(s);
-    }
+
+	@Test
+	public void TestNanoID() {
+		String s = NanoId.randomNanoId();
+		System.out.println(s);
+	}
+
 }

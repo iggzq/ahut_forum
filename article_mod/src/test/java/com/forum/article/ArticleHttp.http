@@ -7,5 +7,6 @@ Content-Type: application/json
   "likeCount": 0,
   "commentCount": 0
 }
+
 ###
 GET http://localhost:8081/article/getArticles?page=1&size=10

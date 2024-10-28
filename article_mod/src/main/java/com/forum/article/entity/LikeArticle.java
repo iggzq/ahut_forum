@@ -28,28 +28,29 @@ import java.io.Serializable;
 @ApiModel(value = "LikeArticle对象", description = "点赞文章对象")
 public class LikeArticle implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long id;
+	@TableId(value = "id", type = IdType.AUTO)
+	@JsonSerialize(using = ToStringSerializer.class)
+	private Long id;
 
-    @ApiModelProperty("文章id")
-    @TableField("article_id")
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long articleId;
+	@ApiModelProperty("文章id")
+	@TableField("article_id")
+	@JsonSerialize(using = ToStringSerializer.class)
+	private Long articleId;
 
-    @ApiModelProperty("发布人id")
-    @TableField("user_id")
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long userId;
+	@ApiModelProperty("发布人id")
+	@TableField("user_id")
+	@JsonSerialize(using = ToStringSerializer.class)
+	private Long userId;
 
-    @ApiModelProperty("点赞人的id")
-    @TableField("like_user_id")
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long likeUserId;
+	@ApiModelProperty("点赞人的id")
+	@TableField("like_user_id")
+	@JsonSerialize(using = ToStringSerializer.class)
+	private Long likeUserId;
 
-    @TableField("status")
-    private Byte status;
+	@TableField("status")
+	private Byte status;
+
 }

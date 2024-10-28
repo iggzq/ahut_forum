@@ -13,12 +13,13 @@ import java.util.List;
  */
 @RequestMapping("/feign/UserInfo")
 public class FeignServerController {
-    @Resource
-    UserService userService;
 
-    @RequestMapping("/getUserNames")
-    List<UserNameVo> getUserNames(@RequestBody List<Long> ids) {
-        return userService.getUserNames(ids);
-    }
+	@Resource
+	UserService userService;
+
+	@RequestMapping("/getUserNames")
+	List<UserNameVo> getUserNames(@RequestBody List<Long> ids) {
+		return userService.getUserNames(ids);
+	}
 
 }

@@ -9,6 +9,9 @@ import java.util.List;
  */
 @Data
 public class ReplyListVO {
-    private Integer total;
-    private List<ReplyVO> list;
+
+	private Integer total;
+
+	private List<ReplyVO> list;
+
 }

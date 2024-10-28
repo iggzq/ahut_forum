@@ -30,58 +30,58 @@ import java.util.List;
 @Service
 public class UserServiceImp extends ServiceImpl<UserMapper, User> implements UserService {
 
-    @Resource
-    private UserMapper userMapper;
+	@Resource
+	private UserMapper userMapper;
 
-    @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+	@Resource
+	private RedisTemplate<String, Object> redisTemplate;
 
-    @Override
-    public void registerSave(RegisterUserVo registerUserVo) {
-        User user = new User();
-        //VO转实体
-        BeanUtils.copyProperties(registerUserVo, user);
-        //设置id和其他相关参数
-        long snowflakeNextId = IdUtil.getSnowflakeNextId();
-        LocalDateTime now = LocalDateTime.now();
-        user.setId(snowflakeNextId);
-        user.setCreateTime(now);
-        user.setStatus((byte) 0);
-        user.setUpdateTime(now);
-        userMapper.insert(user);
-    }
+	@Override
+	public void registerSave(RegisterUserVo registerUserVo) {
+		User user = new User();
+		// VO转实体
+		BeanUtils.copyProperties(registerUserVo, user);
+		// 设置id和其他相关参数
+		long snowflakeNextId = IdUtil.getSnowflakeNextId();
+		LocalDateTime now = LocalDateTime.now();
+		user.setId(snowflakeNextId);
+		user.setCreateTime(now);
+		user.setStatus((byte) 0);
+		user.setUpdateTime(now);
+		userMapper.insert(user);
+	}
 
-    @Override
-    public String login(LoginUserVo loginUserVo) {
-        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(User::getName, loginUserVo.getName()).eq(User::getPassword, loginUserVo.getPassword());
-        User user = userMapper.selectOne(queryWrapper);
-        if (user != null) {
-            StpUtil.login(user.getId(), SaLoginConfig
-                    .setExtra("name", user.getName())
-                    .setExtra("admissionYear", user.getAdmissionYear())
-            );
-            String name = (String) StpUtil.getExtra("name");
-            System.out.println(name);
-            String tokenName = StpUtil.getTokenName();
-            System.out.println(tokenName);
-            return StpUtil.getTokenValue();
-        } else {
-            return null;
-        }
-    }
+	@Override
+	public String login(LoginUserVo loginUserVo) {
+		LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+		queryWrapper.eq(User::getName, loginUserVo.getName()).eq(User::getPassword, loginUserVo.getPassword());
+		User user = userMapper.selectOne(queryWrapper);
+		if (user != null) {
+			StpUtil.login(user.getId(),
+					SaLoginConfig.setExtra("name", user.getName()).setExtra("admissionYear", user.getAdmissionYear()));
+			String name = (String) StpUtil.getExtra("name");
+			System.out.println(name);
+			String tokenName = StpUtil.getTokenName();
+			System.out.println(tokenName);
+			return StpUtil.getTokenValue();
+		}
+		else {
+			return null;
+		}
+	}
 
-    @Override
-    public List<UserNameVo> getUserNames(List<Long> uids) {
-        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.select(User::getId, User::getName);
-        queryWrapper.in(User::getId, uids);
-        List<User> users = userMapper.selectList(queryWrapper);
-        return users.stream().map(user -> {
-            UserNameVo userNameVo = new UserNameVo();
-            userNameVo.setUid(user.getId());
-            userNameVo.setUsername(user.getName());
-            return userNameVo;
-        }).toList();
-    }
+	@Override
+	public List<UserNameVo> getUserNames(List<Long> uids) {
+		LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+		queryWrapper.select(User::getId, User::getName);
+		queryWrapper.in(User::getId, uids);
+		List<User> users = userMapper.selectList(queryWrapper);
+		return users.stream().map(user -> {
+			UserNameVo userNameVo = new UserNameVo();
+			userNameVo.setUid(user.getId());
+			userNameVo.setUsername(user.getName());
+			return userNameVo;
+		}).toList();
+	}
+
 }
