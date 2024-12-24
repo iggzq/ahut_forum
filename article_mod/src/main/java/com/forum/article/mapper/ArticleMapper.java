@@ -25,4 +25,6 @@ public interface ArticleMapper extends BaseMapper<Article> {
 
 	void subLikeNumber(Long id);
 
+	List<Article> getArticleByPageAndDateOrder(int page, int size, Byte topicType);
+
 }

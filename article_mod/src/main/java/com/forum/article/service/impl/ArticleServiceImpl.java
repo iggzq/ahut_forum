@@ -163,4 +163,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 		return articleVo;
 	}
 
+	@Override
+	public List<Article> getArticlesOrderByDate(int page, int size, Byte topicType) {
+		List<Article> articleByPage = articleMapper.getArticleByPageAndDateOrder(page * size, size, topicType);
+		return articleByPage;
+	}
+
 }

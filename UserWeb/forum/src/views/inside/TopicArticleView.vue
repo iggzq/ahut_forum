@@ -27,21 +27,6 @@ onActivated(() => {
   // 恢复滚动位置
   scrollableArea.value.scrollTop = scrollPosition.value
 })
-// const value2 = ref('a')
-// const option2 = [
-//   {
-//     text: '默认排序',
-//     value: 'a'
-//   },
-//   {
-//     text: '好评排序',
-//     value: 'b'
-//   },
-//   {
-//     text: '销量排序',
-//     value: 'c'
-//   }
-// ]
 
 </script>
 

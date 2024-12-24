@@ -71,4 +71,10 @@ public class ArticleController {
 		}
 	}
 
+	@GetMapping("getArticles")
+	public CommonResult<List<Article>> getArticlesOrderByDate(@RequestParam int page, @RequestParam int size,
+			@RequestParam Byte topicType) {
+		return CommonResult.success(articleService.getArticlesOrderByDate(page, size, topicType));
+	}
+
 }

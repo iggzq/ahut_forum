@@ -31,6 +31,16 @@
         ORDER BY update_time DESC
         LIMIT #{page}, #{size}
     </select>
+    <select id="getArticleByPageAndDateOrder" resultType="com.forum.article.entity.Article">
+        SELECT *
+        FROM article
+        WHERE status = 0
+        <if test="topicType != -1">
+            AND topic_type = #{topicType}
+        </if>
+        ORDER BY create_time DESC
+        LIMIT #{page}, #{size}
+    </select>
     <update id="addLikeNumber">
         UPDATE article
         SET like_count = like_count + 1

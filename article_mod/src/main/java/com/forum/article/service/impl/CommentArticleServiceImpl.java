@@ -130,6 +130,7 @@ public class CommentArticleServiceImpl extends ServiceImpl<CommentArticleMapper,
 		LambdaQueryWrapper<CommentArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
 		lambdaQueryWrapper.eq(CommentArticle::getToUserId, loginId);
 		lambdaQueryWrapper.eq(CommentArticle::getStatus, UNREAD);
+		lambdaQueryWrapper.ne(CommentArticle::getUid, loginId);
 		lambdaQueryWrapper.select(CommentArticle::getId, CommentArticle::getArticleId, CommentArticle::getUid,
 				CommentArticle::getUsername, CommentArticle::getContent, CommentArticle::getUpdateTime);
 		List<CommentArticle> commentArticles = commentArticleMapper.selectList(lambdaQueryWrapper);
