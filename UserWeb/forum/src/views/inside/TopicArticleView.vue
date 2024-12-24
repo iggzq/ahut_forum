@@ -9,6 +9,21 @@ const topicId = route.params.topicId
 const topicName = route.params.topicName
 const scrollPosition = ref(0)
 const scrollableArea = ref(null)
+const orderValue = ref(0)
+const orderOption = [
+  {
+    text: '全部文章',
+    value: 0
+  },
+  {
+    text: '时间排序',
+    value: 1
+  },
+  {
+    text: '热度排序',
+    value: 2
+  }
+]
 const articleDetailName = 'topicArticleDetail'
 onMounted(() => {
   if (scrollableArea.value) {
@@ -44,18 +59,10 @@ onActivated(() => {
     </van-nav-bar>
   </van-sticky>
   <div ref="scrollableArea" class="topicMainContent">
-    <div class="placement-container">
-      <var-menu placement="bottom">
-        <var-button size="normal" type="primary">
-          排序
-        </var-button>
-        <template #menu>
-          <var-cell>时间排序</var-cell>
-          <var-cell>热度排序</var-cell>
-        </template>
-      </var-menu>
-    </div>
-    <ArticleListView :article-detail-name="articleDetailName" :topic-type="topicId"/>
+    <van-dropdown-menu>
+      <van-dropdown-item v-model="orderValue" :options="orderOption"/>
+    </van-dropdown-menu>
+    <ArticleListView :article-detail-name="articleDetailName" :orderValue="orderValue" :topic-type="topicId"/>
   </div>
 </template>
 

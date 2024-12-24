@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineProps, onMounted, ref, toRefs } from 'vue'
+import { computed, defineProps, onMounted, ref, toRefs, watch } from 'vue'
 import { showFailToast } from 'vant'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
@@ -32,6 +32,11 @@ const props = defineProps({
     type: Number,
     required: false,
     default: -1
+  },
+  orderValue: {
+    type: Number,
+    required: false,
+    default: 0
   }
 })
 const articleDetail = toRefs(props)
@@ -39,7 +44,12 @@ const articleDetail = toRefs(props)
 async function load () {
   loading.value = true
   page.value++
-  const result = await getArticlesByPageAndTopic(page.value, size.value, articleDetail.topicType.value)
+  let result = []
+  if (articleDetail.orderValue.value === 0) {
+    result = await getArticlesByPageAndTopic(page.value, size.value, articleDetail.topicType.value)
+  } else if (articleDetail.orderValue.value === 1) {
+    result = await getArticlesByPageAndTopic(page.value, size.value, articleDetail.topicType.value)
+  }
   if (!result) {
     page.value--
   }
@@ -77,6 +87,22 @@ const getArticlesByPageAndTopic = async (page, size, topicType) => {
   }
 }
 
+const getArticlesByPageTopicAndDate = async (page, size, topicType) => {
+  const fetchedArticles = await axios.get('article/getArticlesOrderByDate?page=' + page + '&size=' + size + '&topicType=' + topicType)
+  if (fetchedArticles.data.data.length === 5) {
+    finished.value = false
+    articles.value = [...articles.value, ...fetchedArticles.data.data]
+    return true
+  } else if (fetchedArticles.data.code === 200 && fetchedArticles.data.data.length < 5 && fetchedArticles.data.data.length > 0) {
+    articles.value = [...articles.value, ...fetchedArticles.data.data]
+    finished.value = true
+    return true
+  } else if (fetchedArticles.data.code === 200 && fetchedArticles.data.data.length === 0) {
+    finished.value = true
+    return false
+  }
+}
+
 const formattedData = computed(() => {
   return articles.value.map(item => ({
     ...item,
@@ -100,6 +126,21 @@ const goArticleDetail = (article) => {
 onMounted(async () => {
   // 初始化逻辑，如数据请求
   await load()
+})
+
+// 监听 orderValue 的变化
+watch(() => props.orderValue, async (newVal) => {
+  loading.value = true
+  articles.value = []
+  page.value = 0
+  size.value = 5
+  if (newVal === 1) {
+    console.log('watch' + newVal)
+    await getArticlesByPageTopicAndDate(page.value, size.value, articleDetail.topicType.value)
+  } else if (newVal === 0) {
+    await getArticlesByPageAndTopic(page.value, size.value, articleDetail.topicType.value)
+  }
+  loading.value = false
 })
 </script>
 
