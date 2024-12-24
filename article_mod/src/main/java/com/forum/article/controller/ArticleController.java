@@ -73,7 +73,7 @@ public class ArticleController {
 
 	@GetMapping("getArticlesOrderByDate")
 	public CommonResult<List<Article>> getArticlesOrderByDate(@RequestParam int page, @RequestParam int size,
-			@RequestParam Byte topicType) throws InterruptedException {
+			@RequestParam Byte topicType) {
 		return CommonResult.success(articleService.getArticlesOrderByDate(page, size, topicType));
 	}
 
