@@ -14,7 +14,7 @@
 </template>
 <script setup>
 import router from '@/router'
-import { onMounted } from 'vue'
+import { onActivated, onMounted } from 'vue'
 import { useStore } from 'vuex'
 
 onMounted(() => {
@@ -22,6 +22,9 @@ onMounted(() => {
   if (localStorage.getItem('satoken') == null) {
     router.push('/login')
   }
+})
+onActivated(() => {
+  store.commit('setActiveTab', 1)
 })
 
 const store = useStore()

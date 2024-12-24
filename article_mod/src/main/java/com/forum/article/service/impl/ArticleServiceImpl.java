@@ -178,8 +178,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 	}
 
 	@Override
-	public List<Article> getArticlesOrderByDate(int page, int size, Byte topicType) {
-		List<Article> articleByPage = articleMapper.getArticleByPageAndDateOrder(page * size, size, topicType);
+	public List<ArticleGetVo> getArticlesOrderByDate(int page, int size, Byte topicType) {
+		List<ArticleGetVo> articleByPage = articleMapper.getArticleByPageAndDateOrder(page * size, size, topicType);
+		articleByPage.forEach(article -> {
+			// 读取并设置热数
+			Integer hotNum = redisHotSave.opsForValue().get(article.getId());
+			article.setHotNum(Objects.requireNonNullElse(hotNum, 0));
+		});
 		return articleByPage;
 	}
 

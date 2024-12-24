@@ -31,7 +31,7 @@
         ORDER BY update_time DESC
         LIMIT #{page}, #{size}
     </select>
-    <select id="getArticleByPageAndDateOrder" resultType="com.forum.article.entity.Article">
+    <select id="getArticleByPageAndDateOrder" resultType="com.forum.article.vo.ArticleGetVo">
         SELECT *
         FROM article
         WHERE status = 0

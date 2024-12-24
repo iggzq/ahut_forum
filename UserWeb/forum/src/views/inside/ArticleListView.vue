@@ -1,5 +1,6 @@
 <script setup>
 import { computed, defineProps, onMounted, ref, toRefs, watch } from 'vue'
+import { useStore } from 'vuex'
 import { showFailToast } from 'vant'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
@@ -11,6 +12,8 @@ const refreshing = ref(false)
 const page = ref(-1)
 const size = ref(5)
 const articles = ref([])
+const store = useStore()
+const refreshArticle = computed(() => store.getters.getRefreshArticle)
 const topicTypeToString = {
   0: '#学习提问',
   1: '#校园逸事',
@@ -122,7 +125,17 @@ const goArticleDetail = (article) => {
     }
   )
 }
-
+const doubleClickRefresh = async () => {
+  articles.value = []
+  loading.value = true
+  page.value = 0
+  const result = await getArticlesByPageAndTopic(page.value, size.value, articleDetail.topicType.value)
+  if (!result) {
+    showFailToast('加载失败')
+  } else {
+    loading.value = false
+  }
+}
 onMounted(async () => {
   // 初始化逻辑，如数据请求
   await load()
@@ -141,6 +154,14 @@ watch(() => props.orderValue, async (newVal) => {
     await getArticlesByPageAndTopic(page.value, size.value, articleDetail.topicType.value)
   }
   loading.value = false
+})
+
+watch(refreshArticle, (newVal, oldVal) => {
+  if (newVal) {
+    doubleClickRefresh()
+    store.commit('SET_REFRESH_ARTICLE', false)
+    store.commit('SET_IS_MAIN_BACK', true)
+  }
 })
 </script>
 

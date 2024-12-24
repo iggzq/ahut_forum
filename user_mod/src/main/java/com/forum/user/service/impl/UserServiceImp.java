@@ -32,7 +32,6 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
 	@Resource
 	private UserMapper userMapper;
 
-
 	@Override
 	public void registerSave(RegisterUserVo registerUserVo) {
 		User user = new User();

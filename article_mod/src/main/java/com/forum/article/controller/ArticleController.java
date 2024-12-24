@@ -1,6 +1,5 @@
 package com.forum.article.controller;
 
-import com.forum.article.entity.Article;
 import com.forum.article.entity.CommentArticle;
 import com.forum.article.result.CommonResult;
 import com.forum.article.service.ArticleService;
@@ -73,7 +72,7 @@ public class ArticleController {
 	}
 
 	@GetMapping("getArticlesOrderByDate")
-	public CommonResult<List<Article>> getArticlesOrderByDate(@RequestParam int page, @RequestParam int size,
+	public CommonResult<List<ArticleGetVo>> getArticlesOrderByDate(@RequestParam int page, @RequestParam int size,
 			@RequestParam Byte topicType) {
 		return CommonResult.success(articleService.getArticlesOrderByDate(page, size, topicType));
 	}

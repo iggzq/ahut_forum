@@ -4,11 +4,14 @@ export default createStore({
   state: {
     articleDetail: null,
     activeTab: 0,
-    refreshArticle: false
+    refreshArticle: false,
+    isMainBack: true
   },
   getters: {
     getArticleDetail: (state) => state.articleDetail,
-    getActiveTab: (state) => state.activeTab
+    getActiveTab: (state) => state.activeTab,
+    getRefreshArticle: (state) => state.refreshArticle,
+    getIsMainBack: (state) => state.isMainBack
   },
   mutations: {
     setArticleDetail (state, articleDetail) {
@@ -19,6 +22,9 @@ export default createStore({
     },
     SET_REFRESH_ARTICLE (state, payload) {
       state.refreshArticle = payload
+    },
+    SET_IS_MAIN_BACK (state, payload) {
+      state.isMainBack = payload
     }
   },
   actions: {

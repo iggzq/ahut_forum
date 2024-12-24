@@ -2,11 +2,13 @@
     overflow-y: scroll;
     height: calc(100vh - 96px);
 }
-.placement-container{
+
+.placement-container {
     display: flex;
     justify-content: end;
 }
-.var-menu{
+
+.var-menu {
     margin-top: 3px;
     margin-right: 3%;
 }
@@ -74,28 +76,6 @@
     justify-content: space-between;
 }
 
-.itemPopular {
-    width: 80%;
-    text-align: left;
-    margin: 0;
-    color: #567f9d;
-    display: flex;
-    justify-content: start;
-}
-
-.likeCss {
-    width: 15%;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-}
-
-.commentCss {
-    width: 15%;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-}
 
 :root {
     --card-footer-padding: 0px 5px;
@@ -111,4 +91,26 @@
 
 .van-grid-item :deep(.van-grid-item__content) {
     padding: 0;
+}
+
+.itemPopular {
+    display: flex;
+    justify-content: start; /* 子元素之间平均分配空间 */
+    align-items: center; /* 垂直居中 */
+    flex-wrap: nowrap; /* 防止换行 */
+    width: 10%; /* 确保父容器占据全部可用宽度 */
+}
+
+.likeCss, .commentCss, .hotCss {
+    display: flex;
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    text-align: center; /* 确保文本在多行时也居中 */
+    padding: 9%; /* 根据需要调整间距 */
+    box-sizing: border-box; /* 确保padding不会增加元素的总宽度 */
+    flex: 1; /* 让每个子元素尽可能地占用相等的空间 */
+}
+
+.likeCss {
+    padding-left: 0;
 }

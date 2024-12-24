@@ -35,7 +35,8 @@ onMounted(() => {
 
 const handleArticleRefresh = () => {
   if (store.state.activeTab === 0) {
-    store.dispatch('triggerArticleRefresh')
+    store.state.isMainBack = false
+    store.state.refreshArticle = true
   }
 }
 </script>
