@@ -27,6 +27,10 @@ public class CommonResult<T> {
 		return new CommonResult<T>(200, "success", data);
 	}
 
+	public static <T> CommonResult<T> NotLogin() {
+		return new CommonResult<T>(401, "未登录或登录凭证过期，请重新登录", null);
+	}
+
 	public static <T> CommonResult<T> success() {
 		return new CommonResult<T>(200, "success", null);
 	}

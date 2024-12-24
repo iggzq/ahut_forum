@@ -42,7 +42,7 @@ public class UserController {
 	@PostMapping("/login")
 	public CommonResult<String> login(@RequestBody LoginUserVo loginUserVo) {
 		String token = userService.login(loginUserVo);
-		return token != null ? CommonResult.success(token) : CommonResult.failed("登录失败");
+		return token == null ? CommonResult.failed("用户名或密码错误") : CommonResult.success(token);
 	}
 
 }

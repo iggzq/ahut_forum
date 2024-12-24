@@ -1,4 +1,4 @@
-.articleShow {
+.articleDetailShowCard {
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -58,4 +58,9 @@
 
 .animate__fadeInRight {
     animation-duration: 0.4s;
+}
+
+.articleDetail .var-card__footer {
+    display: flex;
+    justify-content: end;
 }

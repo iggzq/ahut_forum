@@ -83,8 +83,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 	}
 
 	@Override
-	public List<Article> getArticles(int page, int size) {
-		List<Article> articleByPage = articleMapper.getArticleByPage(page * size, size);
+	public List<Article> getArticles(int page, int size, Byte topicType) {
+		List<Article> articleByPage = articleMapper.getArticleByPage(page * size, size, topicType);
 		LocalDateTime now = LocalDateTime.now();
 		articleByPage.sort((o1, o2) -> {
 			double score1 = ArticleRecommender.calculateRecommendScore(o1, now);

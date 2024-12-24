@@ -37,4 +37,6 @@ public class SaTokenConfigure implements WebMvcConfigurer {
 		return new StpLogicJwtForSimple();
 	}
 
+
+
 }

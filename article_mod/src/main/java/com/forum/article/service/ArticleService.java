@@ -21,7 +21,7 @@ public interface ArticleService extends IService<Article> {
 
 	Boolean saveArticle(SaveArticleVO saveArticleVO);
 
-	List<Article> getArticles(int page, int size);
+	List<Article> getArticles(int page, int size, Byte topicType);
 
 	Boolean likeArticle(LikeArticleVO likeArticleVO);
 

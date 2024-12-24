@@ -50,6 +50,7 @@ export default defineComponent({
     <div v-for="(item,index) in myComments" :key="index">
       <comment-card :comment="item"></comment-card>
     </div>
+    <van-empty v-if="null === myComments" description="无回复"/>
   </div>
 
 </template>

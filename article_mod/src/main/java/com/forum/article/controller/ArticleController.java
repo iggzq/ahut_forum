@@ -39,8 +39,9 @@ public class ArticleController {
 	}
 
 	@GetMapping("getArticles")
-	public CommonResult<List<Article>> getArticles(@RequestParam int page, @RequestParam int size) {
-		return CommonResult.success(articleService.getArticles(page, size));
+	public CommonResult<List<Article>> getArticles(@RequestParam int page, @RequestParam int size,
+			@RequestParam Byte topicType) {
+		return CommonResult.success(articleService.getArticles(page, size, topicType));
 	}
 
 	@GetMapping("getArticleById")
