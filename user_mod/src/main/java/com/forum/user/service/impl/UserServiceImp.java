@@ -13,7 +13,6 @@ import com.forum.user.vo.RegisterUserVo;
 import com.forum.user.vo.UserNameVo;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -33,8 +32,6 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
 	@Resource
 	private UserMapper userMapper;
 
-	@Resource
-	private RedisTemplate<String, Object> redisTemplate;
 
 	@Override
 	public void registerSave(RegisterUserVo registerUserVo) {

@@ -62,29 +62,21 @@
 .var-card__footer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
-.itemPopular {
-    width: 80%;
-    text-align: left;
-    margin: 0;
-    color: #567f9d;
+.likeCss, .commentCss, .hotCss {
     display: flex;
-    justify-content: start;
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    text-align: center; /* 确保文本在多行时也居中 */
+    padding: 9%; /* 根据需要调整间距 */
+    box-sizing: border-box; /* 确保padding不会增加元素的总宽度 */
+    flex: 1; /* 让每个子元素尽可能地占用相等的空间 */
 }
 
 .likeCss {
-    width: 15%;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-}
-
-.commentCss {
-    width: 15%;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
+    padding-left: 0;
 }
 
 :root {
@@ -115,4 +107,10 @@
     padding: 0;
 }
 
-
+.itemPopular {
+    display: flex;
+    justify-content: start; /* 子元素之间平均分配空间 */
+    align-items: center; /* 垂直居中 */
+    flex-wrap: nowrap; /* 防止换行 */
+    width: 10%; /* 确保父容器占据全部可用宽度 */
+}

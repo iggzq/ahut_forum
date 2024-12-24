@@ -14,11 +14,14 @@ import com.forum.article.mapper.CommentArticleMapper;
 import com.forum.article.mapper.LikeArticleMapper;
 import com.forum.article.service.ArticleService;
 import com.forum.article.utils.ArticleRecommender;
+import com.forum.article.vo.ArticleGetVo;
 import com.forum.article.vo.ArticleVo;
 import com.forum.article.vo.LikeArticleVO;
 import com.forum.article.vo.SaveArticleVO;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static com.forum.article.constants.Constants.*;
 
@@ -51,6 +55,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
 	@Resource
 	private RedisTemplate<String, Object> redisTemplate;
+
+	@Autowired
+	@Qualifier("redisHotSave")
+	private RedisTemplate<Long, Integer> redisHotSave;
 
 	@Override
 	public Boolean saveArticle(SaveArticleVO saveArticleVO) {
@@ -83,9 +91,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 	}
 
 	@Override
-	public List<Article> getArticles(int page, int size, Byte topicType) {
-		List<Article> articleByPage = articleMapper.getArticleByPage(page * size, size, topicType);
+	public List<ArticleGetVo> getArticles(int page, int size, Byte topicType) {
+		List<ArticleGetVo> articleByPage = articleMapper.getArticleByPage(page * size, size, topicType);
 		LocalDateTime now = LocalDateTime.now();
+		articleByPage.forEach(article -> {
+			// 读取并设置热数
+			Integer hotNum = redisHotSave.opsForValue().get(article.getId());
+			article.setHotNum(Objects.requireNonNullElse(hotNum, 0));
+		});
 		articleByPage.sort((o1, o2) -> {
 			double score1 = ArticleRecommender.calculateRecommendScore(o1, now);
 			double score2 = ArticleRecommender.calculateRecommendScore(o2, now);
@@ -160,6 +173,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 		lambdaQueryWrapper.eq(LikeArticle::getStatus, 0);
 		boolean isLike = likeArticleMapper.exists(lambdaQueryWrapper);
 		articleVo.setIsLike(isLike);
+		redisHotSave.opsForValue().increment(articleId, 1);
 		return articleVo;
 	}
 

@@ -99,7 +99,6 @@ const getArticleDetail = async () => {
     }
   }).then(res => {
     articleDetail.value = res.data.data
-    console.log(articleDetail.value.topicType)
   })
 }
 const sendLikeArticle = async () => {

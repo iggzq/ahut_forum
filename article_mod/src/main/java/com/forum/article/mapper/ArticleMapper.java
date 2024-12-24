@@ -2,6 +2,7 @@ package com.forum.article.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.forum.article.entity.Article;
+import com.forum.article.vo.ArticleGetVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 @Mapper
 public interface ArticleMapper extends BaseMapper<Article> {
 
-	List<Article> getArticleByPage(int page, int size, Byte topicType);
+	List<ArticleGetVo> getArticleByPage(int page, int size, Byte topicType);
 
 	void addLikeNumber(Long id);
 
