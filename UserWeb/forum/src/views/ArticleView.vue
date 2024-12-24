@@ -32,7 +32,8 @@
                        maxlength="50" placeholder="请输入帖子标题(限50字)" show-word-limit/>
           </van-col>
           <van-col span="24">
-            <van-button :plain="isButtoned" icon="plus" size="small" style="margin: 10px" type="primary" @click="showPicker=true">
+            <van-button :plain="isButtoned" icon="plus" size="small" style="margin: 10px" type="primary"
+                        @click="showPicker=true">
               {{ topicButtonValue }}
             </van-button>
           </van-col>
@@ -109,7 +110,7 @@
 </template>
 
 <script setup>
-import { onActivated, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, onActivated, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import axios from 'axios'
 import { showFailToast, showSuccessToast } from 'vant'
 import { useRoute, useRouter } from 'vue-router'
@@ -122,10 +123,8 @@ const writeArticle = ref({
   content: '',
   topic: []
 })
-const loading = ref(true)
 const finished = ref(false)
 const page = ref(-1)
-const size = ref(5)
 const router = useRouter()
 const store = useStore()
 const route = useRoute()
@@ -154,6 +153,14 @@ const topicType = [
 const showPicker = ref(false)
 const fieldValue = ref('')
 const topicButtonValue = ref('添加话题类型')
+const isMainBack = computed(() => store.getters.getRefreshArticle)
+watch(isMainBack, (newVal) => {
+  if (!newVal) {
+    scrollPosition.value = 0
+    scrollableArea.value.scrollTop = 0
+  }
+})
+
 const topicTypeConfirm = ({
   selectedValues,
   selectedOptions
@@ -252,31 +259,8 @@ onBeforeUnmount(() => {
 onActivated(() => {
   // 恢复滚动位置
   scrollableArea.value.scrollTop = scrollPosition.value
+  store.commit('setActiveTab', 0)
 })
-
-const doubleClickRefresh = async () => {
-  articles.value = []
-  loading.value = true
-  page.value = 0
-  const result = await getArticlesByPage(page.value, size.value)
-  if (!result) {
-    showFailToast('加载失败')
-  } else {
-    loading.value = false
-  }
-}
-
-watch(
-  () => store.state.refreshArticle,
-  async (newVal) => {
-    console.log(newVal)
-    if (newVal) {
-      scrollableArea.value.scrollTop = 0
-      await doubleClickRefresh()
-      store.commit('SET_REFRESH_ARTICLE', false)
-    }
-  }
-)
 
 </script>
 <script>

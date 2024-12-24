@@ -30,6 +30,6 @@ public interface ArticleService extends IService<Article> {
 
 	ArticleVo getArticleById(Long articleId);
 
-	List<Article> getArticlesOrderByDate(int page, int size, Byte topicType);
+	List<ArticleGetVo> getArticlesOrderByDate(int page, int size, Byte topicType);
 
 }
