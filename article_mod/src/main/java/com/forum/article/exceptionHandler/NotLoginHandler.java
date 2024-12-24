@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class NotLoginHandler {
 
-    @ExceptionHandler(NotLoginException.class)
-    @ResponseBody
-    public CommonResult<String> notLoginExceptionHandler() {
-        return CommonResult.NotLogin();
-    }
+	@ExceptionHandler(NotLoginException.class)
+	@ResponseBody
+	public CommonResult<String> notLoginExceptionHandler() {
+		return CommonResult.NotLogin();
+	}
+
 }
