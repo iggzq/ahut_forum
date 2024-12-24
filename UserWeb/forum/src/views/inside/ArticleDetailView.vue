@@ -29,7 +29,14 @@
               rows="4"
             />
           </template>
+
           <template #extra>
+            <var-space>
+              <van-tag :type="tagTypeMap[topicTypeToString[articleDetail.topicType]]" size="medium">{{
+                  topicTypeToString[articleDetail.topicType]
+                }}
+              </van-tag>
+            </var-space>
             <van-button :color="buttonColor" round type="success" @click="sendLikeArticle()">
               <van-icon :class="likeAnimate" name="good-job"/>
               {{ articleDetail.likeCount }} 点赞 {{ articleDetail.commentCount }} 评论数
@@ -72,6 +79,19 @@ const skeletonShow = ref(true)
 const goBack = () => {
   window.history.go(-1)
 }
+const tagTypeMap = {
+  '#学习提问': 'primary',
+  '#校园逸事': 'success',
+  '#生活闲谈': 'warning',
+  '#丢失/拾获': 'danger'
+}
+const topicTypeToString = {
+  0: '#学习提问',
+  1: '#校园逸事',
+  2: '#生活闲谈',
+  3: '#丢失/拾获'
+}
+
 const getArticleDetail = async () => {
   await axios.get('article/getArticleById', {
     params: {
@@ -79,6 +99,7 @@ const getArticleDetail = async () => {
     }
   }).then(res => {
     articleDetail.value = res.data.data
+    console.log(articleDetail.value.topicType)
   })
 }
 const sendLikeArticle = async () => {
