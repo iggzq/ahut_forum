@@ -62,7 +62,8 @@ const onSubmit = (values) => {
       localStorage.setItem('satoken', res.data.data)
       router.push('/article')
     } else {
-      showFailToast('登陆失败，请重试')
+      showIsLogin.value = false
+      showFailToast(res.data.desc)
     }
   })
 }

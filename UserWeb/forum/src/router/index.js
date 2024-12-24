@@ -18,7 +18,7 @@ const routes = [
         },
         children: [
           {
-            path: 'articlDetail/:articleId&&:commentId?',
+            path: 'articleDetail/:articleId/:commentId?',
             name: 'articleDetail',
             component: () => import('../views/inside/ArticleDetailView.vue'),
             meta: {
@@ -38,7 +38,7 @@ const routes = [
     ]
   },
   {
-    path: '/commentArticlDetail/:articleId&&:commentId?',
+    path: '/commentArticlDetail/:articleId/:commentId?',
     name: 'commentArticleDetail',
     component: () => import('../views/inside/ArticleDetailView.vue'),
     meta: {
@@ -71,8 +71,29 @@ const routes = [
     name: 'ChatRoom',
     component: () => import('../views/ChatRoom.vue'),
     meta: {
-      keepAlive: false // 表示此路由不需要被缓存
+      keepAlive: false
     }
+  }, {
+    path: '/topic',
+    name: 'TopicView',
+    component: () => import('../views/TopicView.vue'),
+    meta: {
+      keepAlive: false
+    }
+  }, {
+    path: '/topic/:topicId/:topicName',
+    name: 'topicArticle',
+    component: () => import('../views/inside/TopicArticleView.vue'),
+    meta: {
+      keepAlive: true
+    },
+    children: [
+      {
+        path: 'articleDetail/:articleId/:commentId?',
+        name: 'topicArticleDetail',
+        component: () => import('../views/inside/ArticleDetailView.vue')
+      }
+    ]
   }
 ]
 

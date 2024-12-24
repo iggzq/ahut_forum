@@ -22,7 +22,6 @@ const isTabbarHidden = computed(() => {
 })
 
 onMounted(() => {
-  console.log('active: ' + active)
   if (active === 0) {
     router.push({
       name: 'ArticleView'
@@ -36,7 +35,6 @@ onMounted(() => {
 
 const handleArticleRefresh = () => {
   if (store.state.activeTab === 0) {
-    console.log('handleArticleRefresh')
     store.dispatch('triggerArticleRefresh')
   }
 }

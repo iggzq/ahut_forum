@@ -7,6 +7,10 @@ import {
   Button,
   Cell,
   CellGroup,
+  Col,
+  DropdownItem,
+  DropdownMenu,
+  Empty,
   Field,
   Form,
   Grid,
@@ -16,6 +20,8 @@ import {
   NavBar,
   Picker,
   Popup,
+  Row,
+  showFailToast,
   Skeleton,
   Sticky,
   Swipe,
@@ -43,11 +49,19 @@ app.use(Form).use(Button).use(Field).use(Toast).use(store).use(router)
   .use(Swipe).use(SwipeItem).use(Tabbar).use(TabbarItem).use(Tab).use(Tabs).use(NavBar)
   .use(Grid).use(GridItem).use(Skeleton).use(Varlet).use(Tag).use(Sticky).use(TextEllipsis)
   .use(Icon).use(UComment).use(Cell).use(CellGroup).use(Badge).use(Picker).use(Popup)
-  .use(Loading)
+  .use(Loading).use(Empty).use(Col).use(Row).use(DropdownItem).use(DropdownMenu)
   .mount('#app')
 axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
 
 axios.interceptors.request.use((config) => {
   config.headers.satoken = localStorage.getItem('satoken')
   return config
+})
+
+axios.interceptors.response.use((response) => {
+  if (response.data.code === 401) {
+    showFailToast(response.data.desc)
+    router.push('/login')
+  }
+  return response
 })

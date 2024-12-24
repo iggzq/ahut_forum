@@ -47,6 +47,9 @@ public class Article implements Serializable {
 	@TableField("content")
 	private String content;
 
+	@TableField("topic_type")
+	private Byte topicType;
+
 	@TableField("like_count")
 	private Integer likeCount;
 

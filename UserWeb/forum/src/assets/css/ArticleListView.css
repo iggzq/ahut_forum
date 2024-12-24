@@ -59,18 +59,18 @@
     color: darkgrey;
 }
 
-.var-card :deep(.var-card__footer) {
-    padding: 0px 5px !important;
-    margin-top: 3px;
+.var-card__footer {
+    display: flex;
+    justify-content: space-between;
 }
 
 .itemPopular {
-    width: 100%;
+    width: 80%;
     text-align: left;
     margin: 0;
-    color: #0094ff;
+    color: #567f9d;
     display: flex;
-    flex-wrap: wrap;
+    justify-content: start;
 }
 
 .likeCss {
@@ -114,4 +114,5 @@
 .van-grid-item :deep(.van-grid-item__content) {
     padding: 0;
 }
+
 

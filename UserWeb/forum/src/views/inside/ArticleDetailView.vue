@@ -2,7 +2,7 @@
   <div class="animate__animated animate__fadeInRight animate__faster">
     <div class="top">
       <van-sticky>
-        <van-nav-bar left-arrow title="文章详情">
+        <van-nav-bar left-arrow size="25" title="文章详情">
           <template #left>
             <van-icon name="arrow-left" @click="goBack"/>
           </template>
@@ -10,7 +10,7 @@
       </van-sticky>
     </div>
     <div class="articleDetail">
-      <div class="articleShow">
+      <div class="articleDetailShowCard">
         <var-card
           class="articleDetailShow"
         >
@@ -79,7 +79,6 @@ const getArticleDetail = async () => {
     }
   }).then(res => {
     articleDetail.value = res.data.data
-    console.log(articleDetail)
   })
 }
 const sendLikeArticle = async () => {

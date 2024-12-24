@@ -4,7 +4,7 @@
       <router-view/>
     </div>
   </keep-alive>
-  <div :class="totalShow">
+  <div>
     <van-sticky :offset-top="0">
       <van-nav-bar title="新鲜事">
         <template #right>
@@ -12,7 +12,11 @@
         </template>
       </van-nav-bar>
     </van-sticky>
-    <var-popup v-model:show="bottom" :default-style="true" position="bottom" safe-area-top>
+    <van-popup
+      v-model:show="bottom"
+      :style="{ height: '100%' }"
+      position="bottom"
+    >
       <van-nav-bar title="发布">
         <template #left>
           <van-icon name="cross" size="25" @click="cancelPublish"/>
@@ -22,21 +26,39 @@
         </template>
       </van-nav-bar>
       <van-cell-group inset>
-        <van-field v-model="writeArticle.title" autosize
-                   maxlength="50" placeholder="请输入帖子标题(限50字)" show-word-limit/>
-        <van-field placeholder="可选标签，格式：#+文字"/>
-        <van-field
-          v-model="writeArticle.content"
-          autosize
-          class="writeArticleContent"
-          maxlength="400"
-          placeholder="请输入帖子正文"
-          rows="2"
-          show-word-limit
-          type="textarea"
-        />
+        <van-row :gutter="[0, 20]">
+          <van-col span="24">
+            <van-field v-model="writeArticle.title" autosize
+                       maxlength="50" placeholder="请输入帖子标题(限50字)" show-word-limit/>
+          </van-col>
+          <van-col span="24">
+            <van-button :plain="isButtoned" icon="plus" size="small" style="margin: 10px" type="primary" @click="showPicker=true">
+              {{ topicButtonValue }}
+            </van-button>
+          </van-col>
+          <van-popup v-model:show="showPicker" destroy-on-close position="bottom" round>
+            <van-picker
+              :columns="topicType"
+              :model-value="writeArticle.topic"
+              @cancel="showPicker = false"
+              @confirm="topicTypeConfirm"
+            />
+          </van-popup>
+          <van-col span="24">
+            <van-field
+              v-model="writeArticle.content"
+              autosize
+              class="writeArticleContent"
+              maxlength="400"
+              placeholder="请输入帖子正文"
+              rows="2"
+              show-word-limit
+              type="textarea"
+            />
+          </van-col>
+        </van-row>
       </van-cell-group>
-    </var-popup>
+    </van-popup>
     <div ref="scrollableArea" class="mainContent">
       <van-grid>
         <van-grid-item v-ripple class="vanItem" @click="goChatRoom">
@@ -64,80 +86,24 @@
             <p>聊天室</p>
           </template>
         </van-grid-item>
-        <van-grid-item v-ripple icon="photo-o" text="文字"/>
+        <van-grid-item v-ripple class="vanItem" text="话题" @click="goTopic">
+          <template #icon>
+            <svg class="icon" height="auto" p-id="7439" t="1734789199015" version="1.1"
+                 viewBox="0 0 1024 1024" width="90%" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M512 118.016c240.064 0 436.032 175.808 436.032 394.496v2.944c-0.768 89.344-34.432 173.824-94.208 241.984l-0.96 1.152 48.064 102.848 0.32 0.768a32 32 0 0 1-37.952 43.584l-151.68-42.496-0.256 0.192a471.808 471.808 0 0 1-199.36 43.52c-240.064 0-436.032-175.808-436.032-394.496S272 118.016 512 118.016z m0 64c-206.208 0-372.032 148.8-372.032 330.496 0 181.696 165.824 330.496 372.032 330.496 64.832 0 127.104-14.72 182.272-42.368l0.512-0.256a32 32 0 0 1 22.464-1.92l96.128 26.88-27.648-59.2a32 32 0 0 1 5.888-35.712l0.32-0.32c59.072-59.968 92.032-136.576 92.032-217.6 0-181.76-165.76-330.496-371.968-330.496z"
+                fill="#1296db" p-id="7440"></path>
+              <path d="M732.544 404.992v64h-400v-64zM692.032 556.032v64h-400v-64z" fill="#1296db" p-id="7441"></path>
+              <path
+                d="M444.224 309.952l63.04 11.072-69.44 393.92-63.04-11.072zM586.24 310.592l63.04 11.136-69.44 393.92-63.04-11.136z"
+                fill="#1296db" p-id="7442"></path>
+            </svg>
+          </template>
+        </van-grid-item>
         <van-grid-item v-ripple icon="photo-o" text="文字"/>
         <van-grid-item v-ripple icon="photo-o" text="文字"/>
       </van-grid>
-      <div class="articleContent">
-        <var-pull-refresh v-model="refreshing" @refresh="refresh">
-          <var-list
-            v-model:loading="loading"
-            :finished="finished"
-            class="itemList"
-            @load="load"
-          >
-            <div v-for="item in articles" :key="item.id" class="articleShow">
-              <var-card
-                ripple
-                @click="goArticleDetail(item)"
-              >
-                <template #title>
-                  <h3 class="itemTitle">{{ item.title }}</h3>
-                </template>
-                <template #subtitle>
-                  <div class="subtitleCss">
-                    <p class="itemUserName">{{ item.admissionYear }}级 发帖人：{{ item.userName }}</p>
-                    <p class="itemCreateTime">{{ item.createTime }}</p>
-                  </div>
-                </template>
-                <template #description>
-                  <van-text-ellipsis
-                    :content="item.content"
-                    class="itemContent"
-                    rows="3"
-                  />
-                </template>
-                <template #extra>
-                  <div class="itemPopular">
-                    <div class="likeCss">
-                      <svg class="icon" height="auto" p-id="4289" t="1725329817714"
-                           version="1.1" viewBox="0 0 1024 1024" width="1em" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M857.28 344.992h-264.832c12.576-44.256 18.944-83.584 18.944-118.208 0-78.56-71.808-153.792-140.544-143.808-60.608 8.8-89.536 59.904-89.536 125.536v59.296c0 76.064-58.208 140.928-132.224 148.064l-117.728-0.192A67.36 67.36 0 0 0 64 483.04V872c0 37.216 30.144 67.36 67.36 67.36h652.192a102.72 102.72 0 0 0 100.928-83.584l73.728-388.96a102.72 102.72 0 0 0-100.928-121.824zM128 872V483.04c0-1.856 1.504-3.36 3.36-3.36H208v395.68H131.36A3.36 3.36 0 0 1 128 872z m767.328-417.088l-73.728 388.96a38.72 38.72 0 0 1-38.048 31.488H272V476.864a213.312 213.312 0 0 0 173.312-209.088V208.512c0-37.568 12.064-58.912 34.72-62.176 27.04-3.936 67.36 38.336 67.36 80.48 0 37.312-9.504 84-28.864 139.712a32 32 0 0 0 30.24 42.496h308.512a38.72 38.72 0 0 1 38.048 45.888z"
-                          fill="#0094ff" p-id="4290">
-                        </path>
-                      </svg>
-                      &nbsp;
-                      <p style="margin: 0">{{ item.likeCount }}</p>
-                    </div>
-                    <div class="commentCss">
-                      <svg class="icon" height="auto" p-id="11715" t="1725331534539"
-                           version="1.1" viewBox="0 0 1024 1024" width="1em" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M206.9248 651.55072h-30.38208 30.38208zM248.68352 440.59648H341.1456c23.8592 0 44.73856-16.26624 44.73856-34.8672 0-18.59072-20.87936-34.86208-44.73856-34.86208H248.68352c-23.8592 0-44.73856 16.27136-44.73856 34.86208 0 18.60096 17.89952 34.8672 44.73856 34.8672z"
-                          fill="#0094ff" p-id="11716"></path>
-                        <path
-                          d="M988.7744 159.80544a87.00416 87.00416 0 0 0-86.49216-74.56256H131.96288c-47.7184 0-86.49728 38.77376-86.49728 86.49728v472.28416c2.97984 47.71328 31.51872 75.97056 79.23712 75.97056H293.4272c23.8592 0 44.73856-10.35776 44.73856-34.21696 0-23.86432-20.87936-34.2272-44.73856-34.2272H113.90976v-462.7968c2.98496-26.12224 8.94976-35.072 56.67328-38.05184H878.5408c50.70848 0 44.01664 40.22272 44.01664 96.896v414.46912h-408.41728c-14.91968 0-29.82912 8.94976-38.77888 20.87936l-217.728 191.57504c-17.89952 17.89952-23.11168 39.43424-5.21216 57.32352 24.92416 21.9904 49.95072 2.176 67.84512-15.72864l211.76832-185.60512h382.61248c44.73856 0 68.16256-25.5488 74.12736-70.29248V159.80544zM113.90976 590.336v18.56-18.56zM830.29504 672.3072l33.36704-10.24-33.36704 10.24zM925.5424 602.41408v27.51488-27.51488z"
-                          fill="#0094ff" p-id="11717"></path>
-                        <path
-                          d="M925.5424 602.41408c0 50.70848-14.16192 59.648-61.88032 59.648h58.89536l2.98496-59.648zM113.90976 590.336v61.21472h54.44096c-42.51136 0-51.456-16.48128-54.44096-61.21472zM785.5616 368.54784h-92.47232c-23.85408 0-44.73344 16.27136-44.73344 34.8672 0 18.59072 20.87936 34.86208 44.73344 34.86208h92.47232c23.84896 0 44.73344-16.27136 44.73344-34.86208 0-18.59584-20.88448-34.8672-44.73344-34.8672zM561.85856 438.272c23.85408 0 44.73856-16.27136 44.73856-34.86208 0-18.59584-20.88448-34.8672-44.73856-34.8672H469.39648c-23.8592 0-44.73856 16.27136-44.73856 34.8672 0 18.59072 20.87936 34.86208 44.73856 34.86208h92.46208z"
-                          fill="#0094ff" p-id="11718"></path>
-                      </svg>
-                      &nbsp;
-                      <p style="margin: 0">{{ item.commentCount }}</p>
-                    </div>
-                  </div>
-                  <div class="trendNum">
-
-                  </div>
-                  <!--                  <p class="itemPopular" style="color: #0094ff">-->
-                  <!--                  </p>-->
-                </template>
-              </var-card>
-            </div>
-          </var-list>
-        </var-pull-refresh>
-      </div>
+      <ArticleListView :article-detail-name="articleDetailName"/>
     </div>
   </div>
 </template>
@@ -148,16 +114,16 @@ import axios from 'axios'
 import { showFailToast, showSuccessToast } from 'vant'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import ArticleListView from '@/views/inside/ArticleListView.vue'
 
-const totalShow = ref('')
 const articles = ref([])
 const writeArticle = ref({
   title: '',
-  content: ''
+  content: '',
+  topic: []
 })
 const loading = ref(true)
 const finished = ref(false)
-const refreshing = ref(false)
 const page = ref(-1)
 const size = ref(5)
 const router = useRouter()
@@ -165,29 +131,38 @@ const store = useStore()
 const route = useRoute()
 const scrollPosition = ref(0)
 const scrollableArea = ref(null)
-
-async function load () {
-  loading.value = true
-  page.value++
-  const result = await getArticlesByPage(page.value, size.value)
-  if (!result) {
-    page.value--
+const articleDetailName = 'articleDetail'
+const isButtoned = ref(true)
+const topicType = [
+  {
+    text: '学习提问',
+    value: 0
+  },
+  {
+    text: '校园逸事',
+    value: 1
+  },
+  {
+    text: '生活闲谈',
+    value: 2
+  },
+  {
+    text: '丢失/拾获',
+    value: 3
   }
-  loading.value = false
-}
-
-async function refresh () {
-  page.value = 0
-  finished.value = true
-  articles.value = []
-  loading.value = false
-  refreshing.value = true
-  const result = await getArticlesByPage(page.value, size.value)
-  if (!result) {
-    showFailToast('加载失败')
-  } else {
-    refreshing.value = false
-  }
+]
+const showPicker = ref(false)
+const fieldValue = ref('')
+const topicButtonValue = ref('添加话题类型')
+const topicTypeConfirm = ({
+  selectedValues,
+  selectedOptions
+}) => {
+  isButtoned.value = false
+  showPicker.value = false
+  writeArticle.value.topic = selectedValues
+  fieldValue.value = selectedOptions[0].text
+  topicButtonValue.value = selectedOptions[0].text
 }
 
 const getArticlesByPage = async (page, size) => {
@@ -209,11 +184,15 @@ const sendArticle = async () => {
   console.log(writeArticle.value)
   const res = await axios.post('article/saveArticle', {
     title: writeArticle.value.title,
-    content: writeArticle.value.content
+    content: writeArticle.value.content,
+    topicType: writeArticle.value.topic[0]
   })
   if (res.data.code === 200) {
     writeArticle.value.title = ''
     writeArticle.value.content = ''
+    writeArticle.value.topic = []
+    fieldValue.value = ''
+    topicButtonValue.value = '添加话题类型'
     page.value = 0
     articles.value = []
     showSuccessToast('发布成功')
@@ -226,29 +205,26 @@ const sendArticle = async () => {
 const cancelPublish = () => {
   writeArticle.value.content = ''
   writeArticle.value.title = ''
+  writeArticle.value.topic = []
+  fieldValue.value = ''
+  topicButtonValue.value = '添加话题类型'
   bottom.value = false
+  isButtoned.value = true
 }
-onMounted(async () => {
-  // 初始化逻辑，如数据请求
-  await load()
-})
 const bottom = ref(false)
-const goArticleDetail = (article) => {
-  store.commit('setActiveTab', 0)
-  router.push(
-    {
-      name: 'articleDetail',
-      params: {
-        articleId: article.id
-      }
-    }
-  )
-}
 const goChatRoom = () => {
   store.commit('setActiveTab', 0)
   router.push(
     {
       name: 'ChatRoom'
+    }
+  )
+}
+const goTopic = () => {
+  store.commit('setActiveTab', 0)
+  router.push(
+    {
+      name: 'TopicView'
     }
   )
 }
@@ -302,12 +278,6 @@ watch(
   }
 )
 
-// onDeactivated(() => {
-//   // 保存滚动位置
-//   console.log(scrollableArea.value)
-//   scrollPosition.value = scrollableArea.value.scrollTop
-// })
-
 </script>
 <script>
 export default {
@@ -315,5 +285,5 @@ export default {
 }
 </script>
 <style scoped>
-@import '@/assets/css/ArticleView.css';
+@import '@/assets/css/ArticleListView.css';
 </style>
