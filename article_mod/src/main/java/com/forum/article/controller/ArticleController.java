@@ -40,7 +40,7 @@ public class ArticleController {
 
 	@GetMapping("getArticles")
 	public CommonResult<List<ArticleGetVo>> getArticles(@RequestParam int page, @RequestParam int size,
-														@RequestParam Byte topicType) {
+			@RequestParam Byte topicType) {
 		return CommonResult.success(articleService.getArticles(page, size, topicType));
 	}
 
