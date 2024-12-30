@@ -1,23 +1,28 @@
 <script setup>
-import {ref} from 'vue'
+import {defineProps} from 'vue'
 
-const article = ref({
-  rank: 1,
-  title: ' 啥v句JSAV操作v你车v你先擦不拿秩序传达干撒',
-  hotNum: 123
-})
+const props = defineProps({
+  articleContent: {
+    type: Object, // 指定 prop 的类型
+    required: true // 指定此 prop 是否为必须
+  },
+  articleRank: {
+    type: Number,
+    required: true
+  }
+});
 </script>
 
 <template>
   <div class="mainLayout">
     <div class="leftContent">
-      {{ article.rank }}
+      {{ props.articleRank }}
     </div>
     <div class="rightContent">
-      {{ article.title }}
+      {{ props.articleContent.title }}
       <div class="hotNumClass">
         <van-icon name="fire-o" size="1rem"/>
-        {{ article.hotNum }}
+        {{ props.articleContent.hotNum }}
       </div>
     </div>
   </div>

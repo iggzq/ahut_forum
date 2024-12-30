@@ -105,7 +105,7 @@ onMounted(() => {
   scrollToBottom()
   window.addEventListener('resize', adjustChatHistoryHeight)
   socket.value = new WebSocket(`${process.env.VUE_APP_CHAT_ROOM}` + randomUserId)
-  socket.value.addEventListener('open', (event) => {
+  socket.value.addEventListener('open', () => {
     isConnected.value = true
   })
   socket.value.addEventListener('message', (event) => {

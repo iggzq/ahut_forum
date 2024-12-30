@@ -6,7 +6,7 @@
   </router-view>
   <van-tabbar v-if="!isTabbarHidden" v-model="active">
     <van-tabbar-item icon="home-o" to="/article" @click="handleArticleRefresh">首页</van-tabbar-item>
-    <van-tabbar-item icon="fire-o" to="/hotRank">热门</van-tabbar-item>
+    <van-tabbar-item icon="fire-o" to="/hotRank">热榜</van-tabbar-item>
     <van-tabbar-item icon="manager-o" to="/myProfile">我的</van-tabbar-item>
   </van-tabbar>
 </template>

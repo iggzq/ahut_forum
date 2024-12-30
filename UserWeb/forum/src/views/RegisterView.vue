@@ -55,7 +55,7 @@
             placeholder="自定义安全问题答案"
           />
         </van-cell-group>
-        <div style="margin: 16px 16px 0px">
+        <div style="margin: 16px 16px 0">
           <van-button block native-type="submit" round type="primary">
             注册
           </van-button>
@@ -76,7 +76,7 @@ const name = ref('')
 const password = ref('')
 const question = ref('')
 const answer = ref('')
-const onSubmit = (values) => {
+const onSubmit = () => {
   registerRequest()
 }
 const admissionYearKey = ref('')

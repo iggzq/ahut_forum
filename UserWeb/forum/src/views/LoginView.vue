@@ -22,7 +22,7 @@
             type="password"
           />
         </van-cell-group>
-        <div class="buttons" style="margin: 16px 16px 0px">
+        <div class="buttons" style="margin: 16px 16px 0">
           <van-button block native-type="submit" round style="margin-right: 3%" type="primary">
             登陆
           </van-button>
@@ -50,7 +50,7 @@ const password = ref('')
 const router = useRouter()
 const showIsLogin = ref(false)
 
-const onSubmit = (values) => {
+const onSubmit = () => {
   showIsLogin.value = true
   axios.post(`${process.env.VUE_APP_USER_LOGIN}` + 'user/login', {
     name: name.value,

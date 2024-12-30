@@ -1,0 +1,21 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/essential"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "rules": {
+    // 你可以在这里添加自定义规则
+    "vue/no-multiple-template-root": "off",
+    "vue/no-v-model-argument":"off",
+    "vue/require-v-for-key":"off",
+    "no-undef":"off"
+  }
+}

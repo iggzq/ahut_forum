@@ -156,7 +156,7 @@ watch(() => props.orderValue, async (newVal) => {
   loading.value = false
 })
 
-watch(refreshArticle, (newVal, oldVal) => {
+watch(refreshArticle, (newVal) => {
   if (newVal) {
     doubleClickRefresh()
     store.commit('SET_REFRESH_ARTICLE', false)
