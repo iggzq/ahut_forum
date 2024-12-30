@@ -73,7 +73,6 @@ const articleDetail = ref({})
 const buttonColor = ref('#afb0b2')
 const likeAnimate = ref('')
 const bottom = ref(false)
-// const commentPositionId = route.params.commentId
 const comments = ref([])
 const skeletonShow = ref(true)
 const goBack = () => {

@@ -36,7 +36,7 @@ const routes = [
         }
       }, {
         path: '/hotRank',
-        name: 'HotRank',
+        name: 'HotRankView',
         component: () => import('../views/HotRankView.vue'),
         meta: {
           keepAlive: false
@@ -101,6 +101,13 @@ const routes = [
         component: () => import('../views/inside/ArticleDetailView.vue')
       }
     ]
+  }, {
+    path: '/articleDetail/:articleId',
+    name: 'CommonArticleDetailView',
+    component: () => import('../views/inside/ArticleDetailView.vue'),
+    meta: {
+      keepAlive: false
+    }
   }
 ]
 

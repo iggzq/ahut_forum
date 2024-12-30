@@ -12,11 +12,6 @@
         </template>
       </van-nav-bar>
     </van-sticky>
-    <van-search
-      v-model="searchValue"
-      placeholder="请输入搜索关键词"
-      input-align="center"
-    />
     <van-popup
       v-model:show="bottom"
       :style="{ height: '100%' }"
@@ -66,6 +61,11 @@
       </van-cell-group>
     </van-popup>
     <div ref="scrollableArea" class="mainContent">
+      <van-search
+        v-model="searchValue"
+        input-align="center"
+        placeholder="请输入搜索关键词"
+      />
       <van-grid>
         <van-grid-item v-ripple class="vanItem" @click="goChatRoom">
           <template #icon>

@@ -22,9 +22,19 @@ const isTabbarHidden = computed(() => {
   return router.currentRoute.value.meta.hideTabbar
 })
 onMounted(() => {
-  router.push({
-    name: 'ArticleView'
-  })
+  if (active.value === 0) {
+    router.push({
+      name: 'ArticleView'
+    })
+  } else if (active.value === 1) {
+    router.push({
+      name: 'HotRankView'
+    })
+  } else if (active.value === 2) {
+    router.push({
+      name: 'MyProfileView'
+    })
+  }
 })
 
 const handleArticleRefresh = () => {

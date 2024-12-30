@@ -30,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.forum.article.constants.Constants.*;
 
@@ -191,7 +192,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 		lambdaQueryWrapper.eq(LikeArticle::getUserId, loginId);
 		lambdaQueryWrapper.eq(LikeArticle::getStatus, 0);
 		boolean isLike = likeArticleMapper.exists(lambdaQueryWrapper);
-		this.increaseHotNum(hotArticle);
 		hotListService.updateScore(String.valueOf(hotArticle.getId()));
 		articleVo.setIsLike(isLike);
 		return articleVo;
@@ -213,25 +213,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 		Map<Long, Integer> topTen = hotListServiceImpl.getTopTen();
 		List<Long> ids = new ArrayList<>(topTen.keySet());
 		List<HotArticleDTO> articles = articleMapper.getHotArticleContent(ids);
-		articles.forEach(article -> {
-			article.setHotNum(topTen.get(article.getId()));
-		});
-		return articles;
+		return articles.stream()
+				.peek(article -> article.setHotNum(topTen.get(article.getId())))
+				.sorted(Comparator.comparing(HotArticleDTO::getHotNum).reversed())
+				.collect(Collectors.toList());
 	}
 
-	public void increaseHotNum(HotArticle hotArticle) {
-		HotArticle oldHotArticle = (HotArticle) redisTemplate.opsForValue().get(String.valueOf(hotArticle.getId()));
-
-		if (oldHotArticle != null) {
-			// 增加 hotNum 的值
-			oldHotArticle.setHotNum(oldHotArticle.getHotNum() + 1);
-
-			// 将更新后的对象重新存入 Redis
-			redisTemplate.opsForValue().set(String.valueOf(hotArticle.getId()), oldHotArticle);
-		}
-		else {
-			redisTemplate.opsForValue().set(String.valueOf(hotArticle.getId()), hotArticle);
-		}
-	}
 
 }

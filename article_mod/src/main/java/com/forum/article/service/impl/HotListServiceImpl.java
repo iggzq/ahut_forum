@@ -8,11 +8,7 @@ import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 public class HotListServiceImpl {
@@ -36,14 +32,14 @@ public class HotListServiceImpl {
 	public Map<Long, Integer> getTopTen() {
 		ZSetOperations<String, Object> zSetOps = redisTemplate.opsForZSet();
 		Set<ZSetOperations.TypedTuple<Object>> typedTuples = zSetOps.reverseRangeWithScores(HOT_LIST_KEY, 0, 9);
-		Map<Long, Integer> topTenMap = new HashMap<>();
-        if (typedTuples != null) {
-           topTenMap = typedTuples.stream()
-                    .collect(Collectors.toMap(
-                            tuple -> Long.parseLong(tuple.getValue().toString()), // Convert value to Long
-                            tuple -> (int) Math.round(tuple.getScore())           // Convert score to Integer
-                    ));
-        }
+		Map<Long, Integer> topTenMap = new LinkedHashMap<>();
+		if (typedTuples != null) {
+			for (ZSetOperations.TypedTuple<Object> tuple : typedTuples) {
+				Long key = Long.parseLong(tuple.getValue().toString());
+				Integer score = (int) Math.round(tuple.getScore());
+				topTenMap.put(key, score);
+			}
+		}
 		return topTenMap;
     }
 

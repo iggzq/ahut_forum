@@ -119,8 +119,7 @@ const goArticleDetail = (article) => {
       name: articleDetail.articleDetailName.value,
       params: {
         articleId: article.id,
-        topicId: articleDetail.topicType.value,
-        topicName: '123'
+        topicId: articleDetail.topicType.value
       }
     }
   )

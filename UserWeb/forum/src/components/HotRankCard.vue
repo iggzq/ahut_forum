@@ -19,7 +19,9 @@ const props = defineProps({
       {{ props.articleRank }}
     </div>
     <div class="rightContent">
-      {{ props.articleContent.title }}
+      <div class="rightContentTitle">
+        {{ props.articleContent.title }}
+      </div>
       <div class="hotNumClass">
         <van-icon name="fire-o" size="1rem"/>
         {{ props.articleContent.hotNum }}
