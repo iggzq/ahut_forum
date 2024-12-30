@@ -1,4 +1,9 @@
 .mainLayout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.mainContentLayout{
     width: 95vw;
     height: 16vh;
     background-color: #ffffff;
@@ -13,14 +18,23 @@
 .leftContent {
     font-size: xx-large;
     font-weight: bold;
+    color: #30bf36;
     width: 14vw;
     display: flex;
     justify-content: center; /* 水平居中对齐 */
     align-items: center; /* 垂直居中对齐 */
+    /* 渐变背景 */
+    background: linear-gradient(90deg, #dc947f, #e45f6e); /* 从绿色到橙色的渐变 */
+    /* 文本颜色透明，背景渐变应用于文本 */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
 }
 
 .rightContent {
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -29,4 +43,11 @@
     font-family: 'DYH', serif;
     font-size: larger;
     font-weight: bold;
+}
+.rightBottomContent{
+    display: flex;
+    justify-content: space-between;
+}
+.rightBottom{
+    margin-right: 2%;
 }

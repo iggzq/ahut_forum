@@ -35,14 +35,16 @@ onActivated(() => {
 
 </script>
 <template>
+  <van-nav-bar title="热榜"/>
   <div class="mainHotRank">
-    <div class="hotRankList">
-      <var-pull-refresh v-model="rankListContentRefreshing" @refresh="refreshRankListContent">
-      <div v-for="(item,index) in hotRankListContent">
-        <hot-rank-card v-ripple :articleContent="item" :articleRank="index+1" @click="goToArticleDetail(item)"/>
+    <var-pull-refresh v-model="rankListContentRefreshing" @refresh="refreshRankListContent">
+      <div class="hotRankList">
+        <div v-for="(item,index) in hotRankListContent">
+          <hot-rank-card :articleContent="item" :articleRank="index+1" @click="goToArticleDetail(item)"/>
+        </div>
+        <van-empty v-if="null === hotRankListContent" description="无热门内容"/>
       </div>
-      </var-pull-refresh>
-    </div>
+    </var-pull-refresh>
   </div>
 </template>
 

@@ -18,6 +18,8 @@ public class HotArticleDTO implements Serializable {
     @JsonDeserialize(as = Long.class)
     private Long id;
 
+    private Byte topicType;
+
     private Integer hotNum;
 
     private String title;

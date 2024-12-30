@@ -43,7 +43,7 @@
         LIMIT #{page}, #{size}
     </select>
     <select id="getHotArticleContent" resultType="com.forum.article.dto.mysql.HotArticleDTO">
-        SELECT id,title
+        SELECT id,title,topic_type
         FROM article
         WHERE status = 0
           AND id IN
