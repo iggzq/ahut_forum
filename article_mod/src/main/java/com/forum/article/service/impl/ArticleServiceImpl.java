@@ -101,21 +101,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 	public List<ArticleGetVo> getArticles(int page, int size, Byte topicType) {
 		List<ArticleGetVo> articleByPage = articleMapper.getArticleByPage(page * size, size, topicType);
 		LocalDateTime now = LocalDateTime.now();
-		// 获取所有文章 ID
-		List<Long> originalArticleIds = articleByPage.stream().map(Article::getId).toList();
-		// 将 List<Long> 转换为 List<String>
-		List<String> stringArticleIds = originalArticleIds.stream().map(Object::toString).toList();
-
-		Map<String, Double> scoresByIds = hotListServiceImpl.getScoresByIds(stringArticleIds);
-		for (int i = 0; i < articleByPage.size(); i++) {
-			// 加判断
-			if (scoresByIds.get(stringArticleIds.get(i)) == null) {
-				articleByPage.get(i).setHotNum(0);
-			}
-			else {
-				articleByPage.get(i).setHotNum(scoresByIds.get(stringArticleIds.get(i)).intValue());
-			}
-		}
+		articleListGetHotNum(articleByPage);
 
 		articleByPage.sort((o1, o2) -> {
 			double score1 = ArticleRecommender.calculateRecommendScore(o1, now);
@@ -125,6 +111,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 		});
 		return articleByPage;
 	}
+
+
 
 	/**
 	 * 点赞 还未做点赞重复校验和异常处理
@@ -200,11 +188,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 	@Override
 	public List<ArticleGetVo> getArticlesOrderByDate(int page, int size, Byte topicType) {
 		List<ArticleGetVo> articleByPage = articleMapper.getArticleByPageAndDateOrder(page * size, size, topicType);
-		articleByPage.forEach(article -> {
-			// 读取并设置热数
-			Integer hotNum = redisHotSave.opsForValue().get(article.getId());
-			article.setHotNum(Objects.requireNonNullElse(hotNum, 0));
-		});
+		articleListGetHotNum(articleByPage);
 		return articleByPage;
 	}
 
@@ -219,5 +203,22 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 				.collect(Collectors.toList());
 	}
 
+	private void articleListGetHotNum(List<ArticleGetVo> articleByPage) {
+		// 获取所有文章 ID
+		List<Long> originalArticleIds = articleByPage.stream().map(Article::getId).toList();
+		// 将 List<Long> 转换为 List<String>
+		List<String> stringArticleIds = originalArticleIds.stream().map(Object::toString).toList();
+
+		Map<String, Double> scoresByIds = hotListServiceImpl.getScoresByIds(stringArticleIds);
+		for (int i = 0; i < articleByPage.size(); i++) {
+			// 加判断
+			if (scoresByIds.get(stringArticleIds.get(i)) == null) {
+				articleByPage.get(i).setHotNum(0);
+			}
+			else {
+				articleByPage.get(i).setHotNum(scoresByIds.get(stringArticleIds.get(i)).intValue());
+			}
+		}
+	}
 
 }

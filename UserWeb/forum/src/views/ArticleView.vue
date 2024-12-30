@@ -29,7 +29,7 @@
         <van-row :gutter="[0, 20]">
           <van-col span="24">
             <van-field v-model="writeArticle.title" autosize
-                       maxlength="50" placeholder="请输入帖子标题(限50字)" show-word-limit/>
+                       maxlength="70" placeholder="请输入帖子标题(限70字)" show-word-limit/>
           </van-col>
           <van-col span="24">
             <van-button :plain="isButtoned" icon="plus" size="small" style="margin: 10px" type="primary"
