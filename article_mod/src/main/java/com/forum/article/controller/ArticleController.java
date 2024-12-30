@@ -1,5 +1,6 @@
 package com.forum.article.controller;
 
+import com.forum.article.dto.mysql.HotArticleDTO;
 import com.forum.article.entity.CommentArticle;
 import com.forum.article.result.CommonResult;
 import com.forum.article.service.ArticleService;
@@ -75,6 +76,12 @@ public class ArticleController {
 	public CommonResult<List<ArticleGetVo>> getArticlesOrderByDate(@RequestParam int page, @RequestParam int size,
 			@RequestParam Byte topicType) {
 		return CommonResult.success(articleService.getArticlesOrderByDate(page, size, topicType));
+	}
+
+	@GetMapping("getHotRank")
+	public CommonResult<List<HotArticleDTO>> getHotRank(){
+		List<HotArticleDTO> hotRank = articleService.getHotRank();
+		return CommonResult.success(hotRank);
 	}
 
 }

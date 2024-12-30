@@ -1,4 +1,4 @@
-package com.forum.article.entity.redisEntity;
+package com.forum.article.dto;
 
 import lombok.Data;
 

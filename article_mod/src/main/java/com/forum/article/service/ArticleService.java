@@ -1,6 +1,7 @@
 package com.forum.article.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.forum.article.dto.mysql.HotArticleDTO;
 import com.forum.article.entity.Article;
 import com.forum.article.entity.CommentArticle;
 import com.forum.article.vo.ArticleGetVo;
@@ -31,5 +32,7 @@ public interface ArticleService extends IService<Article> {
 	ArticleVo getArticleById(Long articleId);
 
 	List<ArticleGetVo> getArticlesOrderByDate(int page, int size, Byte topicType);
+
+	List<HotArticleDTO> getHotRank();
 
 }

@@ -1,9 +1,11 @@
 package com.forum.article.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.forum.article.dto.mysql.HotArticleDTO;
 import com.forum.article.entity.Article;
 import com.forum.article.vo.ArticleGetVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,5 +29,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
 	void subLikeNumber(Long id);
 
 	List<ArticleGetVo> getArticleByPageAndDateOrder(int page, int size, Byte topicType);
+
+	List<HotArticleDTO> getHotArticleContent(@Param("list") List<Long> ids);
 
 }

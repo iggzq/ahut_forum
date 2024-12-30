@@ -6,10 +6,11 @@ import cn.hutool.core.lang.generator.SnowflakeGenerator;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.forum.article.dto.HotArticle;
+import com.forum.article.dto.mysql.HotArticleDTO;
 import com.forum.article.entity.Article;
 import com.forum.article.entity.CommentArticle;
 import com.forum.article.entity.LikeArticle;
-import com.forum.article.entity.redisEntity.HotArticle;
 import com.forum.article.mapper.ArticleMapper;
 import com.forum.article.mapper.CommentArticleMapper;
 import com.forum.article.mapper.LikeArticleMapper;
@@ -28,10 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static com.forum.article.constants.Constants.*;
 
@@ -208,6 +206,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 			article.setHotNum(Objects.requireNonNullElse(hotNum, 0));
 		});
 		return articleByPage;
+	}
+
+	@Override
+	public List<HotArticleDTO> getHotRank() {
+		Map<Long, Integer> topTen = hotListServiceImpl.getTopTen();
+		List<Long> ids = new ArrayList<>(topTen.keySet());
+		List<HotArticleDTO> articles = articleMapper.getHotArticleContent(ids);
+		articles.forEach(article -> {
+			article.setHotNum(topTen.get(article.getId()));
+		});
+		return articles;
 	}
 
 	public void increaseHotNum(HotArticle hotArticle) {

@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class HotListServiceImpl {
@@ -32,10 +33,19 @@ public class HotListServiceImpl {
 	/**
 	 * 获取前10个热门项。
 	 */
-	public Set<ZSetOperations.TypedTuple<Object>> getTopN() {
+	public Map<Long, Integer> getTopTen() {
 		ZSetOperations<String, Object> zSetOps = redisTemplate.opsForZSet();
-		return zSetOps.reverseRangeWithScores(HOT_LIST_KEY, 0, 9);
-	}
+		Set<ZSetOperations.TypedTuple<Object>> typedTuples = zSetOps.reverseRangeWithScores(HOT_LIST_KEY, 0, 9);
+		Map<Long, Integer> topTenMap = new HashMap<>();
+        if (typedTuples != null) {
+           topTenMap = typedTuples.stream()
+                    .collect(Collectors.toMap(
+                            tuple -> Long.parseLong(tuple.getValue().toString()), // Convert value to Long
+                            tuple -> (int) Math.round(tuple.getScore())           // Convert score to Integer
+                    ));
+        }
+		return topTenMap;
+    }
 
 	/**
 	 * 根据多个itemIds获取它们的热度分数，使用Redis管道优化性能。
