@@ -32,7 +32,8 @@ import {
   Tabs,
   Tag,
   TextEllipsis,
-  Toast
+  Toast,
+  Search
 } from 'vant'
 import 'vant/lib/index.css'
 import Varlet from '@varlet/ui'
@@ -49,7 +50,7 @@ app.use(Form).use(Button).use(Field).use(Toast).use(store).use(router)
   .use(Swipe).use(SwipeItem).use(Tabbar).use(TabbarItem).use(Tab).use(Tabs).use(NavBar)
   .use(Grid).use(GridItem).use(Skeleton).use(Varlet).use(Tag).use(Sticky).use(TextEllipsis)
   .use(Icon).use(UComment).use(Cell).use(CellGroup).use(Badge).use(Picker).use(Popup)
-  .use(Loading).use(Empty).use(Col).use(Row).use(DropdownItem).use(DropdownMenu)
+  .use(Loading).use(Empty).use(Col).use(Row).use(DropdownItem).use(DropdownMenu).use(Search)
   .mount('#app')
 axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
 

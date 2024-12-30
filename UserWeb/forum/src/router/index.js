@@ -34,6 +34,13 @@ const routes = [
         meta: {
           keepAlive: true // 表示此路由不需要被缓存
         }
+      }, {
+        path: '/hotRank',
+        name: 'HotRank',
+        component: () => import('../views/HotRankView.vue'),
+        meta: {
+          keepAlive: false
+        }
       }
     ]
   },

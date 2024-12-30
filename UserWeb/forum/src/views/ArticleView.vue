@@ -12,6 +12,11 @@
         </template>
       </van-nav-bar>
     </van-sticky>
+    <van-search
+      v-model="searchValue"
+      placeholder="请输入搜索关键词"
+      input-align="center"
+    />
     <van-popup
       v-model:show="bottom"
       :style="{ height: '100%' }"
@@ -123,11 +128,12 @@ const writeArticle = ref({
   content: '',
   topic: []
 })
-const finished = ref(false)
+// const finished = ref(false)
 const page = ref(-1)
 const router = useRouter()
 const store = useStore()
 const route = useRoute()
+const searchValue = ref('');
 const scrollPosition = ref(0)
 const scrollableArea = ref(null)
 const articleDetailName = 'articleDetail'
@@ -172,21 +178,6 @@ const topicTypeConfirm = ({
   topicButtonValue.value = selectedOptions[0].text
 }
 
-const getArticlesByPage = async (page, size) => {
-  const fetchedArticles = await axios.get('article/getArticles?page=' + page + '&size=' + size)
-  if (fetchedArticles.data.data.length === 5) {
-    finished.value = false
-    articles.value = [...articles.value, ...fetchedArticles.data.data]
-    return true
-  } else if (fetchedArticles.data.code === 200 && fetchedArticles.data.data.length < 5 && fetchedArticles.data.data.length > 0) {
-    articles.value = [...articles.value, ...fetchedArticles.data.data]
-    finished.value = true
-    return true
-  } else if (fetchedArticles.data.code === 200 && fetchedArticles.data.data.length === 0) {
-    finished.value = true
-    return false
-  }
-}
 const sendArticle = async () => {
   console.log(writeArticle.value)
   const res = await axios.post('article/saveArticle', {
@@ -204,7 +195,6 @@ const sendArticle = async () => {
     articles.value = []
     showSuccessToast('发布成功')
     bottom.value = false
-    await getArticlesByPage(0, 5)
   } else {
     showFailToast('发布失败，请重试')
   }

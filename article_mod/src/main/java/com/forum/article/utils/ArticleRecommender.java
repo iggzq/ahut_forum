@@ -4,6 +4,7 @@ import com.forum.article.vo.ArticleGetVo;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * @author lituizi
@@ -30,7 +31,13 @@ public class ArticleRecommender {
 		double ageInDays = (double) (duration / (1000 * 60 * 60 * 24));
 		// 时间衰减因子
 		double timeDecay = Math.exp(Math.min(-0.01 * ageInDays, MAX_EXPONENT_VALUE));
-		double score = BETA * article.getLikeCount() + GAMMA * article.getCommentCount() + HOT * article.getHotNum();
+		double score = 0;
+		if(Objects.nonNull(article.getHotNum())){
+			score = BETA * article.getLikeCount() + GAMMA * article.getCommentCount() + HOT * article.getHotNum();
+		}else {
+			score = BETA * article.getLikeCount() + GAMMA * article.getCommentCount();
+		}
+
 		return Math.min(score, MIN_TIME_DECAY_FACTOR) * timeDecay;
 
 	}

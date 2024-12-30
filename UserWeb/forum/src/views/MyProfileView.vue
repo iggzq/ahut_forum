@@ -18,18 +18,18 @@ import { onActivated, onMounted } from 'vue'
 import { useStore } from 'vuex'
 
 onMounted(() => {
-  store.commit('setActiveTab', 1)
+  store.commit('setActiveTab', 2)
   if (localStorage.getItem('satoken') == null) {
     router.push('/login')
   }
 })
 onActivated(() => {
-  store.commit('setActiveTab', 1)
+  store.commit('setActiveTab', 2)
 })
 
 const store = useStore()
 const goMyComments = () => {
-  store.commit('setActiveTab', 1)
+  store.commit('setActiveTab', 2)
   router.push('/myComments')
 }
 </script>

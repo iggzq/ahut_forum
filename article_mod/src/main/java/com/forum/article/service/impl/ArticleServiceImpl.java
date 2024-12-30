@@ -30,6 +30,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static com.forum.article.constants.Constants.*;
 
@@ -94,11 +95,18 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 	public List<ArticleGetVo> getArticles(int page, int size, Byte topicType) {
 		List<ArticleGetVo> articleByPage = articleMapper.getArticleByPage(page * size, size, topicType);
 		LocalDateTime now = LocalDateTime.now();
-		articleByPage.forEach(article -> {
-			// 读取并设置热数
-			Integer hotNum = redisHotSave.opsForValue().get(article.getId());
-			article.setHotNum(Objects.requireNonNullElse(hotNum, 0));
-		});
+		// 获取所有文章 ID
+		List<Long> articleIds = articleByPage.stream()
+				.map(Article::getId)
+				.toList();
+		// 使用 MGET 批量获取热数
+		List<Integer> hotNums = Objects.requireNonNull(redisHotSave.opsForValue().multiGet(articleIds))
+				.stream().toList();
+		// 将热数设置回文章对象
+		for (int i = 0; i < articleByPage.size(); i++) {
+			articleByPage.get(i).setHotNum(hotNums.get(i));
+		}
+
 		articleByPage.sort((o1, o2) -> {
 			double score1 = ArticleRecommender.calculateRecommendScore(o1, now);
 			double score2 = ArticleRecommender.calculateRecommendScore(o2, now);
