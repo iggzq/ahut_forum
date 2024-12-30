@@ -57,7 +57,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-            <version>3.1.2</version>
+            <version>3.4.1</version>
         </dependency>
         <!-- 提供Redis连接池 -->
         <dependency>

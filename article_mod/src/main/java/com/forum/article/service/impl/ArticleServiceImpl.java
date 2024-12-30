@@ -30,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static com.forum.article.constants.Constants.*;
@@ -60,6 +61,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Autowired
     @Qualifier("redisHotSave")
     private RedisTemplate<Long, Integer> redisHotSave;
+
+    @Resource
+    private HotListServiceImpl hotListService;
+    @Autowired
+    private HotListServiceImpl hotListServiceImpl;
 
     @Override
     public Boolean saveArticle(SaveArticleVO saveArticleVO) {
@@ -100,36 +106,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                 .toList();
         // 将 List<Long> 转换为 List<String>
         List<String> stringArticleIds = originalArticleIds.stream()
-                .map(Object::toString) // 或者 .map(String::valueOf)
+                .map(Object::toString)
                 .toList();
 
-        // 使用 MGET 批量获取热数
-        List<Object> rawHotArticles = redisTemplate.opsForValue().multiGet(stringArticleIds);
-
-        // 将 List<Object> 转换为 List<HotArticle>, 并为 null 或转换失败的对象创建默认 HotArticle
-        List<HotArticle> hotArticles = Objects.requireNonNull(rawHotArticles)
-                .stream()
-                .map(o -> {
-                    HotArticle hotArticle = (HotArticle) o;
-                    if (hotArticle == null) {
-                        hotArticle = new HotArticle();
-                        hotArticle.setHotNum(0);
-                    }
-                    return hotArticle;
-                })
-                .toList();
-
-        // 提取热数值到 List<Integer>, 并为 null 的 hotNum 设置默认值 0
-        List<Integer> hotNums = hotArticles.stream()
-                .map(hotArticle -> {
-                    Integer hotNum = hotArticle.getHotNum();
-                    return (hotNum != null) ? hotNum : 0; // 如果 hotNum 为空，则使用默认值 0
-                })
-                .toList();
-
-        // 将热数设置回文章对象
+        Map<String, Double> scoresByIds = hotListServiceImpl.getScoresByIds(stringArticleIds);
         for (int i = 0; i < articleByPage.size(); i++) {
-            articleByPage.get(i).setHotNum(hotNums.get(i));
+            // 加判断
+            if (scoresByIds.get(stringArticleIds.get(i)) == null) {
+                articleByPage.get(i).setHotNum(0);
+            }else {
+                articleByPage.get(i).setHotNum(scoresByIds.get(stringArticleIds.get(i)).intValue());
+            }
         }
 
         articleByPage.sort((o1, o2) -> {
@@ -207,6 +194,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         lambdaQueryWrapper.eq(LikeArticle::getStatus, 0);
         boolean isLike = likeArticleMapper.exists(lambdaQueryWrapper);
         this.increaseHotNum(hotArticle);
+        hotListService.updateScore(String.valueOf(hotArticle.getId()));
         articleVo.setIsLike(isLike);
         return articleVo;
     }
@@ -222,6 +210,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return articleByPage;
     }
 
+
     public void increaseHotNum(HotArticle hotArticle) {
         HotArticle oldHotArticle = (HotArticle) redisTemplate.opsForValue().get(String.valueOf(hotArticle.getId()));
 
@@ -235,5 +224,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             redisTemplate.opsForValue().set(String.valueOf(hotArticle.getId()), hotArticle);
         }
     }
+
 
 }

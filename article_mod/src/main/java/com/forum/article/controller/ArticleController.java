@@ -77,7 +77,5 @@ public class ArticleController {
 		return CommonResult.success(articleService.getArticlesOrderByDate(page, size, topicType));
 	}
 
-//	@GetMapping("getHotArticles")
-//	public CommonResult<List<ArticleGetVo>>
 
 }
