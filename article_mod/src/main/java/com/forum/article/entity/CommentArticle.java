@@ -3,7 +3,6 @@ package com.forum.article.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.forum.article.config.CustomDateSerializer;
 import lombok.Data;
 
 import java.io.Serial;
@@ -57,11 +56,9 @@ public class CommentArticle implements Serializable {
 	private Integer likes;
 
 	@TableField(value = "create_time", fill = FieldFill.INSERT)
-	@JsonSerialize(using = CustomDateSerializer.class)
 	private Date createTime;
 
 	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
-	@JsonSerialize(using = CustomDateSerializer.class)
 	private Date updateTime;
 
 	@TableField("status")

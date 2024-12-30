@@ -2,7 +2,10 @@ package com.forum.article.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.forum.article.entity.Article;
 import com.forum.article.entity.CommentArticle;
 import com.forum.article.mapper.ArticleMapper;
@@ -14,9 +17,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.forum.article.constants.CommentArticleStatusConstants.UNREAD;
 import static com.forum.article.constants.Constants.ARTICLE_COMMENTS_REDIS_PRE_KEY;
@@ -42,85 +44,68 @@ public class CommentArticleServiceImpl extends ServiceImpl<CommentArticleMapper,
 	@Resource
 	private ArticleMapper articleMapper;
 
+	@Resource
+	private ObjectMapper objectMapper;
+
 	@Override
 	public List<CommentArticleVO> getCommentsById(String id) {
 		List<CommentArticleVO> commentArticleVos = new ArrayList<>();
 		List<CommentArticle> commentArticles;
-		if (Objects.isNull(redisTemplate.opsForValue().get(ARTICLE_COMMENTS_REDIS_PRE_KEY + id))) {
+
+		String key = ARTICLE_COMMENTS_REDIS_PRE_KEY + id;
+		Object cachedData = redisTemplate.opsForValue().get(key);
+
+		if (cachedData == null) {
+			// 如果 Redis 中没有缓存，从数据库中查询并存储到 Redis
 			LambdaQueryWrapper<CommentArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
 			lambdaQueryWrapper.eq(CommentArticle::getArticleId, id);
 			lambdaQueryWrapper.orderBy(true, false, CommentArticle::getCreateTime);
 			commentArticles = commentArticleMapper.selectList(lambdaQueryWrapper);
-			redisTemplate.opsForValue().set(ARTICLE_COMMENTS_REDIS_PRE_KEY + id, commentArticles);
-		}
-		else {
-			List<LinkedHashMap<String, String>> linkedHashMaps = (List<LinkedHashMap<String, String>>) redisTemplate
-				.opsForValue()
-				.get("comment:articleId:" + id);
-			commentArticles = linkedHashMaps.stream().map(linkedHashMap -> {
-				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String create_time = linkedHashMap.get("createTime");
-				String update_time = linkedHashMap.get("updateTime");
-				Date createTime = null;
-				Date updateTime = null;
-				try {
-					createTime = simpleDateFormat.parse(create_time);
-					updateTime = simpleDateFormat.parse(update_time);
-				}
-				catch (ParseException e) {
-					e.printStackTrace();
-				}
-				CommentArticle commentArticle = new CommentArticle();
-				commentArticle.setId(Long.valueOf(linkedHashMap.get("id")));
-				commentArticle.setArticleId(Long.valueOf(linkedHashMap.get("articleId")));
-				commentArticle.setUid(Long.valueOf(linkedHashMap.get("uid")));
-				commentArticle.setToUserId(
-						linkedHashMap.get("toUserId") != null ? Long.valueOf(linkedHashMap.get("toUserId")) : null);
-				commentArticle.setUsername(linkedHashMap.get("username"));
-				commentArticle.setContent(linkedHashMap.get("content"));
-				commentArticle.setParentId(
-						linkedHashMap.get("parentId") != null ? Long.valueOf(linkedHashMap.get("parentId")) : null);
-				commentArticle.setStatus(Byte.valueOf(linkedHashMap.get("status")));
-				commentArticle.setCreateTime(createTime);
-				commentArticle.setUpdateTime(updateTime);
-				commentArticle.setLikes(Integer.valueOf(linkedHashMap.get("likes")));
-				return commentArticle;
-			}).toList();
-		}
-		List<CommentArticle> fatherCommentsArticle = new ArrayList<>();
-		List<CommentArticle> sonCommentsArticle = new ArrayList<>();
-		commentArticles.forEach(commentArticle -> {
-			if (commentArticle.getParentId() == null) {
-				fatherCommentsArticle.add(commentArticle);
+
+			if (!CollectionUtils.isEmpty(commentArticles)) {
+				// 将 List<CommentArticle> 序列化为 JSON 并存储到 Redis
+				redisTemplate.opsForValue().set(key, commentArticles);
 			}
-			else {
-				sonCommentsArticle.add(commentArticle);
-			}
-		});
+		}else {
+				// 直接反序列化为 List<CommentArticle>
+				commentArticles = objectMapper.convertValue(cachedData, new TypeReference<>() {});
+		}
+		// 处理父子评论逻辑
+		List<CommentArticle> fatherCommentsArticle = commentArticles.stream()
+				.filter(comment -> comment.getParentId() == null)
+				.toList();
+
+		List<CommentArticle> sonCommentsArticle = commentArticles.stream()
+				.filter(comment -> comment.getParentId() != null)
+				.toList();
+
+		Map<Long, List<ReplyVO>> replyMap = sonCommentsArticle.stream()
+				.collect(Collectors.groupingBy(CommentArticle::getParentId, Collectors.mapping(this::convertToReplyVO, Collectors.toList())));
+
 		for (CommentArticle fatherCommentArticle : fatherCommentsArticle) {
 			CommentArticleVO commentArticleVO = new CommentArticleVO();
 			UserVO userVO = new UserVO();
-			List<ReplyVO> list = new ArrayList<>();
-			ReplyListVO reply = new ReplyListVO();
 			userVO.setUsername(fatherCommentArticle.getUsername());
 			commentArticleVO.setUser(userVO);
 			BeanUtils.copyProperties(fatherCommentArticle, commentArticleVO);
-			for (CommentArticle sonCommentArticle : sonCommentsArticle) {
-				if (Objects.equals(sonCommentArticle.getParentId(), fatherCommentArticle.getId())) {
-					ReplyVO replyVO = new ReplyVO();
-					BeanUtils.copyProperties(sonCommentArticle, replyVO);
-					UserVO userVo1 = new UserVO();
-					userVo1.setUsername(sonCommentArticle.getUsername());
-					replyVO.setUser(userVo1);
-					list.add(replyVO);
-				}
-			}
-			reply.setList(list);
-			reply.setTotal(list.size());
+
+			ReplyListVO reply = new ReplyListVO();
+			reply.setList(replyMap.getOrDefault(fatherCommentArticle.getId(), Collections.emptyList()));
+			reply.setTotal(reply.getList().size());
+
 			commentArticleVO.setReply(reply);
 			commentArticleVos.add(commentArticleVO);
 		}
+
 		return commentArticleVos;
+	}
+	private ReplyVO convertToReplyVO(CommentArticle sonCommentArticle) {
+		ReplyVO replyVO = new ReplyVO();
+		UserVO userVo1 = new UserVO();
+		userVo1.setUsername(sonCommentArticle.getUsername());
+		replyVO.setUser(userVo1);
+		BeanUtils.copyProperties(sonCommentArticle, replyVO);
+		return replyVO;
 	}
 
 	@Override

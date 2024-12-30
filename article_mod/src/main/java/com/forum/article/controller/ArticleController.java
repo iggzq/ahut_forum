@@ -10,9 +10,7 @@ import com.forum.article.vo.SaveArticleVO;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * <p>
@@ -78,5 +76,8 @@ public class ArticleController {
 			@RequestParam Byte topicType) {
 		return CommonResult.success(articleService.getArticlesOrderByDate(page, size, topicType));
 	}
+
+//	@GetMapping("getHotArticles")
+//	public CommonResult<List<ArticleGetVo>>
 
 }

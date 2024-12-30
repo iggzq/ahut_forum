@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.forum.article.entity.Article;
 import com.forum.article.entity.CommentArticle;
 import com.forum.article.entity.LikeArticle;
+import com.forum.article.entity.redisEntity.HotArticle;
 import com.forum.article.mapper.ArticleMapper;
 import com.forum.article.mapper.CommentArticleMapper;
 import com.forum.article.mapper.LikeArticleMapper;
@@ -30,7 +31,6 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static com.forum.article.constants.Constants.*;
 
@@ -45,155 +45,195 @@ import static com.forum.article.constants.Constants.*;
 @Service
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
-	@Resource
-	private ArticleMapper articleMapper;
+    @Resource
+    private ArticleMapper articleMapper;
 
-	@Resource
-	private LikeArticleMapper likeArticleMapper;
+    @Resource
+    private LikeArticleMapper likeArticleMapper;
 
-	@Resource
-	private CommentArticleMapper commentArticleMapper;
+    @Resource
+    private CommentArticleMapper commentArticleMapper;
 
-	@Resource
-	private RedisTemplate<String, Object> redisTemplate;
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
 
-	@Autowired
-	@Qualifier("redisHotSave")
-	private RedisTemplate<Long, Integer> redisHotSave;
+    @Autowired
+    @Qualifier("redisHotSave")
+    private RedisTemplate<Long, Integer> redisHotSave;
 
-	@Override
-	public Boolean saveArticle(SaveArticleVO saveArticleVO) {
-		Article article = new Article();
-		BeanUtils.copyProperties(saveArticleVO, article);
-		// 获取数据
-		SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
-		Long articleId = snowflakeGenerator.next();
-		LocalDateTime now = LocalDateTime.now();
-		long loginId = StpUtil.getLoginIdAsLong();
-		String name = (String) StpUtil.getExtra(LOGIN_USERNAME);
-		Integer admissionYear = Integer.valueOf(String.valueOf(StpUtil.getExtra(LOGIN_ADMISSION_YEAR)));
-		// 补充数据
-		article.setId(articleId);
-		article.setUserName(name);
-		article.setAdmissionYear(admissionYear);
-		article.setCreateTime(now);
-		article.setUpdateTime(now);
-		article.setUserId(loginId);
-		// 数据库保存
-		try {
-			articleMapper.insert(article);
-			return true;
-		}
-		catch (Exception e) {
-			System.out.println(e.getMessage());
-			return false;
-		}
+    @Override
+    public Boolean saveArticle(SaveArticleVO saveArticleVO) {
+        Article article = new Article();
+        BeanUtils.copyProperties(saveArticleVO, article);
+        // 获取数据
+        SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
+        Long articleId = snowflakeGenerator.next();
+        LocalDateTime now = LocalDateTime.now();
+        long loginId = StpUtil.getLoginIdAsLong();
+        String name = (String) StpUtil.getExtra(LOGIN_USERNAME);
+        Integer admissionYear = Integer.valueOf(String.valueOf(StpUtil.getExtra(LOGIN_ADMISSION_YEAR)));
+        // 补充数据
+        article.setId(articleId);
+        article.setUserName(name);
+        article.setAdmissionYear(admissionYear);
+        article.setCreateTime(now);
+        article.setUpdateTime(now);
+        article.setUserId(loginId);
+        // 数据库保存
+        try {
+            articleMapper.insert(article);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
 
-	}
+    }
 
-	@Override
-	public List<ArticleGetVo> getArticles(int page, int size, Byte topicType) {
-		List<ArticleGetVo> articleByPage = articleMapper.getArticleByPage(page * size, size, topicType);
-		LocalDateTime now = LocalDateTime.now();
-		// 获取所有文章 ID
-		List<Long> articleIds = articleByPage.stream()
-				.map(Article::getId)
-				.toList();
-		// 使用 MGET 批量获取热数
-		List<Integer> hotNums = Objects.requireNonNull(redisHotSave.opsForValue().multiGet(articleIds))
-				.stream().toList();
-		// 将热数设置回文章对象
-		for (int i = 0; i < articleByPage.size(); i++) {
-			articleByPage.get(i).setHotNum(hotNums.get(i));
-		}
+    @Override
+    public List<ArticleGetVo> getArticles(int page, int size, Byte topicType) {
+        List<ArticleGetVo> articleByPage = articleMapper.getArticleByPage(page * size, size, topicType);
+        LocalDateTime now = LocalDateTime.now();
+        // 获取所有文章 ID
+        List<Long> originalArticleIds = articleByPage.stream()
+                .map(Article::getId)
+                .toList();
+        // 将 List<Long> 转换为 List<String>
+        List<String> stringArticleIds = originalArticleIds.stream()
+                .map(Object::toString) // 或者 .map(String::valueOf)
+                .toList();
 
-		articleByPage.sort((o1, o2) -> {
-			double score1 = ArticleRecommender.calculateRecommendScore(o1, now);
-			double score2 = ArticleRecommender.calculateRecommendScore(o2, now);
-			// 注意这里使用降序排列
-			return Double.compare(score2, score1);
-		});
-		return articleByPage;
-	}
+        // 使用 MGET 批量获取热数
+        List<Object> rawHotArticles = redisTemplate.opsForValue().multiGet(stringArticleIds);
 
-	/**
-	 * 点赞 还未做点赞重复校验和异常处理
-	 */
-	@Override
-	@Transactional
-	public Boolean likeArticle(LikeArticleVO likeArticleVO) {
-		LambdaQueryWrapper<LikeArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-		lambdaQueryWrapper.eq(LikeArticle::getArticleId, likeArticleVO.getArticleId());
-		lambdaQueryWrapper.eq(LikeArticle::getUserId, likeArticleVO.getUserId());
-		lambdaQueryWrapper.eq(LikeArticle::getStatus, 0);
-		boolean isLike = likeArticleMapper.exists(lambdaQueryWrapper);
-		if (isLike) {
-			LambdaUpdateWrapper<LikeArticle> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
-			lambdaUpdateWrapper.eq(LikeArticle::getArticleId, likeArticleVO.getArticleId());
-			lambdaUpdateWrapper.eq(LikeArticle::getUserId, likeArticleVO.getUserId());
-			lambdaUpdateWrapper.eq(LikeArticle::getStatus, 0);
-			lambdaUpdateWrapper.set(LikeArticle::getStatus, 1);
-			likeArticleMapper.update(lambdaUpdateWrapper);
-			articleMapper.subLikeNumber(likeArticleVO.getArticleId());
-		}
-		else {
-			SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
-			Long next = snowflakeGenerator.next();
-			Long loginId = Long.valueOf(StpUtil.getLoginId().toString());
-			likeArticleVO.setId(next);
-			likeArticleVO.setLikeUserId(loginId);
-			likeArticleMapper.insert(likeArticleVO);
-			articleMapper.addLikeNumber(likeArticleVO.getArticleId());
-		}
-		return true;
-	}
+        // 将 List<Object> 转换为 List<HotArticle>, 并为 null 或转换失败的对象创建默认 HotArticle
+        List<HotArticle> hotArticles = Objects.requireNonNull(rawHotArticles)
+                .stream()
+                .map(o -> {
+                    HotArticle hotArticle = (HotArticle) o;
+                    if (hotArticle == null) {
+                        hotArticle = new HotArticle();
+                        hotArticle.setHotNum(0);
+                    }
+                    return hotArticle;
+                })
+                .toList();
 
-	/**
-	 * 发布评论 还未做异常处理
-	 */
-	@Override
-	public Boolean commentArticle(CommentArticle commentArticle) {
-		SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
-		Long id = snowflakeGenerator.next();
-		Date createUpdateTime = DateTime.now();
-		Long userId = Long.valueOf(StpUtil.getLoginId().toString());
-		String userName = StpUtil.getExtra(LOGIN_USERNAME).toString();
-		commentArticle.setId(id);
-		commentArticle.setUid(userId);
-		commentArticle.setUsername(userName);
-		commentArticle.setCreateTime(createUpdateTime);
-		commentArticle.setUpdateTime(createUpdateTime);
-		commentArticleMapper.insert(commentArticle);
-		articleMapper.addCommentNumber(commentArticle.getArticleId());
-		redisTemplate.delete(ARTICLE_COMMENTS_REDIS_PRE_KEY + commentArticle.getArticleId());
-		return true;
-	}
+        // 提取热数值到 List<Integer>, 并为 null 的 hotNum 设置默认值 0
+        List<Integer> hotNums = hotArticles.stream()
+                .map(hotArticle -> {
+                    Integer hotNum = hotArticle.getHotNum();
+                    return (hotNum != null) ? hotNum : 0; // 如果 hotNum 为空，则使用默认值 0
+                })
+                .toList();
 
-	@Override
-	public ArticleVo getArticleById(Long articleId) {
-		ArticleVo articleVo = new ArticleVo();
-		Article article = articleMapper.selectById(articleId);
-		BeanUtils.copyProperties(article, articleVo);
-		Long loginId = Long.valueOf(StpUtil.getLoginId().toString());
-		LambdaQueryWrapper<LikeArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-		lambdaQueryWrapper.eq(LikeArticle::getArticleId, articleId);
-		lambdaQueryWrapper.eq(LikeArticle::getUserId, loginId);
-		lambdaQueryWrapper.eq(LikeArticle::getStatus, 0);
-		boolean isLike = likeArticleMapper.exists(lambdaQueryWrapper);
-		articleVo.setIsLike(isLike);
-		redisHotSave.opsForValue().increment(articleId, 1);
-		return articleVo;
-	}
+        // 将热数设置回文章对象
+        for (int i = 0; i < articleByPage.size(); i++) {
+            articleByPage.get(i).setHotNum(hotNums.get(i));
+        }
 
-	@Override
-	public List<ArticleGetVo> getArticlesOrderByDate(int page, int size, Byte topicType) {
-		List<ArticleGetVo> articleByPage = articleMapper.getArticleByPageAndDateOrder(page * size, size, topicType);
-		articleByPage.forEach(article -> {
-			// 读取并设置热数
-			Integer hotNum = redisHotSave.opsForValue().get(article.getId());
-			article.setHotNum(Objects.requireNonNullElse(hotNum, 0));
-		});
-		return articleByPage;
-	}
+        articleByPage.sort((o1, o2) -> {
+            double score1 = ArticleRecommender.calculateRecommendScore(o1, now);
+            double score2 = ArticleRecommender.calculateRecommendScore(o2, now);
+            // 注意这里使用降序排列
+            return Double.compare(score2, score1);
+        });
+        return articleByPage;
+    }
+
+    /**
+     * 点赞 还未做点赞重复校验和异常处理
+     */
+    @Override
+    @Transactional
+    public Boolean likeArticle(LikeArticleVO likeArticleVO) {
+        LambdaQueryWrapper<LikeArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(LikeArticle::getArticleId, likeArticleVO.getArticleId());
+        lambdaQueryWrapper.eq(LikeArticle::getUserId, likeArticleVO.getUserId());
+        lambdaQueryWrapper.eq(LikeArticle::getStatus, 0);
+        boolean isLike = likeArticleMapper.exists(lambdaQueryWrapper);
+        if (isLike) {
+            LambdaUpdateWrapper<LikeArticle> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+            lambdaUpdateWrapper.eq(LikeArticle::getArticleId, likeArticleVO.getArticleId());
+            lambdaUpdateWrapper.eq(LikeArticle::getUserId, likeArticleVO.getUserId());
+            lambdaUpdateWrapper.eq(LikeArticle::getStatus, 0);
+            lambdaUpdateWrapper.set(LikeArticle::getStatus, 1);
+            likeArticleMapper.update(lambdaUpdateWrapper);
+            articleMapper.subLikeNumber(likeArticleVO.getArticleId());
+        } else {
+            SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
+            Long next = snowflakeGenerator.next();
+            Long loginId = Long.valueOf(StpUtil.getLoginId().toString());
+            likeArticleVO.setId(next);
+            likeArticleVO.setLikeUserId(loginId);
+            likeArticleMapper.insert(likeArticleVO);
+            articleMapper.addLikeNumber(likeArticleVO.getArticleId());
+        }
+        return true;
+    }
+
+    /**
+     * 发布评论 还未做异常处理
+     */
+    @Override
+    public Boolean commentArticle(CommentArticle commentArticle) {
+        SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
+        Long id = snowflakeGenerator.next();
+        Date createUpdateTime = DateTime.now();
+        Long userId = Long.valueOf(StpUtil.getLoginId().toString());
+        String userName = StpUtil.getExtra(LOGIN_USERNAME).toString();
+        commentArticle.setId(id);
+        commentArticle.setUid(userId);
+        commentArticle.setUsername(userName);
+        commentArticle.setCreateTime(createUpdateTime);
+        commentArticle.setUpdateTime(createUpdateTime);
+        commentArticleMapper.insert(commentArticle);
+        articleMapper.addCommentNumber(commentArticle.getArticleId());
+        redisTemplate.delete(ARTICLE_COMMENTS_REDIS_PRE_KEY + commentArticle.getArticleId());
+        return true;
+    }
+
+    @Override
+    public ArticleVo getArticleById(Long articleId) {
+        ArticleVo articleVo = new ArticleVo();
+        HotArticle hotArticle = new HotArticle();
+        Article article = articleMapper.selectById(articleId);
+        BeanUtils.copyProperties(article, articleVo);
+        BeanUtils.copyProperties(article, hotArticle);
+        Long loginId = Long.valueOf(StpUtil.getLoginId().toString());
+        LambdaQueryWrapper<LikeArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(LikeArticle::getArticleId, articleId);
+        lambdaQueryWrapper.eq(LikeArticle::getUserId, loginId);
+        lambdaQueryWrapper.eq(LikeArticle::getStatus, 0);
+        boolean isLike = likeArticleMapper.exists(lambdaQueryWrapper);
+        this.increaseHotNum(hotArticle);
+        articleVo.setIsLike(isLike);
+        return articleVo;
+    }
+
+    @Override
+    public List<ArticleGetVo> getArticlesOrderByDate(int page, int size, Byte topicType) {
+        List<ArticleGetVo> articleByPage = articleMapper.getArticleByPageAndDateOrder(page * size, size, topicType);
+        articleByPage.forEach(article -> {
+            // 读取并设置热数
+            Integer hotNum = redisHotSave.opsForValue().get(article.getId());
+            article.setHotNum(Objects.requireNonNullElse(hotNum, 0));
+        });
+        return articleByPage;
+    }
+
+    public void increaseHotNum(HotArticle hotArticle) {
+        HotArticle oldHotArticle = (HotArticle) redisTemplate.opsForValue().get(String.valueOf(hotArticle.getId()));
+
+        if (oldHotArticle != null) {
+            // 增加 hotNum 的值
+            oldHotArticle.setHotNum(oldHotArticle.getHotNum() + 1);
+
+            // 将更新后的对象重新存入 Redis
+            redisTemplate.opsForValue().set(String.valueOf(hotArticle.getId()), oldHotArticle);
+        } else {
+            redisTemplate.opsForValue().set(String.valueOf(hotArticle.getId()), hotArticle);
+        }
+    }
 
 }
