@@ -1,9 +1,9 @@
 <script setup>
-import { computed, defineProps, onMounted, ref, toRefs, watch } from 'vue'
-import { useStore } from 'vuex'
-import { showFailToast } from 'vant'
+import {computed, defineProps, onMounted, ref, toRefs, watch} from 'vue'
+import {useStore} from 'vuex'
+import {showFailToast} from 'vant'
 import axios from 'axios'
-import { useRouter } from 'vue-router'
+import {useRouter} from 'vue-router'
 
 const router = useRouter()
 const loading = ref(true)
@@ -44,7 +44,7 @@ const props = defineProps({
 })
 const articleDetail = toRefs(props)
 
-async function load () {
+async function load() {
   loading.value = true
   page.value++
   let result = []
@@ -59,7 +59,7 @@ async function load () {
   loading.value = false
 }
 
-async function refresh () {
+async function refresh() {
   page.value = 0
   finished.value = true
   articles.value = []

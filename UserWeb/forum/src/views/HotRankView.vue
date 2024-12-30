@@ -1,5 +1,5 @@
 <script setup>
-import { onActivated } from 'vue';
+import {onActivated} from 'vue';
 import store from '@/store';
 import HotRankCard from '@/components/HotRankCard.vue';
 
@@ -9,17 +9,17 @@ onActivated(() => {
 </script>
 <template>
   <div class="mainHotRank">
-   <div class="hotRankList">
-    <hot-rank-card></hot-rank-card>
-    <hot-rank-card></hot-rank-card>
-    <hot-rank-card></hot-rank-card>
-     <hot-rank-card></hot-rank-card>
-     <hot-rank-card></hot-rank-card>
-     <hot-rank-card></hot-rank-card>
-     <hot-rank-card></hot-rank-card>
-     <hot-rank-card></hot-rank-card>
-     <hot-rank-card></hot-rank-card>
-   </div>
+    <div class="hotRankList">
+      <hot-rank-card></hot-rank-card>
+      <hot-rank-card></hot-rank-card>
+      <hot-rank-card></hot-rank-card>
+      <hot-rank-card></hot-rank-card>
+      <hot-rank-card></hot-rank-card>
+      <hot-rank-card></hot-rank-card>
+      <hot-rank-card></hot-rank-card>
+      <hot-rank-card></hot-rank-card>
+      <hot-rank-card></hot-rank-card>
+    </div>
   </div>
 </template>
 

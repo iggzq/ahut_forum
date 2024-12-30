@@ -15,53 +15,55 @@ import java.util.Set;
 
 @Service
 public class HotListServiceImpl {
-    private static final String HOT_LIST_KEY = "hot_list";
 
-    @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+	private static final String HOT_LIST_KEY = "hot_list";
 
-    /**
-     * 更新指定项的热度分数。
-     */
-    public void updateScore(String itemId) {
-        ZSetOperations<String, Object> zSetOps = redisTemplate.opsForZSet();
-        zSetOps.incrementScore(HOT_LIST_KEY, itemId, 1.0);
-    }
+	@Resource
+	private RedisTemplate<String, Object> redisTemplate;
 
-    /**
-     * 获取前10个热门项。
-     */
-    public Set<ZSetOperations.TypedTuple<Object>> getTopN() {
-        ZSetOperations<String, Object> zSetOps = redisTemplate.opsForZSet();
-        return zSetOps.reverseRangeWithScores(HOT_LIST_KEY, 0, 9);
-    }
+	/**
+	 * 更新指定项的热度分数。
+	 */
+	public void updateScore(String itemId) {
+		ZSetOperations<String, Object> zSetOps = redisTemplate.opsForZSet();
+		zSetOps.incrementScore(HOT_LIST_KEY, itemId, 1.0);
+	}
 
-    /**
-     * 根据多个itemIds获取它们的热度分数，使用Redis管道优化性能。
-     */
-    public Map<String, Double> getScoresByIds(List<String> itemIds) {
-        return redisTemplate.execute(new SessionCallback<>() {
-            @Override
-            public <K, V> Map<String, Double> execute(RedisOperations<K, V> operations) throws DataAccessException {
-                operations.multi();
+	/**
+	 * 获取前10个热门项。
+	 */
+	public Set<ZSetOperations.TypedTuple<Object>> getTopN() {
+		ZSetOperations<String, Object> zSetOps = redisTemplate.opsForZSet();
+		return zSetOps.reverseRangeWithScores(HOT_LIST_KEY, 0, 9);
+	}
 
-                ZSetOperations<K, V> zSetOps = operations.opsForZSet();
-                for (String itemId : itemIds) {
-                    zSetOps.score((K) HOT_LIST_KEY, itemId);
-                }
+	/**
+	 * 根据多个itemIds获取它们的热度分数，使用Redis管道优化性能。
+	 */
+	public Map<String, Double> getScoresByIds(List<String> itemIds) {
+		return redisTemplate.execute(new SessionCallback<>() {
+			@Override
+			public <K, V> Map<String, Double> execute(RedisOperations<K, V> operations) throws DataAccessException {
+				operations.multi();
 
-                List<Object> results = operations.exec();
-                Map<String, Double> scores = new HashMap<>();
+				ZSetOperations<K, V> zSetOps = operations.opsForZSet();
+				for (String itemId : itemIds) {
+					zSetOps.score((K) HOT_LIST_KEY, itemId);
+				}
 
-                for (int i = 0; i < results.size(); i++) {
-                    Double score = (Double) results.get(i);
-                    if (score != null) {
-                        scores.put(itemIds.get(i), score);
-                    }
-                }
+				List<Object> results = operations.exec();
+				Map<String, Double> scores = new HashMap<>();
 
-                return scores;
-            }
-        });
-    }
+				for (int i = 0; i < results.size(); i++) {
+					Double score = (Double) results.get(i);
+					if (score != null) {
+						scores.put(itemIds.get(i), score);
+					}
+				}
+
+				return scores;
+			}
+		});
+	}
+
 }

@@ -1,4 +1,4 @@
-.mainLayout{
+.mainLayout {
     width: 95vw;
     height: 16vh;
     background-color: #ffffff;
@@ -9,13 +9,14 @@
     border-radius: 7%;
 }
 
-.leftContent{
+.leftContent {
     font-size: large;
     width: 10vw;
     padding-left: 7%;
     padding-top: 7%;
 }
-.rightContent{
+
+.rightContent {
     font-family: 'DYH', serif;
     font-size: larger;
     padding-left: 5%;
@@ -25,6 +26,6 @@
     justify-content: space-around;
 }
 
-.hotNumClass{
+.hotNumClass {
 
 }

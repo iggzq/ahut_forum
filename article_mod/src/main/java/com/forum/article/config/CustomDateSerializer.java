@@ -10,12 +10,13 @@ import java.util.Date;
 
 public class CustomDateSerializer extends JsonSerializer<Date> {
 
-
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	@Override
-	public void serialize(Date date, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+	public void serialize(Date date, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
+			throws IOException {
 		String formattedDate = dateFormat.format(date);
 		jsonGenerator.writeString(formattedDate);
 	}
+
 }

@@ -32,9 +32,10 @@ public class ArticleRecommender {
 		// 时间衰减因子
 		double timeDecay = Math.exp(Math.min(-0.01 * ageInDays, MAX_EXPONENT_VALUE));
 		double score = 0;
-		if(Objects.nonNull(article.getHotNum())){
+		if (Objects.nonNull(article.getHotNum())) {
 			score = BETA * article.getLikeCount() + GAMMA * article.getCommentCount() + HOT * article.getHotNum();
-		}else {
+		}
+		else {
 			score = BETA * article.getLikeCount() + GAMMA * article.getCommentCount();
 		}
 

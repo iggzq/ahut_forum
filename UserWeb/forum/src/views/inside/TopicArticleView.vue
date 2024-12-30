@@ -1,8 +1,8 @@
 <script setup>
-import { useRoute } from 'vue-router'
+import {useRoute} from 'vue-router'
 import router from '@/router'
 import ArticleListView from '@/views/inside/ArticleListView.vue'
-import { onActivated, onBeforeUnmount, onMounted, ref } from 'vue'
+import {onActivated, onBeforeUnmount, onMounted, ref} from 'vue'
 
 const route = useRoute()
 const topicId = route.params.topicId

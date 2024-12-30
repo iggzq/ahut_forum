@@ -60,12 +60,12 @@
 </template>
 <script setup>
 
-import { nextTick, onMounted, reactive, ref, watch } from 'vue'
+import {nextTick, onMounted, reactive, ref, watch} from 'vue'
 import axios from 'axios'
-import { showSuccessToast } from 'vant'
+import {showSuccessToast} from 'vant'
 import emoji from '@/assets/emoji'
-import { useRoute } from 'vue-router'
-import { UComment } from 'undraw-ui'
+import {useRoute} from 'vue-router'
+import {UComment} from 'undraw-ui'
 
 const route = useRoute()
 const articleId = route.params.articleId
@@ -141,7 +141,7 @@ watch(() => bottom.value,
       })
     }
   },
-  { immediate: true }
+  {immediate: true}
 )
 const getComments = async () => {
   await axios.get('comment/getCommentByArticleId?id=' + articleId).then(res => {
@@ -153,7 +153,7 @@ const getComments = async () => {
   })
 }
 
-function caculateArticleDetailHeight () {
+function caculateArticleDetailHeight() {
   const top = document.querySelector('.top')
   const articleDetail = document.querySelector('.articleDetail')
   const topHeight = top.getBoundingClientRect().height
@@ -187,11 +187,11 @@ const config = reactive({
 
 // 提交评论事件
 const submit = async ({
-  content,
-  parentId,
-  reply,
-  finish
-}) => {
+                        content,
+                        parentId,
+                        reply,
+                        finish
+                      }) => {
   const comment = {
     parentId: parentId,
     likes: 0,

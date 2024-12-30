@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -21,6 +21,7 @@ import {
   Picker,
   Popup,
   Row,
+  Search,
   showFailToast,
   Skeleton,
   Sticky,
@@ -32,8 +33,7 @@ import {
   Tabs,
   Tag,
   TextEllipsis,
-  Toast,
-  Search
+  Toast
 } from 'vant'
 import 'vant/lib/index.css'
 import Varlet from '@varlet/ui'

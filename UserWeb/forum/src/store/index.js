@@ -1,4 +1,4 @@
-import { createStore } from 'vuex'
+import {createStore} from 'vuex'
 
 export default createStore({
   state: {
@@ -14,21 +14,21 @@ export default createStore({
     getIsMainBack: (state) => state.isMainBack
   },
   mutations: {
-    setArticleDetail (state, articleDetail) {
+    setArticleDetail(state, articleDetail) {
       state.articleDetail = articleDetail
     },
-    setActiveTab (state, activeTab) {
+    setActiveTab(state, activeTab) {
       state.activeTab = activeTab
     },
-    SET_REFRESH_ARTICLE (state, payload) {
+    SET_REFRESH_ARTICLE(state, payload) {
       state.refreshArticle = payload
     },
-    SET_IS_MAIN_BACK (state, payload) {
+    SET_IS_MAIN_BACK(state, payload) {
       state.isMainBack = payload
     }
   },
   actions: {
-    triggerArticleRefresh ({ commit }) {
+    triggerArticleRefresh({commit}) {
       commit('SET_REFRESH_ARTICLE', true)
     }
   },

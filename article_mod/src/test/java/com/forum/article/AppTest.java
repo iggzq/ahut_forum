@@ -3,12 +3,9 @@ package com.forum.article;
 import cn.hutool.core.lang.id.NanoId;
 import com.forum.article.entity.Article;
 import com.forum.article.entity.LikeArticle;
-import com.forum.article.vo.LikeArticleVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.BufferedReader;
-import java.io.Reader;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,7 +22,7 @@ public class AppTest {
 	}
 
 	@Test
-	public void TestSet(){
+	public void TestSet() {
 		LikeArticle likeArticle = new LikeArticle();
 		likeArticle.setArticleId(1L);
 		Set<LikeArticle> likeArticleVOSet = new HashSet<>();
@@ -36,7 +33,7 @@ public class AppTest {
 	}
 
 	@Test
-	public void TestGC(){
+	public void TestGC() {
 		Article article = new Article();
 	}
 

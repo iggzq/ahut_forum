@@ -14,8 +14,8 @@
 </template>
 <script setup>
 import router from '@/router'
-import { onActivated, onMounted } from 'vue'
-import { useStore } from 'vuex'
+import {onActivated, onMounted} from 'vue'
+import {useStore} from 'vuex'
 
 onMounted(() => {
   store.commit('setActiveTab', 2)

@@ -74,9 +74,9 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, reactive, ref } from 'vue'
+import {onMounted, onUnmounted, reactive, ref} from 'vue'
 import router from '@/router'
-import { showFailToast } from 'vant'
+import {showFailToast} from 'vant'
 
 const socket = ref(null)
 const commentValue = ref('')
@@ -87,7 +87,7 @@ const currentOnlineUserCount = ref(0)
 const chatContainer = ref(null)
 const isAtBottom = ref(true)
 
-function adjustChatHistoryHeight () {
+function adjustChatHistoryHeight() {
   const navBarContent = document.querySelector('.topArea')
   const bottomArea = document.querySelector('.bottomArea')
   const chatHistoryElement = document.querySelector('.chatHistory')

@@ -11,9 +11,9 @@
   </van-tabbar>
 </template>
 <script setup>
-import { computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
+import {computed, onMounted} from 'vue'
+import {useRouter} from 'vue-router'
+import {useStore} from 'vuex'
 
 const router = useRouter()
 const store = useStore()
@@ -22,9 +22,9 @@ const isTabbarHidden = computed(() => {
   return router.currentRoute.value.meta.hideTabbar
 })
 onMounted(() => {
-    router.push({
-      name: 'ArticleView'
-    })
+  router.push({
+    name: 'ArticleView'
+  })
 })
 
 const handleArticleRefresh = () => {

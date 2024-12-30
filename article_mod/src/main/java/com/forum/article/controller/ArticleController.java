@@ -77,5 +77,4 @@ public class ArticleController {
 		return CommonResult.success(articleService.getArticlesOrderByDate(page, size, topicType));
 	}
 
-
 }

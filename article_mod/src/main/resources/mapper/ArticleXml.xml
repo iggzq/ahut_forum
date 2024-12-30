@@ -19,7 +19,8 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-                id, user_id, title, content, topic_type, like_count, comment_count, update_time, create_time, status
+        id
+        , user_id, title, content, topic_type, like_count, comment_count, update_time, create_time, status
     </sql>
     <select id="getArticleByPage" resultType="com.forum.article.vo.ArticleGetVo">
         SELECT *

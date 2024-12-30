@@ -66,21 +66,24 @@ public class CommentArticleServiceImpl extends ServiceImpl<CommentArticleMapper,
 				// 将 List<CommentArticle> 序列化为 JSON 并存储到 Redis
 				redisTemplate.opsForValue().set(key, commentArticles);
 			}
-		}else {
-				// 直接反序列化为 List<CommentArticle>
-				commentArticles = objectMapper.convertValue(cachedData, new TypeReference<>() {});
+		}
+		else {
+			// 直接反序列化为 List<CommentArticle>
+			commentArticles = objectMapper.convertValue(cachedData, new TypeReference<>() {
+			});
 		}
 		// 处理父子评论逻辑
 		List<CommentArticle> fatherCommentsArticle = commentArticles.stream()
-				.filter(comment -> comment.getParentId() == null)
-				.toList();
+			.filter(comment -> comment.getParentId() == null)
+			.toList();
 
 		List<CommentArticle> sonCommentsArticle = commentArticles.stream()
-				.filter(comment -> comment.getParentId() != null)
-				.toList();
+			.filter(comment -> comment.getParentId() != null)
+			.toList();
 
 		Map<Long, List<ReplyVO>> replyMap = sonCommentsArticle.stream()
-				.collect(Collectors.groupingBy(CommentArticle::getParentId, Collectors.mapping(this::convertToReplyVO, Collectors.toList())));
+			.collect(Collectors.groupingBy(CommentArticle::getParentId,
+					Collectors.mapping(this::convertToReplyVO, Collectors.toList())));
 
 		for (CommentArticle fatherCommentArticle : fatherCommentsArticle) {
 			CommentArticleVO commentArticleVO = new CommentArticleVO();
@@ -99,6 +102,7 @@ public class CommentArticleServiceImpl extends ServiceImpl<CommentArticleMapper,
 
 		return commentArticleVos;
 	}
+
 	private ReplyVO convertToReplyVO(CommentArticle sonCommentArticle) {
 		ReplyVO replyVO = new ReplyVO();
 		UserVO userVo1 = new UserVO();

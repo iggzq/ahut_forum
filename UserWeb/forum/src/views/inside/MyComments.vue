@@ -1,14 +1,14 @@
 <script>
-import { defineComponent, onMounted, ref } from 'vue'
+import {defineComponent, onMounted, ref} from 'vue'
 import axios from 'axios'
 import router from '@/router'
 import CommentCard from '@/components/commentCard.vue'
-import { useStore } from 'vuex'
+import {useStore} from 'vuex'
 
 export default defineComponent({
   name: 'myComments',
-  components: { CommentCard },
-  setup () {
+  components: {CommentCard},
+  setup() {
     const myComments = ref([])
     const store = useStore()
     const goBack = () => {

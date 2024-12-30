@@ -67,9 +67,9 @@
 
 </template>
 <script setup>
-import { ref } from 'vue'
+import {ref} from 'vue'
 import axios from 'axios'
-import { showFailToast, showSuccessToast } from 'vant'
+import {showFailToast, showSuccessToast} from 'vant'
 import router from '@/router'
 
 const name = ref('')
@@ -105,7 +105,7 @@ const columns = [
   }
 ]
 
-const onConfirm = ({ selectedOptions }) => {
+const onConfirm = ({selectedOptions}) => {
   admissionYearKey.value = selectedOptions[0]?.text
   admissionYearValue.value = selectedOptions[0]?.value
   showPicker.value = false

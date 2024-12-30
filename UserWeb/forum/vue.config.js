@@ -1,8 +1,8 @@
-const { defineConfig } = require('@vue/cli-service')
+const {defineConfig} = require('@vue/cli-service')
 const Components = require('unplugin-vue-components/webpack')
 const AutoImport = require('unplugin-auto-import/webpack')
-const { VarletImportResolver } = require('@varlet/import-resolver')
-const { resolve } = require('path')
+const {VarletImportResolver} = require('@varlet/import-resolver')
+const {resolve} = require('path')
 module.exports = defineConfig({
   publicPath: './',
   devServer: {
@@ -21,7 +21,7 @@ module.exports = defineConfig({
         resolvers: [VarletImportResolver()]
       }),
       AutoImport.default({
-        resolvers: [VarletImportResolver({ autoImport: true })]
+        resolvers: [VarletImportResolver({autoImport: true})]
       }),
     ]
   }

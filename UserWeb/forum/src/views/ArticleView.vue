@@ -115,11 +115,11 @@
 </template>
 
 <script setup>
-import { computed, onActivated, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import {computed, onActivated, onBeforeUnmount, onMounted, ref, watch} from 'vue'
 import axios from 'axios'
-import { showFailToast, showSuccessToast } from 'vant'
-import { useRoute, useRouter } from 'vue-router'
-import { useStore } from 'vuex'
+import {showFailToast, showSuccessToast} from 'vant'
+import {useRoute, useRouter} from 'vue-router'
+import {useStore} from 'vuex'
 import ArticleListView from '@/views/inside/ArticleListView.vue'
 
 const articles = ref([])
@@ -128,7 +128,6 @@ const writeArticle = ref({
   content: '',
   topic: []
 })
-// const finished = ref(false)
 const page = ref(-1)
 const router = useRouter()
 const store = useStore()
@@ -168,9 +167,9 @@ watch(isMainBack, (newVal) => {
 })
 
 const topicTypeConfirm = ({
-  selectedValues,
-  selectedOptions
-}) => {
+                            selectedValues,
+                            selectedOptions
+                          }) => {
   isButtoned.value = false
   showPicker.value = false
   writeArticle.value.topic = selectedValues

@@ -1,6 +1,6 @@
 <script>
-import { defineComponent, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import {defineComponent, ref} from 'vue'
+import {useRouter} from 'vue-router'
 
 export default defineComponent({
   name: 'commentCard',
@@ -10,7 +10,7 @@ export default defineComponent({
       default: null
     }
   },
-  setup (props) {
+  setup(props) {
     const commentNow = ref(props.comment)
     const router = useRouter()
     const goArticleComment = () => {
