@@ -14,10 +14,10 @@ spring:
     hikari:
       maximum-pool-size: 1000
       minimum-idle: 100
-  elasticsearch:
-    uris: http://localhost:9200
-    username: elastic
-    password: llgElUzxhvJ4m05CaKSY
+#  elasticsearch:
+#    uris: http://localhost:9200
+#    username: elastic
+#    password: llgElUzxhvJ4m05CaKSY
 
 
   data:

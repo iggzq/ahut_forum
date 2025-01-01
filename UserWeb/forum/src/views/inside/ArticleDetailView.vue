@@ -181,7 +181,13 @@ const config = reactive({
   showLevel: false,
   showAddress: false,
   placeholder: '欢迎评论',
-  showHomeLink: false
+  showHomeLink: false,
+  show: {
+    level: false,    // 关闭等级显示
+    homeLink: false, // 关闭个人主页链接跳转
+    address: false, // 关闭地址信息
+    likes: false    // 关闭点赞按钮显示
+  }
 })
 
 // 提交评论事件

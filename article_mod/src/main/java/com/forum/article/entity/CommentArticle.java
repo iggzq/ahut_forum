@@ -1,6 +1,7 @@
 package com.forum.article.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class CommentArticle implements Serializable {
 
 	@TableId(value = "id", type = IdType.AUTO)
 	@JsonSerialize(using = ToStringSerializer.class)
+	@JsonDeserialize(as = Long.class)
 	private Long id;
 
 	@TableField("u_id")

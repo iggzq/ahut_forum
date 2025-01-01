@@ -139,6 +139,12 @@ public class CommentArticleServiceImpl extends ServiceImpl<CommentArticleMapper,
 		commentArticles.forEach(commentArticle -> {
 			CommentUserVO commentUserVO = new CommentUserVO();
 			BeanUtils.copyProperties(commentArticle, commentUserVO);
+			String content = commentArticle.getContent();
+			if(content.contains("回复")){
+				int spanEndIndex = content.indexOf("</span>") + "</span>".length();
+				String result = content.substring(spanEndIndex).trim(); // 使用 trim() 去除可能存在的前导和尾随空格
+				commentUserVO.setContent(result);
+			}
 			commentUserVO.setArticleTitle(articleMap.get(commentArticle.getArticleId()));
 			commentUserVos.add(commentUserVO);
 		});

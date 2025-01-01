@@ -28,7 +28,7 @@ public class CommentArticleController {
 	private CommentArticleService commentArticleService;
 
 	@GetMapping("getCommentByArticleId")
-	public CommonResult<List<CommentArticleVO>> getCommentsById(@RequestParam String id) {
+	public CommonResult<List<CommentArticleVO>> getCommentByArticleId(@RequestParam String id) {
 		List<CommentArticleVO> commentsById = commentArticleService.getCommentsById(id);
 		return CommonResult.success(commentsById);
 	}
