@@ -22,8 +22,6 @@ import com.forum.article.vo.LikeArticleVO;
 import com.forum.article.vo.SaveArticleVO;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,15 +55,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 	@Resource
 	private RedisTemplate<String, Object> redisTemplate;
 
-	@Autowired
-	@Qualifier("redisHotSave")
-	private RedisTemplate<Long, Integer> redisHotSave;
-
 	@Resource
 	private HotListServiceImpl hotListService;
 
-	@Autowired
+	@Resource
 	private HotListServiceImpl hotListServiceImpl;
+
+//	@Resource
+//	private ArticleEsService articleEsService;
 
 	@Override
 	public Boolean saveArticle(SaveArticleVO saveArticleVO) {
@@ -85,9 +82,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 		article.setCreateTime(now);
 		article.setUpdateTime(now);
 		article.setUserId(loginId);
-		// 数据库保存
 		try {
+			// 数据库保存
 			articleMapper.insert(article);
+//			ArticleDocument articleDocument = new ArticleDocument();
+//			BeanUtils.copyProperties(article, articleDocument);
+//			articleDocument.setId(null);
+//			articleDocument.setArticleId(articleId.toString());
+
 			return true;
 		}
 		catch (Exception e) {
