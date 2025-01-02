@@ -20,6 +20,7 @@
         <module>common</module>
         <module>article_mod</module>
         <module>chat_room</module>
+        <module>search_mod</module>
     </modules>
 
     <properties>
