@@ -1,0 +1,87 @@
+.CommonArticleContent {
+    .itemList {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .articleShow {
+        width: 95%;
+        margin-top: 5px;
+        margin-bottom: 3px;
+    }
+
+    .van-text-ellipsis {
+        font-size: 17px;
+    }
+
+    .itemTitle {
+        padding-left: 5px;
+        font-family: 'DYH';
+        text-align: left;
+        margin-bottom: 7px;
+    }
+
+    .itemContent {
+        text-align: left;
+        padding-left: 5px;
+    }
+
+    .subtitleCss {
+        display: flex;
+        justify-content: end;
+    }
+
+    .itemCreateTime {
+        margin-top: 4px;
+        margin-bottom: 4px;
+        padding-right: 5px;
+        color: darkgrey;
+    }
+
+    /*.var-card__footer {*/
+    /*    display: flex;*/
+    /*    justify-content: space-between;*/
+    /*    align-items: center;*/
+    /*}*/
+
+
+    /*:root {*/
+    /*    --card-footer-padding: 0px 5px;*/
+    /*}*/
+
+
+    /*.van-grid-item :deep(.van-badge__wrapper) {*/
+    /*    display: flex;*/
+    /*    justify-content: space-around;*/
+    /*    width: 60%;*/
+    /*}*/
+
+    /*.vanItem {*/
+    /*    font-size: small;*/
+    /*    font-weight: bold;*/
+
+    /*    p {*/
+    /*        margin-bottom: 1px;*/
+    /*        margin-top: 0px;*/
+    /*    }*/
+    /*}*/
+
+    /*.van-grid-item :deep(.van-grid-item__content) {*/
+    /*    padding: 0;*/
+    /*}*/
+
+    .likeCss, .commentCss {
+        display: flex;
+        align-items: center; /* 垂直居中 */
+        justify-content: center; /* 水平居中 */
+        text-align: center; /* 确保文本在多行时也居中 */
+        padding: 9%; /* 根据需要调整间距 */
+        box-sizing: border-box; /* 确保padding不会增加元素的总宽度 */
+        flex: 1; /* 让每个子元素尽可能地占用相等的空间 */
+    }
+
+    .likeCss {
+        padding-left: 0;
+    }
+}

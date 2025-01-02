@@ -18,7 +18,7 @@ public class ArticleDocumentService {
 
     public ArticleDocument save(Article article) {
         ArticleDocument articleDocument = new ArticleDocument();
-        articleDocument.setArticleId(article.getId());
+        articleDocument.setArticleId(article.getId().toString());
         articleDocument.setTitle(article.getTitle());
         articleDocument.setContent(article.getContent());
         articleDocument.setTopicType(article.getTopicType());

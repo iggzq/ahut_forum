@@ -81,6 +81,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 		article.setUserName(name);
 		article.setAdmissionYear(admissionYear);
 		article.setCreateTime(now);
+		article.setCommentCount(0);
+		article.setLikeCount(0);
 		article.setUpdateTime(now);
 		article.setUserId(loginId);
 		try {

@@ -66,6 +66,7 @@ import {showSuccessToast} from 'vant'
 import emoji from '@/assets/emoji'
 import {useRoute} from 'vue-router'
 import {UComment} from 'undraw-ui'
+import router from "@/router";
 
 const route = useRoute()
 const articleId = route.params.articleId
@@ -76,7 +77,7 @@ const bottom = ref(false)
 const comments = ref([])
 const skeletonShow = ref(true)
 const goBack = () => {
-  window.history.go(-1)
+  router.go(-1)
 }
 const tagTypeMap = {
   '#学习提问': 'primary',

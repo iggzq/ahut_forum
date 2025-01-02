@@ -171,7 +171,7 @@ const scrollToBottom = () => {
   }
 }
 
-const goBack = async () => {
+const goBack = () => {
   router.push('article')
 }
 

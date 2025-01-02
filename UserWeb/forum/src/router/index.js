@@ -24,6 +24,14 @@ const routes = [
             meta: {
               hideTabbar: true
             }
+          }, {
+            path: 'search',
+            name: 'SearchView',
+            component: () => import('../views/inside/SearchView.vue'),
+            meta: {
+              hideTabbar: true,
+              keepAlive: true
+            }
           }
         ]
       },
@@ -97,12 +105,12 @@ const routes = [
     children: [
       {
         path: 'articleDetail/:articleId/:commentId?',
-        name: 'topicArticleDetail',
+        name: 'CommonArticleDetail',
         component: () => import('../views/inside/ArticleDetailView.vue')
       }
     ]
   }, {
-    path: '/articleDetail/:articleId',
+    path: '/article/search/articleDetail/:articleId',
     name: 'CommonArticleDetailView',
     component: () => import('../views/inside/ArticleDetailView.vue'),
     meta: {

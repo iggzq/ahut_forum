@@ -24,7 +24,7 @@ const orderOption = [
     value: 2
   }
 ]
-const articleDetailName = 'topicArticleDetail'
+const articleDetailName = 'CommonArticleDetail'
 onMounted(() => {
   if (scrollableArea.value) {
     scrollableArea.value.addEventListener('scroll', handleScroll)

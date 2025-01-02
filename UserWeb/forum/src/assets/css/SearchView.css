@@ -1,0 +1,24 @@
+.searchViewMain {
+    height: 100vh;
+    width: 100vw;
+
+    .searchViewTop {
+        width: 100vw;
+    }
+
+    .van-nav-bar__title {
+        width: 85vw;
+        max-width: none;
+    }
+
+    .searchViewMain {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .van-search {
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+}
+

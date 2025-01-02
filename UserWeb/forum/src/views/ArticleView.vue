@@ -65,6 +65,7 @@
         v-model="searchValue"
         input-align="center"
         placeholder="请输入搜索关键词"
+        @click="goSearch"
       />
       <van-grid>
         <van-grid-item v-ripple class="vanItem" @click="goChatRoom">
@@ -221,6 +222,14 @@ const goTopic = () => {
   router.push(
     {
       name: 'TopicView'
+    }
+  )
+}
+const goSearch = () => {
+  store.commit('setActiveTab', 0)
+  router.push(
+    {
+      name: 'SearchView'
     }
   )
 }

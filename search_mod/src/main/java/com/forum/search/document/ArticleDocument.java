@@ -1,5 +1,7 @@
 package com.forum.search.document;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.StringSerializer;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -13,7 +15,8 @@ import java.time.LocalDate;
 public class ArticleDocument {
 
     @Id
-    private Long articleId;
+    @JsonSerialize(using = StringSerializer.class)
+    private String articleId;
 
     @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String title;
