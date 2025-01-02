@@ -1,6 +1,6 @@
 package com.forum.user.controller;
 
-import com.forum.article.result.CommonResult;
+import com.forum.common.result.CommonResult;
 import com.forum.user.service.UserService;
 import com.forum.user.vo.LoginUserVo;
 import com.forum.user.vo.RegisterUserVo;

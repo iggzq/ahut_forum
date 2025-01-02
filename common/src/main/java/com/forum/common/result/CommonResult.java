@@ -1,4 +1,4 @@
-package com.forum.article.result;
+package com.forum.common.result;
 
 import lombok.Data;
 

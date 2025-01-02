@@ -2,12 +2,12 @@ package com.forum.article.controller;
 
 import com.forum.article.dto.mysql.HotArticleDTO;
 import com.forum.article.entity.CommentArticle;
-import com.forum.article.result.CommonResult;
 import com.forum.article.service.ArticleService;
 import com.forum.article.vo.ArticleGetVo;
 import com.forum.article.vo.ArticleVo;
 import com.forum.article.vo.LikeArticleVO;
 import com.forum.article.vo.SaveArticleVO;
+import com.forum.common.result.CommonResult;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,9 +1,9 @@
 package com.forum.article.controller;
 
-import com.forum.article.result.CommonResult;
 import com.forum.article.service.CommentArticleService;
 import com.forum.article.vo.CommentArticleVO;
 import com.forum.article.vo.CommentUserVO;
+import com.forum.common.result.CommonResult;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

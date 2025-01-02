@@ -1,7 +1,7 @@
 package com.forum.article.exceptionHandler;
 
 import cn.dev33.satoken.exception.NotLoginException;
-import com.forum.article.result.CommonResult;
+import com.forum.common.result.CommonResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

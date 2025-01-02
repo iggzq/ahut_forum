@@ -2,8 +2,8 @@ package com.forum.article.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.forum.article.dto.mysql.HotArticleDTO;
-import com.forum.article.entity.Article;
 import com.forum.article.vo.ArticleGetVo;
+import com.forum.common.entity.Article;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

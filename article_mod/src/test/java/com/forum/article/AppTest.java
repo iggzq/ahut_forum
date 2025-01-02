@@ -1,8 +1,8 @@
 package com.forum.article;
 
 import cn.hutool.core.lang.id.NanoId;
-import com.forum.article.entity.Article;
 import com.forum.article.entity.LikeArticle;
+import com.forum.common.entity.Article;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

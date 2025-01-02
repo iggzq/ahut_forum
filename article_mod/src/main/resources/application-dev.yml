@@ -5,6 +5,9 @@ server:
     threads:
       max: 500
       min-spare: 50
+search:
+  service:
+    url: http://localhost:8084/feign/
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

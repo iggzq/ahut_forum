@@ -2,12 +2,12 @@ package com.forum.article.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.forum.article.dto.mysql.HotArticleDTO;
-import com.forum.article.entity.Article;
 import com.forum.article.entity.CommentArticle;
 import com.forum.article.vo.ArticleGetVo;
 import com.forum.article.vo.ArticleVo;
 import com.forum.article.vo.LikeArticleVO;
 import com.forum.article.vo.SaveArticleVO;
+import com.forum.common.entity.Article;
 
 import java.util.List;
 
