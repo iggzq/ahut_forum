@@ -10,6 +10,7 @@ import com.forum.article.dto.HotArticle;
 import com.forum.article.dto.mysql.HotArticleDTO;
 import com.forum.article.entity.CommentArticle;
 import com.forum.article.entity.LikeArticle;
+import com.forum.article.feign.SearchModFeign;
 import com.forum.article.mapper.ArticleMapper;
 import com.forum.article.mapper.CommentArticleMapper;
 import com.forum.article.mapper.LikeArticleMapper;
@@ -61,8 +62,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 	@Resource
 	private HotListServiceImpl hotListServiceImpl;
 
-//	@Resource
-//	private ArticleEsService articleEsService;
+	@Resource
+	private SearchModFeign searchModFeign;
 
 	@Override
 	public Boolean saveArticle(SaveArticleVO saveArticleVO) {
@@ -85,11 +86,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 		try {
 			// 数据库保存
 			articleMapper.insert(article);
-//			ArticleDocument articleDocument = new ArticleDocument();
-//			BeanUtils.copyProperties(article, articleDocument);
-//			articleDocument.setId(null);
-//			articleDocument.setArticleId(articleId.toString());
-
+			searchModFeign.save(article);
 			return true;
 		}
 		catch (Exception e) {

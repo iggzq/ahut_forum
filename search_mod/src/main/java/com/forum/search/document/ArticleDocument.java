@@ -6,14 +6,14 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Document(indexName = "article_es")
 public class ArticleDocument {
 
     @Id
-    private String articleId;
+    private Long articleId;
 
     @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String title;
@@ -31,6 +31,6 @@ public class ArticleDocument {
     private Integer commentCount;
 
     @Field(type = FieldType.Date)
-    private LocalDateTime createTime;
+    private LocalDate createTime;
 
 }
