@@ -25,6 +25,11 @@
         display: flex;
         justify-content: center;
     }
+    .searchLoading{
+        height: 94%;
+        display: flex;
+        justify-content: center;
+    }
     .searchResult{
         height: 94%;
         overflow-y: scroll;
