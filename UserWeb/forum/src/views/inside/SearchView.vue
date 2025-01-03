@@ -3,9 +3,10 @@ import {onMounted, ref} from 'vue'
 import router from "@/router";
 import axios from "axios";
 import {showFailToast} from "vant";
-import CommonArticleList from "@/components/CommonArticleList.vue";
+import SearchArticleList from "@/components/SearchArticleList.vue";
 
 const searchContent = ref('')
+const searchOld = ref('')
 const searchRef = ref(null)
 const searchResult = ref([])
 
@@ -23,6 +24,7 @@ const onSearch = () => {
   }).then(res => {
     if (res.data.code === 200) {
       searchResult.value = res.data.data
+      searchOld.value = searchContent.value
       console.log(searchResult.value)
     }else {
       showFailToast("查询失败")
@@ -41,6 +43,7 @@ const goBack = () => {
 </script>
 
 <template>
+  <router-view/>
   <div class="searchViewMain">
     <div class="searchViewTop">
       <van-nav-bar>
@@ -58,7 +61,7 @@ const goBack = () => {
       </van-nav-bar>
     </div>
     <div class="searchResult">
-      <CommonArticleList :article-list="searchResult"/>
+      <SearchArticleList :article-list="searchResult" :search-old="searchOld"/>
     </div>
   </div>
 </template>

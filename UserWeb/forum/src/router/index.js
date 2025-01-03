@@ -29,9 +29,18 @@ const routes = [
             name: 'SearchView',
             component: () => import('../views/inside/SearchView.vue'),
             meta: {
-              hideTabbar: true,
-              keepAlive: true
-            }
+              hideTabbar: true
+            },
+            children: [
+              {
+                path: 'articleDetail/:articleId',
+                name: 'SearchArticleDetail',
+                component: () => import('../views/inside/ArticleDetailView.vue'),
+                meta: {
+                  hideTabbar: true
+                }
+              }
+            ]
           }
         ]
       },

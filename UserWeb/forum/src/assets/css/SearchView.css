@@ -1,9 +1,12 @@
 .searchViewMain {
     height: 100vh;
     width: 100vw;
-
     .searchViewTop {
         width: 100vw;
+    }
+    .searchResult{
+        height: 94%;
+        overflow-y: scroll;
     }
 
     .van-nav-bar__title {

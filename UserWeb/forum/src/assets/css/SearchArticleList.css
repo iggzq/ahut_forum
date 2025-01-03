@@ -1,8 +1,12 @@
 .CommonArticleContent {
+
+    overflow-y: scroll;
+
     .itemList {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
+        overflow-y: scroll;
     }
 
     .articleShow {
@@ -16,6 +20,9 @@
     }
 
     .itemTitle {
+        margin-top: 4%;
+        font-size: larger;
+        font-weight: bolder;
         padding-left: 5px;
         font-family: 'DYH';
         text-align: left;
@@ -38,38 +45,6 @@
         padding-right: 5px;
         color: darkgrey;
     }
-
-    /*.var-card__footer {*/
-    /*    display: flex;*/
-    /*    justify-content: space-between;*/
-    /*    align-items: center;*/
-    /*}*/
-
-
-    /*:root {*/
-    /*    --card-footer-padding: 0px 5px;*/
-    /*}*/
-
-
-    /*.van-grid-item :deep(.van-badge__wrapper) {*/
-    /*    display: flex;*/
-    /*    justify-content: space-around;*/
-    /*    width: 60%;*/
-    /*}*/
-
-    /*.vanItem {*/
-    /*    font-size: small;*/
-    /*    font-weight: bold;*/
-
-    /*    p {*/
-    /*        margin-bottom: 1px;*/
-    /*        margin-top: 0px;*/
-    /*    }*/
-    /*}*/
-
-    /*.van-grid-item :deep(.van-grid-item__content) {*/
-    /*    padding: 0;*/
-    /*}*/
 
     .likeCss, .commentCss {
         display: flex;

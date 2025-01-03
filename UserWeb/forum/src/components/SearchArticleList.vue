@@ -6,6 +6,10 @@ const prop = defineProps({
   articleList: {
     type: Array,
     required: true
+  },
+  searchOld: {
+    type: String,
+    required: true
   }
 })
 
@@ -33,7 +37,7 @@ const formattedData = computed(() => {
 const goArticleDetail = (article) => {
   router.push(
     {
-      name: 'CommonArticleDetailView',
+      name: 'SearchArticleDetail',
       params: {
         articleId: article.articleId
       }
@@ -53,7 +57,12 @@ const goArticleDetail = (article) => {
           @click="goArticleDetail(item)"
         >
           <template #title>
-            <h3 class="itemTitle">{{ item.title }}</h3>
+            <van-highlight
+              :keywords="searchOld"
+              :source-string="item.title"
+              class="itemTitle"
+              highlight-class="custom-class"
+            />
           </template>
           <template #subtitle>
             <div class="subtitleCss">
@@ -92,5 +101,5 @@ const goArticleDetail = (article) => {
 </template>
 
 <style scoped>
-@import "@/assets/css/CommonArticleList.css";
+@import "@/assets/css/SearchArticleList.css";
 </style>
