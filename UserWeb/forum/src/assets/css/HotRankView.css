@@ -3,5 +3,8 @@
     height: 93vh;
     display: flex;
     justify-content: space-around;
-    overflow: scroll;
+}
+.hotRankList{
+    overflow-y: scroll;
+    height: 95%;
 }

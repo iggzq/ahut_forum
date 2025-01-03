@@ -5,10 +5,12 @@ import axios from "axios";
 import {showFailToast} from "vant";
 import SearchArticleList from "@/components/SearchArticleList.vue";
 
+const loadingShow = ref(false)
 const searchContent = ref('')
 const searchOld = ref('')
 const searchRef = ref(null)
 const searchResult = ref([])
+const emptyContentShow = ref(false)
 
 onMounted(() => {
   if (searchRef.value) {
@@ -17,18 +19,25 @@ onMounted(() => {
 })
 
 const onSearch = () => {
+  searchResult.value = []
+  loadingShow.value = true
   axios.get(`${process.env.VUE_APP_SEARCH}` + 'article/search/byKey', {
     params: {
       key: searchContent.value
     }
   }).then(res => {
     if (res.data.code === 200) {
-      searchResult.value = res.data.data
-      searchOld.value = searchContent.value
-      console.log(searchResult.value)
-    }else {
+      if (res.data.data.length === 0) {
+        emptyContentShow.value = true
+      } else {
+        emptyContentShow.value = false
+        searchResult.value = res.data.data
+        searchOld.value = searchContent.value
+      }
+    } else {
       showFailToast("查询失败")
     }
+    loadingShow.value = false
   })
 }
 
@@ -51,6 +60,16 @@ const goBack = () => {
           <van-icon name="arrow-left" size="large" @click="goBack"/>
         </template>
         <template #title>
+          <!--          <div class="searchContent">-->
+          <!--            <van-search ref="searchRef" v-model="searchContent"-->
+          <!--                        placeholder="请输入搜索关键词"-->
+          <!--                        @cancel="onSearchCancel"-->
+          <!--                        @search="onSearch"/>-->
+          <!--          </div>-->
+          <div style="width: 0"/>
+        </template>
+        <template #right>
+          <!--          <div style="width: 0"/>-->
           <div class="searchContent">
             <van-search ref="searchRef" v-model="searchContent"
                         placeholder="请输入搜索关键词"
@@ -61,6 +80,10 @@ const goBack = () => {
       </van-nav-bar>
     </div>
     <div class="searchResult">
+      <div v-show="loadingShow" class="searchLoading">
+        <van-loading v-show="loadingShow" class="searchLoading" size="24px" vertical>加载中...</van-loading>
+      </div>
+      <van-empty v-show="emptyContentShow" description="无搜索结果"/>
       <SearchArticleList :article-list="searchResult" :search-old="searchOld"/>
     </div>
   </div>
