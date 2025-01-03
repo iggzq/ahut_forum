@@ -5,6 +5,7 @@ import axios from "axios";
 import {showFailToast} from "vant";
 import SearchArticleList from "@/components/SearchArticleList.vue";
 
+const loadingShow = ref(false)
 const searchContent = ref('')
 const searchOld = ref('')
 const searchRef = ref(null)
@@ -17,6 +18,8 @@ onMounted(() => {
 })
 
 const onSearch = () => {
+  searchResult.value = []
+  loadingShow.value = true
   axios.get(`${process.env.VUE_APP_SEARCH}` + 'article/search/byKey', {
     params: {
       key: searchContent.value
@@ -26,9 +29,10 @@ const onSearch = () => {
       searchResult.value = res.data.data
       searchOld.value = searchContent.value
       console.log(searchResult.value)
-    }else {
+    } else {
       showFailToast("查询失败")
     }
+    loadingShow.value = false
   })
 }
 
@@ -61,6 +65,9 @@ const goBack = () => {
       </van-nav-bar>
     </div>
     <div class="searchResult">
+      <div v-show="loadingShow" class="searchLoading">
+        <van-loading v-show="loadingShow" class="searchLoading" size="24px" vertical>加载中...</van-loading>
+      </div>
       <SearchArticleList :article-list="searchResult" :search-old="searchOld"/>
     </div>
   </div>

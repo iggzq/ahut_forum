@@ -1,8 +1,14 @@
 .searchViewMain {
     height: 100vh;
     width: 100vw;
+
     .searchViewTop {
         width: 100vw;
+    }
+    .searchLoading{
+        height: 94%;
+        display: flex;
+        justify-content: center;
     }
     .searchResult{
         height: 94%;
